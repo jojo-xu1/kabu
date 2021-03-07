@@ -64,6 +64,11 @@
 	        "iconPath": "static/center.png",
 	        "selectedIconPath": "static/center-active.png",
 	        "text": "user"
+	    },{
+	        "pagePath": "pages/recommend/recommend",
+	        "iconPath": "static/center.png",
+	        "selectedIconPath": "static/center-active.png",
+	        "text": "recommend"
 	    }]
 	}
 }
