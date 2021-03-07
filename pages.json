@@ -29,7 +29,7 @@
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "",
+		"navigationBarTitleText": "投資情報",
 		"navigationBarBackgroundColor": "#2F85FC",
 		"backgroundColor": "#FFFFFF"
 	},
@@ -43,7 +43,17 @@
 	        "iconPath": "static/center.png",
 	        "selectedIconPath": "static/home-active.png",
 	        "text": "home"
-	    }, {
+	    },{
+	        "pagePath": "pages/video/video",
+	        "iconPath": "static/center.png",
+	        "selectedIconPath": "static/center-active.png",
+	        "text": "videotest"
+	    },{
+	        "pagePath": "pages/stockquot/Kline",
+	        "iconPath": "static/center.png",
+	        "selectedIconPath": "static/center-active.png",
+	        "text": "info"
+	    },{
 	        "pagePath": "pages/recommend/recommend",
 	        "iconPath": "static/center.png",
 	        "selectedIconPath": "static/center-active.png",
