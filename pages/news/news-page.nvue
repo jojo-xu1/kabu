@@ -71,7 +71,7 @@
 				refreshFlag: false,
 				refreshText: "",
 				isLoading: false,
-				loadingText: '加载中...',
+				loadingText: 'loading...',
 				isNoData: false,
 				pulling: false,
 				angle: 0,
@@ -87,9 +87,8 @@
 			this.pullTimer = null;
 			this.requestParams = {
 				columnId: this.nid,
-				minId: 0,
+				num: 0,
 				pageSize: 10,
-				column: 'id,post_id,title,author_name,cover,published_at,comments_count'
 			};
 		},
 		methods: {
@@ -100,8 +99,8 @@
 
 				this.isLoading = true;
 				this.isNoData = false;
-				this.requestParams.time = new Date().getTime() + '';
-
+				// this.requestParams.time = new Date().getTime() + '';
+				this.requestParams.num +=1;
 				var startTime = new Date();
 				uni.request({
 					// url: this.$host + 'api/news',
@@ -128,10 +127,10 @@
 
 						if (refresh) {
 							this.dataList = data_list;
-							this.requestParams.minId = 0;
+							this.requestParams.num = 0;
 						} else {
 							this.dataList = this.dataList.concat(data_list);
-							this.requestParams.minId = data[data.length - 1].id;
+							this.requestParams.num = data[data.length - 1].id;
 						}
 					},
 					fail: (err) => {
@@ -145,7 +144,7 @@
 						if (refresh) {
 							this.refreshing = false;
 							this.refreshFlag = false;
-							this.refreshText = "已刷新";
+							this.refreshText = "リフレッシュ完了";
 							if (this.pullTimer) {
 								clearTimeout(this.pullTimer);
 							}
@@ -161,7 +160,7 @@
 			},
 			clear() {
 				this.dataList.length = 0;
-				this.requestParams.minId = 0;
+				this.requestParams.num = 0;
 			},
 			goDetail(detail) {
 				if (this.navigateFlag) {
@@ -178,7 +177,7 @@
 			},
 			closeItem(index) {
 				uni.showModal({
-					content: '不感兴趣？',
+					content: '趣味ない？',
 					success: (res) => {
 						if (res.confirm) {
 							this.dataList.splice(index, 1);
@@ -192,7 +191,7 @@
 				}
 				this.pulling = true;
 				this.refreshing = true;
-				this.refreshText = "正在刷新...";
+				this.refreshText = "リフレッシュ中...";
 				this.loadData(true);
 			},
 			onrefresh(e) {
