@@ -1,0 +1,344 @@
+<template>
+	<view class="tabs">
+		<uni-view class="uni-flex uni-row">
+			<view class="uni-list-cell-db">
+				<picker @change="bindPickerChange" :value="index" :range="array">
+					<view class="uni-input">{{array[index]}}</view>
+				</picker>
+			</view>
+			<uni-button @click="open" type="primary" class="uni-button">絞り込み</uni-button>
+		</uni-view>
+		<uni-view class="uni-flex uni-column">
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">1</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">アジア開発</uni-view>
+					<uni-view class="kabuCode text">9318.T(東証2部)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+50.00%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">24</uni-view>
+					<uni-view class="text kabuToriUp">+8</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">2</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">フィードＦ</uni-view>
+					<uni-view class="kabuCode text">7068.T(マザーズ)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+29.85%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">1305</uni-view>
+					<uni-view class="text kabuToriUp">+300</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">3</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">ビードＨＤ</uni-view>
+					<uni-view class="kabuCode text">9399.T(東証2部外国)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+27.91%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">110</uni-view>
+					<uni-view class="text kabuToriUp">+24</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">4</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">リミックス</uni-view>
+					<uni-view class="kabuCode text">3825.T(東証2部)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+27.03%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">235</uni-view>
+					<uni-view class="text kabuToriUp">+50</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">5</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">インクル</uni-view>
+					<uni-view class="kabuCode text">7078.T(マザーズ)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+23.26%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">3710</uni-view>
+					<uni-view class="text kabuToriUp">+700</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">6</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">セーラー</uni-view>
+					<uni-view class="kabuCode text">7992.T(東証2部)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+21.86%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">12</uni-view>
+					<uni-view class="text kabuToriUp">+2</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">7</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">オンキヨＨ</uni-view>
+					<uni-view class="kabuCode text">6628.T(東証JQS)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+20.00%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">4295</uni-view>
+					<uni-view class="text kabuToriUp">+700</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">8</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">ダイヤエレ</uni-view>
+					<uni-view class="kabuCode text">6699.T(東証1部)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+19.47%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">1910</uni-view>
+					<uni-view class="text kabuToriUp">+304</uni-view>
+				</uni-view>
+			</uni-view>
+			<uni-view class="uni-flex uni-row kabu">
+				<uni-view class="kabuIndex">9</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol1">
+					<uni-view class="kabuName text">ベクター</uni-view>
+					<uni-view class="kabuCode text">2656.T(東証JQS)</uni-view>
+				</uni-view>
+				<uni-view class="text kabuRate">+18.93%</uni-view>
+				<uni-view class="uni-flex uni-column kabuCol2">
+					<uni-view class="text kabuTori">521</uni-view>
+					<uni-view class="text kabuToriUp">+80</uni-view>
+				</uni-view>
+			</uni-view>
+
+		</uni-view>
+		<uni-popup ref="popup" type="top" class="popUp">
+			<uni-view class="uni-flex uni-column" style="width:100%;background-color: #FFFFFF;">
+				<uni-view class="uni-flex uni-row">
+					<uni-view class="text popUpLbl">人気株式テーマ</uni-view>
+					<uni-view class="text popUpVal" style="width: calc(100% - 76px);">
+						<picker @change="bindPickerChange" :value="index" :range="cate" style="width:100%">
+							<view class="uni-input">{{cate[index] + ' 〉'}}</view>
+						</picker>
+					</uni-view>
+				</uni-view>
+				<uni-view class="uni-flex uni-row">
+					<uni-view class="text popUpLbl">ブランド</uni-view>
+					<uni-view class="text popUpVal" style="width: calc(100% - 76px);">
+						<picker @change="bindPickerChange" :value="index" :range="brand" style="width:100%">
+							<view class="uni-input">{{brand[index] + ' 〉'}}</view>
+						</picker>
+					</uni-view>
+				</uni-view>
+				<uni-view class="uni-flex uni-row">
+					<uni-view class="text popUpLbl">送料</uni-view>
+					<uni-view class="text popUpVal" style="width: calc(100% - 56px);">
+						<checkbox value="cb">送料無料</checkbox>
+					</uni-view>
+				</uni-view>
+				<uni-view class="uni-flex uni-row">
+					<uni-view class="text popUpLbl">値上がり率</uni-view>
+					<uni-view class="text uni-row">
+						<uni-view class="text popUpVal" style="width: 15%;margin-right: 0;padding-right: 0;">
+							<input type="digit" maxlength="4" class="uni-input neAgari" placeholder="0.0" />
+						</uni-view>
+						<uni-view class="text popUpLbl" style="width: 15%;margin-left: 0;padding-left: 0;line-height: 38px;">% ~</uni-view>
+						<uni-view class="text popUpVal" style="width: 15%;margin-right: 0;padding-right: 0;">
+							<input type="digit" maxlength="4" class="uni-input neAgari" placeholder="100" />
+						</uni-view>
+						<uni-view class="text popUpLbl" style="margin-left: 0;padding-left: 0;line-height: 38px;">%</uni-view>
+					</uni-view>
+				</uni-view>
+			</uni-view>
+		</uni-popup>
+	</view>
+</template>
+
+<script>
+	// #ifdef APP-PLUS
+	const dom = weex.requireModule('dom');
+	// #endif
+
+	export default {
+		components: {},
+		data() {
+			return {
+				title: 'picker',
+				array: ['値上がり率順', '値下がり率順', 'ストップ高順', 'ストップ安順'],
+				cate: ['指定なし', 'テーマ1', 'テーマ2', 'テーマ3', 'テーマ4'],
+				brand: ['指定なし', 'ブランド1', 'ブランド2', 'ブランド3', 'ブランド4'],
+				index: 0
+			}
+		},
+		onReady() {},
+		methods: {
+			open() {
+				// 通过组件定义的ref调用uni-popup方法
+				this.$refs.popup.open()
+			}
+		},
+	}
+</script>
+
+<style lang="scss">
+	@import '@/common/uni-nvue.scss';
+</style>
+<style>
+	.uni-flex {
+		display: flex;
+	}
+
+	.uni-row {
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		flex-direction: row;
+	}
+
+	.uni-column {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		flex-direction: column;
+	}
+
+	.uni-input {
+		height: 39px;
+		padding: 7px 12px;
+		line-height: 25px;
+		font-size: 14px;
+		background: #fff;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		flex: 1;
+	}
+
+	.uni-button {
+		position: relative;
+		display: block;
+		margin: 5px 0px 5px 50%;
+		padding: 7px 14px;
+		box-sizing: border-box;
+		font-size: 14px;
+		text-align: center;
+		text-decoration: none;
+		line-height: 25px;
+		border-radius: 5px;
+		-webkit-tap-highlight-color: transparent;
+		overflow: hidden;
+		color: #000;
+		background-color: #f8f8f8;
+		cursor: pointer;
+		float: right;
+	}
+
+	.uni-button[type=primary] {
+		color: #fff;
+		background-color: #007aff;
+	}
+
+	.text {
+		margin: 1px 5px;
+		padding: 0 10px;
+		text-align: center;
+		color: #777;
+	}
+
+	.kabu {
+		margin: 5px;
+		width: 100%;
+		height: 55px;
+		text-align: center;
+		line-height: 55px;
+	}
+
+	.kabuIndex {
+		width: 10%;
+		line-height: 35px;
+		margin: 10px 5px;
+		background-color: #007AFF;
+		color: #FFFFFF;
+	}
+
+	.kabuCol1 {
+		width: 40%;
+	}
+
+	.kabuName {
+		height: 28px;
+		line-height: 40px;
+		padding-left: 1px;
+		text-align: left;
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.kabuCode {
+		height: 23px;
+		line-height: 15px;
+		padding-left: 1px;
+		text-align: left;
+		font-size: 10px;
+	}
+
+	.kabuRate {
+		width: 20%;
+		height: 55px;
+		line-height: 55px;
+		font-size: 18px;
+		color: #007AFF;
+	}
+
+	.kabuCol2 {
+		width: 25%;
+	}
+
+	.kabuTori {
+		height: 28px;
+		line-height: 40px;
+		font-size: 16px;
+		text-align: right;
+	}
+
+	.kabuToriUp {
+		height: 23px;
+		line-height: 15px;
+		font-size: 10px;
+		color: #007AFF;
+		text-align: right;
+	}
+
+	.popUp {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		background: rgba(0, 0, 0, 0.4);
+		width: 100%;
+		height: 100%;
+		line-height: 40px;
+		font-size: 16px;
+	}
+
+	.popUpLbl {
+		height: 28px;
+		text-align: right;
+	}
+
+	.popUpVal {
+		text-align: right;
+	}
+
+	.neAgari {
+		width: 100%;
+		margin-right: 0;
+		padding-right: 0;
+		border: 1px solid #d2d2d2;
+	}
+</style>

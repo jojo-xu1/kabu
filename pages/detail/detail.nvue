@@ -74,7 +74,6 @@
 				uni.request({
 					url: 'https://unidemo.dcloud.net.cn/api/news/36kr/' + this.banner.post_id,
 					success: (result) => {
-						console.log("news", result)
 						let content = FAIL_CONTENT
 						if (result.statusCode == 200) {
 							content = result.data.content
