@@ -2,7 +2,7 @@
 	<view class="page-news">
 		<!-- #ifdef MP-QQ -->
 		<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y @scrolltolower="loadMore()">
-			<view v-for="(item, index) in dataList" :key="item.id">
+			<view v-for="(item, index) in dataList" :key="item.newsid">
 				<news-item :newsItem="item" @close="closeItem(index)" @click="goDetail(item)"></news-item>
 			</view>
 			<view class="loading-more" v-if="isLoading || dataList.length > 4">
@@ -21,7 +21,7 @@
                     <text class="loading-text">{{refreshText}}</text>
                 </div>
             </uni-refresh>
-            <uni-cell v-for="(item, index) in dataList" :key="item.id">
+            <uni-cell v-for="(item, index) in dataList" :key="item.newsid">
                 <news-item :newsItem="item" @close="closeItem(index)" @click="goDetail(item)"></news-item>
             </uni-cell>
             <uni-cell v-if="isLoading || dataList.length > 4">
@@ -105,26 +105,24 @@
 				var startTime = new Date();
 				uni.request({
 					// url: this.$host + 'api/news',
-					url: 'https://unidemo.dcloud.net.cn/api/news',
+					url: 'http://127.0.0.1:8090/rich-text/list',
 					data: this.requestParams,
 					success: (result) => {
 						var endTime = new Date();
 						console.log("request time " + new Date(endTime - startTime).getTime());
 						const data = result.data;
 						this.isNoData = (data.length <= 0);
-
-						const data_list = data.map((news) => {
+						const data_list = data.data.list.map((news) => {
 							return {
-								id: this.newGuid() + news.id,
-								newsid: news.id,
+								id: this.newGuid() + news.infoId,
+								newsid: news.infoId,
 								article_type: 1,
-								datetime: friendlyDate(new Date(news.published_at.replace(/\-/g,
-									'/')).getTime()),
+								datetime: news.publishedAt,
 								title: news.title,
-								image_url: news.cover,
-								source: news.author_name,
-								comment_count: news.comments_count,
-								post_id: news.post_id
+								image_url: news.imageUrl,
+								source: news.authorName,
+								comment_count: news.commentsCount,
+								post_id: news.postId
 							};
 						});
 
@@ -171,6 +169,7 @@
 				}
 				this.navigateFlag = true;
 				uni.navigateTo({
+					//url: 'http://127.0.0.1:8090/rich-text/get?id=' + detail
 					url: '/pages/detail/detail?query=' + encodeURIComponent(JSON.stringify(detail))
 				});
 				setTimeout(() => {
