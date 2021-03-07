@@ -1,0 +1,235 @@
+<template>
+	<view class="yp">
+		<!-- 导航栏 -->
+		<uni-nav-bar backgroundColor="#2F85FC" 
+			left-icon="back"
+			left-text="back"
+			color="#ffffff"
+			title-color="#fff"
+			title="video upload" 
+			@clickLeft="backbackback"
+		>
+			<view class="navbar-right" slot="right"><view class="dot-box right-item" @click="PushArticle">submit</view></view>
+		</uni-nav-bar>
+		<!-- 发布内容 -->
+		<view class="push-txt wid1p padd20 relative">
+			<textarea placeholder="Add a keyword to your video" v-model="form.contents" maxlength="50"></textarea>
+			<view v-if="form.contents.length > 1" class="cuIcon-close clearValue right-top mt20 mr20 fo-gray" @click="form.contents = ''"></view>
+			<!-- <view class="maxlength right-bottom mr20">{{ form.contents.length }}/8</view> -->
+		</view>
+
+		<!-- 视频上传 -->
+		<view class="ml40 videobox">
+			<view class="content" v-for="(item, index) in videoList" :key="index" :data-url="videoList[index]">
+				<video class="video" :src="videoList[index]"></video>
+				<view class="cu-tag bg-red" @tap.stop="DelImg" :data-index="index"><text class="cuIcon-close"></text></view>
+			</view>
+			<view class="solids" @tap="ChooseVideo" v-if="videoList.length < 1">
+				<text class="cuIcon-cameraadd fo-gray center-center">
+				</text>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import { API$AddArticle } from '../../common/API/community.js';
+import uniNavBar from 'components/uni-nav-bar/uni-nav-bar.vue';
+export default {
+	components: {uniNavBar},
+	name: 'PushImgText',
+	data() {
+		return {
+			background: {
+				background: '#87ceeb'
+			},
+			videoList: [], // 发布的视频数组 (临时)
+			form: {
+				contents: '', // 发布的文字内容
+				videoList: [] // 发布的视频数组 (传给后端的)
+			}
+		};
+	},
+	methods: {
+		backbackback(){
+			this.$router.replace('video');
+		},
+		ChooseVideo() {
+			uni.chooseVideo({
+				ccount: 1,
+				sourceType: ['camera', 'album'],
+				success: res => {
+					console.log(res);
+					this.videoList = this.videoList.concat(res.tempFilePath);
+					console.log(this.videoList);
+				}
+			});
+		},
+		// 删除视频
+		DelImg(e) {
+			uni.showModal({
+				title: '警告',
+				content: '是否删除这段视频？',
+				cancelText: '再看看',
+				confirmText: '再见',
+				success: res => {
+					if (res.confirm) {
+						this.videoList.splice(e.currentTarget.dataset.index, 1);
+					}
+				}
+			});
+		},
+		// 发布文章
+		onPublish() {
+			this.PushArticle({
+				_id: this.$pub.getStorageSync('UserInfo')._id,
+				contents: this.form.contents,
+				videoList: this.form.videoList,
+				PushType:'video/text'
+			});
+		},
+		// 发布接口封装
+		async PushArticle(json) {
+			
+			await this.UploadImg(this.videoList); // 先上传视频
+			if (this.videoList.length != this.form.videoList.length) {
+				this.$pub.Toast('Network error, please try again later~'); //上传的视频未全部成功~
+				uni.hideLoading();
+				return;
+			}
+			try {
+				uni.showLoading({ mask: true, title: 'releasing~' });
+				let { code, msg } = await API$AddArticle(json);
+				if (code === 200) {
+					this.clearForm();
+					setTimeout(() => {
+						this.$pub.Toast(msg);
+					}, 500);
+					this.$pub.back();
+				}
+			} catch (e) {
+			} finally {
+				uni.hideLoading();
+			}
+		},
+		// 上传视频
+		async UploadImg(videoList) {
+			uni.showLoading({ mask: true, title: 'video uploading:0%' });
+			for (let i = 0; i < videoList.length; i++) {
+				try {
+					let result = await uniCloud.uploadFile({
+						cloudPath: 'articleImg/' + this.$tool.create_token() + '.mp4',
+						filePath: videoList[i],
+						onUploadProgress: function(progressEvent) {
+							var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+							uni.showLoading({ mask: true, title: 'video uploading'+percentCompleted + '%' });
+						}
+					});
+					if (result.fileID) {
+						let res = await uniCloud.getTempFileURL({ fileList: [result.fileID] });
+						this.form.videoList.push(res.fileList[0]);
+					}
+				} catch (err) {
+					console.log(err);
+				} finally {
+					// uni.hideLoading();
+				}
+			}
+		},
+		// 清空表单
+		clearForm() {
+			this.videoList = '';
+			this.form = {
+				contents: '',
+				videoList: []
+			};
+		}
+	}
+};
+</script>
+
+<style scoped lang="less">
+.u-demo {
+	//height: 200vh;
+	height: calc(100% - 44px);
+	height: calc(100% - 44px - constant(safe-area-inset-top));
+	height: calc(100% - 44px - env(safe-area-inset-top));
+}
+
+.wrap {
+	padding: 24rpx;
+}
+
+.navbar-right {
+	margin-right: 24rpx;
+	display: flex;
+}
+
+.search-wrap {
+	margin: 0 20rpx;
+	flex: 1;
+}
+
+.right-item {
+	margin: 0 12rpx;
+	position: relative;
+	color: #ffffff;
+	display: flex;
+}
+
+.message-box {
+}
+
+.slot-wrap {
+	display: flex;
+	align-items: center;
+	flex: 1;
+}
+
+.map-wrap {
+	display: flex;
+	align-items: center;
+	padding: 4px 6px;
+	background-color: rgba(240, 240, 240, 0.35);
+	color: #fff;
+	font-size: 22rpx;
+	border-radius: 100rpx;
+	margin-left: 30rpx;
+}
+
+.map-wrap-text {
+	padding: 0 6rpx;
+}
+
+// 发布视频组件
+.videobox {
+	height: 400rpx;
+	width: 400rpx;
+
+	.content {
+		position: relative;
+		height: inherit;
+		width: inherit;
+		.cu-tag {
+			position: absolute;
+			top: 0;
+			right: 0;
+			[class^='cuIcon-'] {
+				font-size: 50rpx;
+				z-index: 99;
+			}
+		}
+		.video {
+			height: 400rpx;
+			width: 400rpx;
+		}
+	}
+	.solids {
+		height: inherit;
+		width: inherit;
+	}
+	[class^='cuIcon-'] {
+		font-size: 160rpx;
+	}
+}
+</style>
