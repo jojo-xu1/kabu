@@ -72,11 +72,11 @@
 		methods: {
 			getDetail() {
 				uni.request({
-					url: 'https://unidemo.dcloud.net.cn/api/news/36kr/' + this.banner.post_id,
+					url: 'http://127.0.0.1:8090/rich-text/get?id=' + this.banner.newsid,
 					success: (result) => {
 						let content = FAIL_CONTENT
 						if (result.statusCode == 200) {
-							content = result.data.content
+							content = result.data.data.contents
 						}
 						const nodes = htmlParser(content);
 						// #ifdef APP-PLUS-NVUE
