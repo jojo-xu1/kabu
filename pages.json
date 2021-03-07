@@ -14,21 +14,22 @@
 			}
 		},
 		{
-			"path": "pages/video/video",
-			"style": {}
-		},
-		{
-			"path": "pages/stockquot/Kline",
-			"style": {}
-		},
-		{
 			"path": "pages/ucenter/ucenter",
 			"style": {}
 		}
-	],
+	    ,{
+            "path" : "pages/recommend/recommend",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "新闻资讯",
+		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#2F85FC",
 		"backgroundColor": "#FFFFFF"
 	},
@@ -43,20 +44,10 @@
 	        "selectedIconPath": "static/home-active.png",
 	        "text": "home"
 	    }, {
-	        "pagePath": "pages/video/video",
+	        "pagePath": "pages/recommend/recommend",
 	        "iconPath": "static/center.png",
 	        "selectedIconPath": "static/center-active.png",
-	        "text": "videotest"
-	    },{
-	        "pagePath": "pages/stockquot/Kline",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/center-active.png",
-	        "text": "info"
-	    },{
-	        "pagePath": "pages/ucenter/ucenter",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/center-active.png",
-	        "text": "user"
+	        "text": "recommend"
 	    }]
 	}
 }
