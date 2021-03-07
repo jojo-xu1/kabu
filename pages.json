@@ -40,35 +40,35 @@
 		"backgroundColor": "#FFFFFF"
 	},
 	"tabBar": {
-	    "color": "#7A7E83",
-	    "selectedColor": "#3cc51f",
-	    "borderStyle": "black",
-	    "backgroundColor": "#ffffff",
-	    "list": [{
-	        "pagePath": "pages/news/index",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/home-active.png",
-	        "text": "home"
-	    }, {
-	        "pagePath": "pages/video/video",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/center-active.png",
-	        "text": "videotest"
-	    },{
-	        "pagePath": "pages/stockquot/Kline",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/center-active.png",
-	        "text": "info"
-	    },{
-	        "pagePath": "pages/ucenter/ucenter",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/center-active.png",
-	        "text": "user"
-	    },{
-	        "pagePath": "pages/recommend/recommend",
-	        "iconPath": "static/center.png",
-	        "selectedIconPath": "static/center-active.png",
-	        "text": "recommend"
-	    }]
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/news/index",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/home-active.png",
+			"text": "ホーム"
+		}, {
+			"pagePath": "pages/recommend/recommend",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "推薦"
+		}, {
+			"pagePath": "pages/stockquot/Kline",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "株価"
+		}, {
+			"pagePath": "pages/video/video",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "動画"
+		}, {
+			"pagePath": "pages/ucenter/ucenter",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "ユーザ"
+		}]
 	}
 }
