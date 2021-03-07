@@ -14,6 +14,14 @@
 			}
 		},
 		{
+			"path": "pages/video/video",
+			"style": {}
+		},
+		{
+			"path": "pages/stockquot/Kline",
+			"style": {}
+		},
+		{
 			"path": "pages/ucenter/ucenter",
 			"style": {}
 		}
@@ -35,6 +43,16 @@
 	        "selectedIconPath": "static/home-active.png",
 	        "text": "home"
 	    }, {
+	        "pagePath": "pages/video/video",
+	        "iconPath": "static/center.png",
+	        "selectedIconPath": "static/center-active.png",
+	        "text": "videotest"
+	    },{
+	        "pagePath": "pages/stockquot/Kline",
+	        "iconPath": "static/center.png",
+	        "selectedIconPath": "static/center-active.png",
+	        "text": "info"
+	    },{
 	        "pagePath": "pages/ucenter/ucenter",
 	        "iconPath": "static/center.png",
 	        "selectedIconPath": "static/center-active.png",
