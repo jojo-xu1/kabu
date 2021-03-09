@@ -88,7 +88,7 @@
 			this.requestParams = {
 				columnId: this.nid,
 				num: 0,
-				pageSize: 10,
+				size: 10,
 			};
 		},
 		methods: {
@@ -104,7 +104,7 @@
 				var startTime = new Date();
 				uni.request({
 					// url: this.$host + 'api/news',
-					url: 'http://127.0.0.1:8090/rich-text/list',
+					url: 'http://13.112.112.160:8090/rich-text/list',
 					data: this.requestParams,
 					success: (result) => {
 						var endTime = new Date();
