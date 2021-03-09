@@ -2,7 +2,7 @@
 	<view class="page-news">
 		<!-- #ifdef MP-QQ -->
 		<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y @scrolltolower="loadMore()">
-			<view v-for="(item, index) in dataList" :key="item.newsid">
+			<view v-for="(item, index) in dataList" :key="item.id">
 				<news-item :newsItem="item" @close="closeItem(index)" @click="goDetail(item)"></news-item>
 			</view>
 			<view class="loading-more" v-if="isLoading || dataList.length > 4">
@@ -21,7 +21,7 @@
                     <text class="loading-text">{{refreshText}}</text>
                 </div>
             </uni-refresh>
-            <uni-cell v-for="(item, index) in dataList" :key="item.newsid">
+            <uni-cell v-for="(item, index) in dataList" :key="item.id">
                 <news-item :newsItem="item" @close="closeItem(index)" @click="goDetail(item)"></news-item>
             </uni-cell>
             <uni-cell v-if="isLoading || dataList.length > 4">
@@ -71,7 +71,7 @@
 				refreshFlag: false,
 				refreshText: "",
 				isLoading: false,
-				loadingText: 'loading...',
+				loadingText: '加载中...',
 				isNoData: false,
 				pulling: false,
 				angle: 0,
@@ -87,8 +87,9 @@
 			this.pullTimer = null;
 			this.requestParams = {
 				columnId: this.nid,
-				num: 0,
+				minId: 0,
 				pageSize: 10,
+				column: 'id,post_id,title,author_name,cover,published_at,comments_count'
 			};
 		},
 		methods: {
@@ -99,38 +100,41 @@
 
 				this.isLoading = true;
 				this.isNoData = false;
-				// this.requestParams.time = new Date().getTime() + '';
-				this.requestParams.num +=1;
+				this.requestParams.time = new Date().getTime() + '';
+
 				var startTime = new Date();
 				uni.request({
 					// url: this.$host + 'api/news',
-					url: 'http://127.0.0.1:8090/rich-text/list',
+					//加载新闻请求的网址
+					 url: 'https://unidemo.dcloud.net.cn/api/news',
 					data: this.requestParams,
 					success: (result) => {
 						var endTime = new Date();
 						console.log("request time " + new Date(endTime - startTime).getTime());
 						const data = result.data;
 						this.isNoData = (data.length <= 0);
-						const data_list = data.data.list.map((news) => {
+
+						const data_list = data.map((news) => {
 							return {
-								id: this.newGuid() + news.infoId,
-								newsid: news.infoId,
+								id: this.newGuid() + news.id,
+								newsid: news.id,
 								article_type: 1,
-								datetime: news.publishedAt,
+								datetime: friendlyDate(new Date(news.published_at.replace(/\-/g,
+									'/')).getTime()),
 								title: news.title,
-								image_url: news.imageUrl,
-								source: news.authorName,
-								comment_count: news.commentsCount,
-								post_id: news.postId
+								image_url: news.cover,
+								source: news.author_name,
+								comment_count: news.comments_count,
+								post_id: news.post_id
 							};
 						});
 
 						if (refresh) {
 							this.dataList = data_list;
-							this.requestParams.num = 0;
+							this.requestParams.minId = 0;
 						} else {
 							this.dataList = this.dataList.concat(data_list);
-							this.requestParams.num = data[data.length - 1].id;
+							this.requestParams.minId = data[data.length - 1].id;
 						}
 					},
 					fail: (err) => {
@@ -144,7 +148,7 @@
 						if (refresh) {
 							this.refreshing = false;
 							this.refreshFlag = false;
-							this.refreshText = "リフレッシュ完了";
+							this.refreshText = "已刷新";
 							if (this.pullTimer) {
 								clearTimeout(this.pullTimer);
 							}
@@ -160,7 +164,7 @@
 			},
 			clear() {
 				this.dataList.length = 0;
-				this.requestParams.num = 0;
+				this.requestParams.minId = 0;
 			},
 			goDetail(detail) {
 				if (this.navigateFlag) {
@@ -168,7 +172,6 @@
 				}
 				this.navigateFlag = true;
 				uni.navigateTo({
-					//url: 'http://127.0.0.1:8090/rich-text/get?id=' + detail
 					url: '/pages/detail/detail?query=' + encodeURIComponent(JSON.stringify(detail))
 				});
 				setTimeout(() => {
@@ -177,7 +180,7 @@
 			},
 			closeItem(index) {
 				uni.showModal({
-					content: '趣味ない？',
+					content: '不感兴趣？',
 					success: (res) => {
 						if (res.confirm) {
 							this.dataList.splice(index, 1);
@@ -191,7 +194,7 @@
 				}
 				this.pulling = true;
 				this.refreshing = true;
-				this.refreshText = "リフレッシュ中...";
+				this.refreshText = "正在刷新...";
 				this.loadData(true);
 			},
 			onrefresh(e) {

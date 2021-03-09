@@ -1,0 +1,19 @@
+/*
+* 黑夜模式
+*/
+@globalMode_Black:#000000;
+@globalMode_white:#ffffff;
+.yang--backgroud(@color) {
+	background-color: @color !important;
+}
+.yang--color(@color){
+	color: @color !important;
+}
+.theme--Black{
+	.yang--backgroud(@globalMode_Black);
+	.yang--color(@globalMode_white);
+}
+.theme--White{
+	.yang--backgroud(@globalMode_white);
+	.yang--color(@globalMode_white);
+}
