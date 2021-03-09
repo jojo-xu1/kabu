@@ -15,7 +15,12 @@
 		},
 		{
 			"path": "pages/video/video",
-			"style": {}
+				"style": {
+					"app-plus":{
+						"titleNView":false
+					},
+					"navigationStyle": "custom"
+				}
 		},
 		{
 			"path": "pages/stockquot/Kline",
@@ -31,6 +36,15 @@
 				"enablePullDownRefresh": false
 			}
 
+		},
+		{
+			"path": "pages/video/addVideo",
+			"style": {
+				"app-plus":{
+					"titleNView":false
+				},
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

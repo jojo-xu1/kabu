@@ -1,95 +1,350 @@
-<template>
-	<div>
-		<view>
-			<view class="page-body">
-				<view class="page-section">
-					<video id="myVideo" src="http://f.video.weibocdn.com/000etb94gx07KwcHNOMw01041200ibe90E010.mp4?label=mp4_hd&template=852x480.25.0&trans_finger=d8257cc71422c9ad30fe69ce9523c87b&media_id=4606721805451327&tp=8x8A3El:YTkl0eM8&us=0&ori=1&bf=4&ot=h&ps=3lckmu&uid=5Bm3J8&ab=3915-g1,966-g1,3370-g1,1493-g0,1192-g0,1258-g0&Expires=1613839017&ssig=flCbw5swSu&KID=unistore,video"
-					 @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls></video>
 
-					<view class="uni-list">
-						<view class="uni-list-cell">
-							<view>
-								<view class="uni-label">弹幕内容</view>
-							</view>
-							<view class="uni-list-cell-db">
-								<input @blur="bindInputBlur" class="uni-input" type="text" placeholder="在此处输入弹幕内容" />
-							</view>
-						</view>
-					</view>
-					<view class="btn-area">
-						<button @tap="bindSendDanmu" class="page-body-button" formType="submit">发送弹幕</button>
-					</view>
-				</view>
-			</view>
-		</view>
+<template>
+	<div class="page">
+		<uni-nav-bar right-text="upload" title="動画" 
+		backgroundColor="#2F85FC"  color="#FFFFFF" 
+	 	@clickRight="gogogo">
+		</uni-nav-bar>
+		<uni-search-bar @confirm="search" @input="input" placeholder="Please enter a keyword" 
+			cancelButton="none" >
+		</uni-search-bar>
+		<div class="custom"><div class="mask"></div></div>
+	    <div v-for="(item,idx) in videoList" :key="idx" class="video-box">
+			<div v-if="Math.abs(index-idx)<=3">
+				<chunleiVideoH5 class="video" ref="video" :play="item.flag" @pause="pauseVideo($event,item)"
+					:src="item.src" poster="../../static/logo.png" :initialTime="item.initialTime"></chunleiVideoH5> 
+
+				
+				<cover-view class="videoMask" v-if="playIndex!=idx" @click.stop="clickMask(idx)"></cover-view>
+				
+				
+				<div class="bottom">
+					<text class="title">{{item.content}}</text>
+					<div class="content">
+						<div class="content-left">
+							<image class="avatar marginRight" :src="item.avatar"></image>
+							<text class="title">{{item.at}}</text>
+						</div>
+						<div class="content-right">
+							<text class="iconfont marginRight">&#xe635;</text>
+							<text class="iconfont">&#xe67e;</text><text class="text-sm marginRight">{{item.comment}}</text>
+							<text class="iconfont">&#xe603;</text><text class="text-sm marginRight">{{item.like}}</text>
+							<text class="iconfont">&#xe67f;</text>
+						</div>
+					</div>
+				</div> 
+				
+				<div class="bottomMask" v-if="playIndex!=idx||timeMask"></div>
+
+			</div>
+	    </div>  
 	</div>
 </template>
 
-<uni-icons type="contact" size="30"></uni-icons>
 
 <script>
+	const videoBoxHeight = 290 //视频盒子高度
 	
+	import chunleiVideoH5 from '@/components/chunlei-video-h5/chunlei-video-h5';
 	export default {
-		
+		// name: 'MenuSetting',
+		components:{
+			chunleiVideoH5
+		},
 		data() {
 			return {
-				title: 'video',
-				src: '',
-				inputValue: '',
-				danmuList: [{
-						text: '第 1s 出现的弹幕',
-						color: '#ff0000',
-						time: 1
+				listNumber:3, //剩余视频小于3时加载视频
+				playTop:200, //播放高度
+				
+				
+				index:0, //当前视频展示索引
+				timer:null,
+				playIndex:-1,
+				timeMask:true,
+				
+				videoList:[
+					{
+						src:'http://vjs.zencdn.net/v/oceans.mp4',
+						content:'Why choose uni-app?',
+						flag:false,
+						like:'10w',
+						comment:'1045',
+						avatar:'../../static/logo.png',
+						initialTime:0,
+						at:'Dcloud',
+						duration:841,
 					},
 					{
-						text: '第 3s 出现的弹幕',
-						color: '#ff00ff',
-						time: 3
+						src:'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=129764&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
+						content:'Crisis sense full! A car is more reliable than you',
+						flag:false,
+						like:'7w',
+						comment:'1045',
+						avatar:'http://img.kaiyanapp.com/e44ed5fcfa424ba35761ce5f1339bc16.jpeg?imageMogr2/quality/60/format/jpg',
+						initialTime:0,
+						at:'Advertising Selection',
+						duration:149
+					},
+					{
+						src:'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=164016&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
+						content:'you have not seen the big crayfish scene',
+						flag:false,
+						like:'7w',
+						comment:'1045',
+						avatar:'http://img.kaiyanapp.com/7af2bb1bc134fb1115d48f05e9d317f0.jpeg?imageMogr2/quality/60/format/jpg',
+						initialTime:0,
+						at:'World cuisine',
+						duration:1162
 					}
-				]
+				],
+				
 			}
 		},
-		onReady: function(res) {
-			this.videoContext = uni.createVideoContext('myVideo')
+		beforeCreate() {
+			// #ifdef APP-PLUS-NVUE
+			var domModule = weex.requireModule('dom');
+			domModule.addRule('fontFace', {
+				'fontFamily': "iconfont",
+				'src': "url('../../static/srcoll-video/text-icon.ttf')"
+			});
+			// #endif
+		},
+		created() {
+			//#ifdef APP-PLUS
+			plus.screen.lockOrientation("portrait-primary")
+			//#endif
+		},
+		async mounted() {
+			this.playIndex = 0
+			await this.pushVideoList()
+		},
+		onHide(){
+			for (let item of this.videoList) {
+				item.flag = false
+			}
+		},
+		onPageScroll(e){
+			this.index = (e.scrollTop-44)/videoBoxHeight
+			this.debounce(()=>{
+				this.playIndex =Math.floor((e.scrollTop - 44 + this.playTop)/videoBoxHeight)
+			},300)()
+		},
+		onReachBottom() {
+			this.throttle(()=>{
+				if(this.videoList.length-newVal-1<this.listNumber){
+					this.pushVideoList()
+				}
+			},200)()
 		},
 		methods: {
-			bindInputBlur: function(e) {
-				this.inputValue = e.target.value
-			},
-			bindButtonTap: function() {
-				var that = this
+			ChooseVideo() {
 				uni.chooseVideo({
-					sourceType: ['album', 'camera'],
-					maxDuration: 60,
-					camera: ['front', 'back'],
-					success: function(res) {
-						this.src = res.tempFilePath
+					ccount: 1,
+					sourceType: ['camera', 'album'],
+					success: res => {
+						console.log(res);
+						this.videoList = this.videoList.concat(res.tempFilePath);
+						console.log(this.videoList);
 					}
-				})
+				});
 			},
-			bindSendDanmu: function() {
-				this.videoContext.sendDanmu({
-					text: this.inputValue,
-					color: this.getRandomColor()
-				})
+			
+			gogogo() {
+				uni.navigateTo({
+				    url: 'addVideo'
+				});
+				// this.$router.push('addVideo');
+					// this.$router.push('addVideo');				
+				    // self.$router.push('addVideo');
+					// this.$router.replace('addVideo');
+			}
+			// goTo(){
+			// 	alert('1111111');
+			// }
+			,
+			pushVideoList(){
+				let promise = new Promise((resolve,reject)=>{
+					uni.request({
+						url: 'https://api.apiopen.top/videoRecommend?id=127300',
+						success: (res) => {
+							let videoGroup = []
+							for (let item of res.data.result) {
+								if(item.type == 'videoSmallCard'){
+									videoGroup.push({
+										src:item.data.playUrl,
+										content:item.data.title,
+										flag:false,
+										like:'7w',
+										comment:'1045',
+										at:item.data.author.name,
+										avatar:item.data.author.icon,
+										initialTime:0,
+										duration:item.data.duration
+									})
+								}
+							}
+							this.videoList = [...this.videoList,...videoGroup]
+							resolve()
+						}
+					})
+				}) 
+				return promise
 			},
-			videoErrorCallback: function(e) {
-				console.log('视频错误信息:')
-				console.log(e.target.errMsg)
-			},
-			getRandomColor: function() {
-				const rgb = []
-				for (let i = 0; i < 3; ++i) {
-					let color = Math.floor(Math.random() * 256).toString(16)
-					color = color.length == 1 ? '0' + color : color
-					rgb.push(color)
+			clickMask(idx){this.playIndex=idx},
+			pauseVideo(val,item){item.initialTime = val},
+			debounce(func, delay){
+			    return ()=>{
+					if(this.timer) clearTimeout(this.timer);
+					this.timer = setTimeout(()=>{
+				 		func()
+				    }, delay)
 				}
-				return '#' + rgb.join('')
+			},
+			throttle(func, delay) {
+			    return ()=> {        
+			        if (!this.timerThr) {
+						func()
+			            this.timerThr = setTimeout(() => {     
+			                this.timerThr = null;                    
+			            }, delay);                
+			        }            
+			    }        
+			}    
+		},
+		watch:{
+			index:{
+				handler:async function(newVal){
+					this.throttle(()=>{
+						if(this.videoList.length-newVal-1<this.listNumber){
+							this.pushVideoList()
+						}
+					},200)()
+				}
+			},
+			playIndex(newVal){
+				this.timeMask = false
+				setTimeout(()=> {this.timeMask = true}, 2000);
+				for (let item of this.videoList) {
+					item.flag = false
+				}
+				this.videoList[newVal].flag = true
 			}
 		}
 	}
 </script>
 
-<style>
-
+<style scoped>
+	/* #ifndef APP-PLUS-NVUE */
+	@font-face {font-family: "iconfont";
+		src: url('~@/static/srcoll-video/text-icon.ttf') format('truetype');
+	}
+	.iconfont{
+		font-family: "iconfont";
+		font-size: 16px;
+		color: #fff;
+	}
+	/* #endif*/
+	
+	/* #ifdef APP-PLUS-NVUE */
+	.iconfont{
+		font-family: iconfont;
+		font-size: 16px;
+		color: #fff;
+	}
+	/* #endif*/
+	.text-sm{
+		font-size: 12px;
+		
+		color: #fff;
+	}
+	.marginRight{
+		margin-right: 10rpx;
+	}
+	.page{ 
+		/* #ifndef APP-PLUS */
+		display: flex;
+		/* #endif */
+		justify-content: flex-start;
+		flex-direction: column;
+		background-color: #000;
+	}
+	.custom{
+		height: 44px;
+		width: 750rpx;
+		background-color: #000;
+		position: relative;
+	}
+	.mask{
+		position: absolute;
+		height: 44px;
+		width: 750rpx;
+		background-color:  rgba(0,0,0,0.7);
+	}
+	.video-box{
+		position: relative;
+		height: 290px;
+		background-color: #000;
+	}
+	.video{
+		height: 200px;
+		width: 750rpx;
+	}
+	.videoMask{
+		position: absolute;
+		top: 0;
+		height: 200px;
+		width: 750rpx;
+		background-color:  rgba(0,0,0,0.7);
+		z-index: 99;
+	}
+	.bottom{
+		height: 90px;
+		/* #ifndef APP-PLUS */
+		display: flex;
+		/* #endif */
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 10px;
+		/* #ifndef APP-PLUS */
+		box-sizing: border-box;
+		/* #endif */
+	}
+	.bottomMask{
+		position: absolute;
+		bottom: 0;
+		height: 90px;
+		width: 750rpx;
+		background-color:  rgba(0,0,0,0.7);
+	}
+	.title{
+		font-size: 14px;
+		color: #fff;
+	}
+	.avatar{
+		height: 50rpx;
+		width: 50rpx;
+		border-radius: 25rpx;
+	}
+	.content{
+		/* #ifndef APP-PLUS */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.content-left{
+		/* #ifndef APP-PLUS */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		align-items: center;
+	}
+	.content-right{
+		/* #ifndef APP-PLUS */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		align-items: center;
+	}
 </style>
