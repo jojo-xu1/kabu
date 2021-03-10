@@ -1,0 +1,308 @@
+<template>
+	<view class="tabs">
+		<uni-view class="uni-row head">
+			<view class="uni-list-cell-db sort">
+				<picker @change="bindPickerChange" :value="index" :range="array">
+					<view class="uni-input"><text class="sortTxt">{{array[index] + '  ▼'}}</text></view>
+				</picker>
+			</view>
+			<!-- <uni-button @click="open" type="primary" class="uni-button"><text>絞り込み</text></uni-button> -->
+		</uni-view>
+		<uni-view class="uni-column" v-model="kabuDaily">
+			<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily" :key="item.stock.stockId">
+				<uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view>
+				<uni-view class="uni-column kabuCol1">
+					<uni-view class="kabuName"><text
+							class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt">{{ item.stock.stockId }}</text></uni-view>
+				</uni-view>
+				<uni-view class="kabuRate"><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
+				<uni-view class="uni-column kabuCol2">
+					<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
+					<uni-view class="kabuToriUp"></uni-view>
+				</uni-view>
+			</uni-view>
+		</uni-view>
+		<uni-popup ref="popup" type="top" class="popUp">
+			<uni-view class="uni-column" style="width:100%;background-color: #FFFFFF;">
+				<uni-view class="uni-row">
+					<uni-view class="text popUpLbl">人気株式テーマ</uni-view>
+					<uni-view class="text popUpVal" style="width: calc(100% - 76upx);">
+						<picker @change="bindPickerChange" :value="index" :range="cate" style="width:100%">
+							<view class="uni-input"><text>{{cate[index] + ' 〉'}}</text></view>
+						</picker>
+					</uni-view>
+				</uni-view>
+				<uni-view class="uni-row">
+					<uni-view class="text popUpLbl">ブランド</uni-view>
+					<uni-view class="text popUpVal" style="width: calc(100% - 76upx);">
+						<picker @change="bindPickerChange" :value="index" :range="brand" style="width:100%">
+							<view class="uni-input"><text>{{brand[index] + ' 〉'}}</text></view>
+						</picker>
+					</uni-view>
+				</uni-view>
+				<uni-view class="uni-row">
+					<uni-view class="text popUpLbl">送料</uni-view>
+					<uni-view class="text popUpVal" style="width: calc(100% - 56upx);">
+						<checkbox value="cb">送料無料</checkbox>
+					</uni-view>
+				</uni-view>
+				<uni-view class="uni-row">
+					<uni-view class="text popUpLbl">値上がり率</uni-view>
+					<uni-view class="text uni-row">
+						<uni-view class="text popUpVal" style="width: 15%;margin-right: 0;padding-right: 0;">
+							<input type="digit" maxlength="4" class="uni-input neAgari" placeholder="0.0" />
+						</uni-view>
+						<uni-view class="text popUpLbl"
+							style="width: 15%;margin-left: 0;padding-left: 0;line-height: 38upx;">% ~</uni-view>
+						<uni-view class="text popUpVal" style="width: 15%;margin-right: 0;padding-right: 0;">
+							<input type="digit" maxlength="4" class="uni-input neAgari" placeholder="100" />
+						</uni-view>
+						<uni-view class="text popUpLbl" style="margin-left: 0;padding-left: 0;line-height: 38upx;">%
+						</uni-view>
+					</uni-view>
+				</uni-view>
+			</uni-view>
+		</uni-popup>
+	</view>
+</template>
+
+<script>
+	// #ifdef APP-PLUS
+	const dom = weex.requireModule('dom');
+	// #endif
+
+	export default {
+		components: {},
+		data() {
+			return {
+				title: 'picker',
+				array: ['値上がり率順', '値下がり率順', 'ストップ高順', 'ストップ安順'],
+				cate: ['指定なし', 'テーマ1', 'テーマ2', 'テーマ3', 'テーマ4'],
+				brand: ['指定なし', 'ブランド1', 'ブランド2', 'ブランド3', 'ブランド4'],
+				kabuDaily: [{
+						"stock": {
+							"stockId": "2269",
+							"stockName": "明治ホールディングス(株)",
+							"industry": "食料品",
+							"total": "152,683,400",
+							"dividendYield": "2.16%",
+							"dividendPershare": "150.00",
+							"per": "15.23",
+							"pbr": "1.69",
+							"eps": "454.90",
+							"bps": "4,099.35",
+							"unit": "100"
+						},
+						"dayId": "20210201",
+						"startPrice": 7120,
+						"endPrice": 7150,
+						"highPrice": 7060,
+						"lowPrice": 7110,
+						"vol": 343500
+					},
+					{
+						"stock": {
+							"stockId": "2282",
+							"stockName": "日本ハム(株)",
+							"industry": "食料品",
+							"total": "102,958,904",
+							"dividendYield": "1.88%",
+							"dividendPershare": "91.00",
+							"per": "19.12",
+							"pbr": "1.17",
+							"eps": "253.13",
+							"bps": "4,134.18",
+							"unit": "100"
+						},
+						"dayId": "20210201",
+						"startPrice": 4475,
+						"endPrice": 4580,
+						"highPrice": 4440,
+						"lowPrice": 4490,
+						"vol": 681200
+					}
+				],
+				index: 0
+			}
+		},
+		onReady() {
+			this.getKabuDaily();
+		},
+		methods: {
+			open() {
+				// 通过组件定义的ref调用uni-popup方法
+				this.$refs.popup.open()
+			},
+			bindPickerChange: function(e) {
+				this.index = e.detail.value
+				this.getKabuDaily();
+			},
+			kabuNameSubstr(kabuName) {
+				if (kabuName && kabuName.length > 8) {
+					return kabuName.substr(0, 8) + "..."
+				}
+				return kabuName
+			},
+			appendZero(str) {
+				return ("00" + str).substr((str + "").length);
+			},
+			getKabuDaily() {
+				var url = "http://13.112.112.160:8090/stock/dailyList"
+				var num = "?num=1"
+				var size = "&size=10"
+				// var crtDate = new Date();
+				// var crtDateStr = "&dailyId=" + crtDate.getFullYear() +
+				// 	this.appendZero(crtDate.getMonth() + 1) +
+				// 	this.appendZero(crtDate.getDate())
+				var crtDateStr = "&dailyId=20210201"
+				var flag = "&flag=1"
+
+				uni.request({
+					url: url + num + size + crtDateStr + flag,
+					data: {},
+					success: (result) => {
+						if (result.statusCode == 200) {
+							console.log(result)
+							this.kabuDaily = result.data.data.list
+						}
+					}
+				});
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	@import '@/common/uni-nvue.scss';
+</style>
+<style>
+	.uni-row {
+		flex-direction: row;
+	}
+
+	.uni-column {
+		flex-direction: column;
+	}
+	
+	.head{
+		height: 80upx;
+	}
+
+.sort{
+	height: 80upx;
+	padding: 25upx 0 0 15upx;
+}
+
+.sortTxt{
+	color: #007AFF;
+	font-size: 25upx;
+}
+
+	.kabu {
+		margin: 5upx;
+		width: 750upx;
+		height: 80upx;
+		padding: 5upx 5upx;
+	}
+
+	.kabuIndex {
+		width: 75upx;
+		height: 80upx;
+		padding-top: 15upx;
+		background-color: #007AFF;
+		color: #FFFFFF;
+	}
+
+	.kabuIndexTxt {
+		color: #FFFFFF;
+		text-align: center;
+	}
+
+	.kabuCol1 {
+		width: 300upx;
+		height: 80upx;
+		margin-left: 5upx;
+	}
+
+	.kabuName {
+		width: 300upx;
+		height: 40upx;
+		padding-bottom: 0;
+	}
+
+	.kabuNameTxt {
+		font-size: 35upx;
+		font-weight: bold;
+	}
+
+	.kabuCode {
+		width: 350upx;
+		height: 30upx;
+		padding-top: 0;
+	}
+
+	.kabuCodeTxt {
+		font-size: 25upx;
+		color: #A9A9A9;
+	}
+
+	.kabuRate {
+		width: 250upx;
+		height: 80upx;
+	}
+	
+	.kabuRateTxt{
+		font-size: 40upx;
+		color: #007AFF;
+		text-align: center;
+	}
+
+	.kabuCol2 {
+		width: 225upx;
+		height: 80upx;
+	}
+
+	.kabuTori {
+		width: 80upx;
+		height: 80upx;
+	}
+	
+	.kabuToriTxt{
+		font-size: 25upx;
+		text-align: right;
+	}
+
+	.kabuToriUp {
+		height: 23upx;
+		font-size: 10upx;
+		color: #007AFF;
+		text-align: right;
+	}
+
+	.popUp {
+		position: absolute;
+		left: 0upx;
+		top: 0upx;
+		background: rgba(0, 0, 0, 0.4);
+		width: 100%;
+		height: 100%;
+		font-size: 16upx;
+	}
+
+	.popUpLbl {
+		height: 28upx;
+		text-align: right;
+	}
+
+	.popUpVal {
+		text-align: right;
+	}
+
+	.neAgari {
+		width: 750upx;
+		margin-right: 0;
+		padding-right: 0;
+		border: 1upx solid #d2d2d2;
+	}
+</style>

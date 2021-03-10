@@ -1,0 +1,27 @@
+{
+  "name": "kabu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "echarts": "^5.0.2",
+    "mpvue-echarts": "^0.3.2"
+  },
+  "devDependencies": {
+    "node-sass": "^5.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jojo-xu1/kabu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jojo-xu1/kabu/issues"
+  },
+  "homepage": "https://github.com/jojo-xu1/kabu#readme"
+}
