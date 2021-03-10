@@ -72,7 +72,7 @@
 		methods: {
 			getDetail() {
 				uni.request({
-					url: 'http://127.0.0.1:8090/rich-text/get?id=' + this.banner.newsid,
+					url: 'http://13.112.112.160:8090/rich-text/get?id=' + this.banner.newsid,
 					success: (result) => {
 						let content = FAIL_CONTENT
 						if (result.statusCode == 200) {
