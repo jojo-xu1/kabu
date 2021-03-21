@@ -1,20 +1,25 @@
 <template>
-	<view class="tabs">
+	<view>
 		<uni-view class="uni-row head">
 			<view class="uni-list-cell-db sort">
-				<picker @change="bindPickerChange" :value="index" :range="array">
-					<view class="uni-input"><text class="sortTxt">{{array[index] + '  ▼'}}</text></view>
+				<picker @change="sortChange" :value="sortIndex" :range="sortArray">
+					<view><text class="sortTxt">{{sortArray[sortIndex] + '  ▼'}}</text></view>
 				</picker>
 			</view>
-			<!-- <uni-button @click="open" type="primary" class="uni-button"><text>絞り込み</text></uni-button> -->
+			<uni-button @click="open" type="primary" class="shibori">
+				<text class="shiboriTxt">絞り込み</text>
+			</uni-button>
 		</uni-view>
 		<uni-view class="uni-column" v-model="kabuDaily">
 			<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily" :key="item.stock.stockId">
 				<uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view>
 				<uni-view class="uni-column kabuCol1">
-					<uni-view class="kabuName"><text
-							class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuCodeTxt">{{ item.stock.stockId }}</text></uni-view>
+					<uni-view class="kabuName">
+						<text class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text>
+					</uni-view>
+					<uni-view class="kabuCode">
+						<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
+					</uni-view>
 				</uni-view>
 				<uni-view class="kabuRate"><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 				<uni-view class="uni-column kabuCol2">
@@ -24,43 +29,51 @@
 			</uni-view>
 		</uni-view>
 		<uni-popup ref="popup" type="top" class="popUp">
-			<uni-view class="uni-column" style="width:100%;background-color: #FFFFFF;">
+			<uni-view class="uni-column" v-model="jouken">
 				<uni-view class="uni-row">
-					<uni-view class="text popUpLbl">人気株式テーマ</uni-view>
-					<uni-view class="text popUpVal" style="width: calc(100% - 76upx);">
-						<picker @change="bindPickerChange" :value="index" :range="cate" style="width:100%">
-							<view class="uni-input"><text>{{cate[index] + ' 〉'}}</text></view>
+					<uni-button @click="close" type="primary" class="close">
+						<text class="closeTxt popUpTxt">キャンセル</text>
+					</uni-button>
+					<uni-view style="width: 442upx;">
+						<text style="height: 100upx; background-color: #FFFFFF;"></text>
+					</uni-view>
+					<uni-button @click="close" type="primary" class="confirm">
+						<text class="confirmTxt popUpTxt">確認</text>
+					</uni-button>
+				</uni-view>
+				<uni-view class="uni-row" v-for="(item,index) in jouken" :key="item.joukenId">
+					<uni-view class="andOrKubn">
+						<text v-if="index != 0" class="popUpBg popUpTxt andOrKubnTxt">かつ</text>
+						<text v-else class="popUpBg popUpTxt andOrKubnTxt" style="background-color: #FFFFFF;"></text>
+					</uni-view>
+					<uni-view class="joukenName">
+						<picker @change="joukenChange(index, $event)" :value="item.joukenIndex" :range="joukenArray">
+							<uni-view>
+								<text
+									class="popUpBg popUpTxt joukenNameTxt">{{joukenArray[item.joukenIndex] + '  ▼'}}</text>
+							</uni-view>
 						</picker>
 					</uni-view>
-				</uni-view>
-				<uni-view class="uni-row">
-					<uni-view class="text popUpLbl">ブランド</uni-view>
-					<uni-view class="text popUpVal" style="width: calc(100% - 76upx);">
-						<picker @change="bindPickerChange" :value="index" :range="brand" style="width:100%">
-							<view class="uni-input"><text>{{brand[index] + ' 〉'}}</text></view>
-						</picker>
+					<uni-view class="joukenValue">
+						<input class="popUpBg popUpTxt joukenValueTxt" type="digit" maxlength="4" placeholder="0" />
 					</uni-view>
-				</uni-view>
-				<uni-view class="uni-row">
-					<uni-view class="text popUpLbl">送料</uni-view>
-					<uni-view class="text popUpVal" style="width: calc(100% - 56upx);">
-						<checkbox value="cb">送料無料</checkbox>
+					<uni-view class="joukenLabel">
+						<text class="popUpBg popUpTxt joukenLabelTxt">から</text>
 					</uni-view>
-				</uni-view>
-				<uni-view class="uni-row">
-					<uni-view class="text popUpLbl">値上がり率</uni-view>
-					<uni-view class="text uni-row">
-						<uni-view class="text popUpVal" style="width: 15%;margin-right: 0;padding-right: 0;">
-							<input type="digit" maxlength="4" class="uni-input neAgari" placeholder="0.0" />
-						</uni-view>
-						<uni-view class="text popUpLbl"
-							style="width: 15%;margin-left: 0;padding-left: 0;line-height: 38upx;">% ~</uni-view>
-						<uni-view class="text popUpVal" style="width: 15%;margin-right: 0;padding-right: 0;">
-							<input type="digit" maxlength="4" class="uni-input neAgari" placeholder="100" />
-						</uni-view>
-						<uni-view class="text popUpLbl" style="margin-left: 0;padding-left: 0;line-height: 38upx;">%
-						</uni-view>
+					<uni-view class="joukenValue">
+						<input class="popUpBg popUpTxt joukenValueTxt" type="digit" maxlength="4" placeholder="100" />
 					</uni-view>
+					<uni-view class="joukenLabel">
+						<text class="popUpBg popUpTxt joukenLabelTxt">まで</text>
+					</uni-view>
+					<uni-button @click="reduceJouken(index)" type="primary" class="rdcJouken">
+						<text class="popUpBg popUpTxt rdcJoukenTxt">×</text>
+					</uni-button>
+				</uni-view>
+				<uni-view>
+					<uni-button @click="addJouken" type="primary" class="addJouken">
+						<text class="addJoukenTxt">＋</text>
+					</uni-button>
 				</uni-view>
 			</uni-view>
 		</uni-popup>
@@ -77,9 +90,13 @@
 		data() {
 			return {
 				title: 'picker',
-				array: ['値上がり率順', '値下がり率順', 'ストップ高順', 'ストップ安順'],
-				cate: ['指定なし', 'テーマ1', 'テーマ2', 'テーマ3', 'テーマ4'],
-				brand: ['指定なし', 'ブランド1', 'ブランド2', 'ブランド3', 'ブランド4'],
+				sortArray: ['値上がり率順', '値下がり率順', 'ストップ高順', 'ストップ安順'],
+				sortIndex: 0,
+				joukenArray: ['値上がり率', 'ストップ高', '条件３', '条件４'],
+				jouken: [{
+					"joukenId": "jouken0",
+					"joukenIndex": 0
+				}],
 				kabuDaily: [{
 						"stock": {
 							"stockId": "2269",
@@ -122,8 +139,7 @@
 						"lowPrice": 4490,
 						"vol": 681200
 					}
-				],
-				index: 0
+				]
 			}
 		},
 		onReady() {
@@ -134,9 +150,26 @@
 				// 通过组件定义的ref调用uni-popup方法
 				this.$refs.popup.open()
 			},
-			bindPickerChange: function(e) {
+			close() {
+				this.$refs.popup.close()
+			},
+			addJouken() {
+				var joukenCount = this.jouken.length
+				var newJouken = '{"joukenId": "jouken0","joukenIndex": 0}'
+				var newJoukenJson = JSON.parse(newJouken)
+				this.jouken.push(newJoukenJson)
+			},
+			reduceJouken(index) {
+				this.jouken.splice(index, 1)
+			},
+			sortChange(e) {
 				this.index = e.detail.value
 				this.getKabuDaily();
+			},
+			joukenChange(index, e) {
+				this.jouken[index].joukenIndex = e.detail.value
+				console.log(e)
+				console.log(index)
 			},
 			kabuNameSubstr(kabuName) {
 				if (kabuName && kabuName.length > 8) {
@@ -184,20 +217,30 @@
 	.uni-column {
 		flex-direction: column;
 	}
-	
-	.head{
+
+	.head {
 		height: 80upx;
 	}
 
-.sort{
-	height: 80upx;
-	padding: 25upx 0 0 15upx;
-}
+	.sort {
+		height: 80upx;
+		padding: 25upx 0 0 15upx;
+	}
 
-.sortTxt{
-	color: #007AFF;
-	font-size: 25upx;
-}
+	.sortTxt {
+		color: #007AFF;
+		font-size: 25upx;
+	}
+
+	.shibori {
+		height: 80upx;
+		margin-left: 400upx;
+		padding: 25upx 0 0 15upx;
+	}
+
+	.shiboriTxt {
+		font-size: 25upx;
+	}
 
 	.kabu {
 		margin: 5upx;
@@ -251,8 +294,8 @@
 		width: 250upx;
 		height: 80upx;
 	}
-	
-	.kabuRateTxt{
+
+	.kabuRateTxt {
 		font-size: 40upx;
 		color: #007AFF;
 		text-align: center;
@@ -267,8 +310,8 @@
 		width: 80upx;
 		height: 80upx;
 	}
-	
-	.kabuToriTxt{
+
+	.kabuToriTxt {
 		font-size: 25upx;
 		text-align: right;
 	}
@@ -285,24 +328,97 @@
 		left: 0upx;
 		top: 0upx;
 		background: rgba(0, 0, 0, 0.4);
-		width: 100%;
-		height: 100%;
-		font-size: 16upx;
-	}
-
-	.popUpLbl {
-		height: 28upx;
-		text-align: right;
-	}
-
-	.popUpVal {
-		text-align: right;
-	}
-
-	.neAgari {
 		width: 750upx;
-		margin-right: 0;
-		padding-right: 0;
-		border: 1upx solid #d2d2d2;
+		height: 750upx;
+	}
+
+	.popUpBg {
+		background-color: #FFFFFF;
+	}
+
+	.popUpTxt {
+		height: 80upx;
+	}
+
+	.close {background-color: #FFFFFF;}
+
+	.closeTxt {
+		width: 150upx;
+		font-size: 25upx;
+		color: #FFFFFF;
+		background-color: #007AFF;
+		padding: 25upx 0 0 0;
+		margin: 10upx 0 10upx 5upx;
+		border-radius: 20upx;
+		text-align: center;
+	}
+
+	.confirm {
+		background-color: #FFFFFF;
+	}
+
+	.confirmTxt {
+		width: 150upx;
+		font-size: 25upx;
+		color: #FFFFFF;
+		background-color: #007AFF;
+		padding: 25upx 0 0 0;
+		margin: 10upx 5upx 10upx 0;
+		border-radius: 20upx;
+		text-align: center;
+	}
+
+	.andOrKubn {
+		width: 50upx;
+	}
+
+	.andOrKubnTxt {
+		font-size: 20upx;
+		color: #A9A9A9;
+		padding-top: 32upx;
+	}
+
+	.joukenName {
+		width: 250upx;
+	}
+
+	.joukenNameTxt {
+		font-size: 30upx;
+		padding: 28upx 0 0 0;
+	}
+
+	.joukenLabel {
+		width: 80upx;
+	}
+
+	.joukenLabelTxt {
+		padding-top: 22upx;
+	}
+
+	.joukenValue {
+		width: 120upx;
+	}
+
+	.joukenValueTxt {
+		font-size: 25upx;
+		border: 1;
+	}
+
+	.rdcJouken {}
+
+	.rdcJoukenTxt {
+		width: 55upx;
+		color: #FF0000;
+		padding: 22upx 0 0 30upx;
+	}
+
+	.addJouken {
+		width: 750upx;
+	}
+
+	.addJoukenTxt {
+		font-size: 25upx;
+		background-color: #FFFFFF;
+		padding-top: 15upx;
 	}
 </style>
