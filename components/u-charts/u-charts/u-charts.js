@@ -20,8 +20,8 @@
 var config = {
   yAxisWidth: 15,
   yAxisSplit: 5,
-  xAxisHeight: 22,
-  xAxisLineHeight: 22,
+  xAxisHeight: 15,
+  xAxisLineHeight: 15,
   legendHeight: 15,
   yAxisTitleWidth: 15,
   padding: [10, 10, 10, 10],
@@ -622,19 +622,19 @@ function getCandleToolTipData(series, seriesData, calPoints, index, categories, 
       }
     }
     let text1 = {
-      text: 'open：' + item.data[0],
+      text: '开盘：' + item.data[0],
       color: color[0]
     };
     let text2 = {
-      text: 'close：' + item.data[1],
+      text: '收盘：' + item.data[1],
       color: color[1]
     };
     let text3 = {
-      text: 'min：' + item.data[2],
+      text: '最低：' + item.data[2],
       color: color[2]
     };
     let text4 = {
-      text: 'max：' + item.data[3],
+      text: '最高：' + item.data[3],
       color: color[3]
     };
     textList.push(text1, text2, text3, text4);
@@ -672,7 +672,7 @@ function findCurrentIndex(currentPoints, calPoints, opts, config) {
   var currentIndex = -1;
   var spacing = opts.chartData.eachSpacing/2;
 	let xAxisPoints=[];
-	if(calPoints && calPoints.length>0){
+	if(calPoints.length>0){
 		for(let i=1;i<opts.chartData.xAxisPoints.length;i++){
 				xAxisPoints.push(opts.chartData.xAxisPoints[i]-spacing)
 		}
@@ -5116,10 +5116,6 @@ Event.prototype.addEventListener = function(type, listener) {
   this.events[type].push(listener);
 };
 
-Event.prototype.delEventListener = function(type) {
-	this.events[type] = [];
-};
-
 Event.prototype.trigger = function() {
   for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -5233,6 +5229,8 @@ var Charts = function Charts(opts) {
   config$$1.toolTipPadding = config.toolTipPadding * opts.pixelRatio;
   config$$1.toolTipLineHeight = config.toolTipLineHeight * opts.pixelRatio;
   config$$1.columePadding = config.columePadding * opts.pixelRatio;
+  opts.$this = opts.$this ? opts.$this : this;
+  
   this.context = opts.context ? opts.context : uni.createCanvasContext(opts.canvasId, opts.$this);
 	
 	if(opts.canvas2d){
@@ -5358,10 +5356,6 @@ Charts.prototype.stopAnimation = function() {
 
 Charts.prototype.addEventListener = function(type, listener) {
   this.event.addEventListener(type, listener);
-};
-
-Charts.prototype.delEventListener = function(type) {
-  this.event.delEventListener(type);
 };
 
 Charts.prototype.getCurrentDataIndex = function(e) {
@@ -5567,7 +5561,8 @@ Charts.prototype.showToolTip = function(e) {
       });
       var seriesData = this.opts._series_[index];
       var textList = [{
-        text: option.format ? option.format(seriesData) : seriesData.properties.name ,color: seriesData.color
+        text: option.format ? option.format(seriesData) : seriesData.properties.name ,
+        color: seriesData.color
       }];
       var offset = {
         x: _touches$.x,
@@ -5595,7 +5590,8 @@ Charts.prototype.showToolTip = function(e) {
       if (seriesData.length !== 0) {
         var textList = seriesData.map(function(item) {
           return {
-            text: option.format ? option.format(item) : item.name + ': ' + item.data,color: item.color
+            text: option.format ? option.format(item) : item.name + ': ' + item.data,
+            color: item.color
           };
         });
         var offset = {

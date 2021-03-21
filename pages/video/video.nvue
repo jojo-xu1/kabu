@@ -12,7 +12,7 @@
 	    <div v-for="(item,idx) in videoList" :key="idx" class="video-box">
 			<div v-if="Math.abs(index-idx)<=3">
 				<chunleiVideoH5 class="video" ref="video" :play="item.flag" @pause="pauseVideo($event,item)"
-					:src="item.src" poster="../../static/logo.png" :initialTime="item.initialTime"></chunleiVideoH5> 
+					:src="item.src" poster="../../static/flogo.png" :initialTime="item.initialTime"></chunleiVideoH5> 
 
 				
 				<cover-view class="videoMask" v-if="playIndex!=idx" @click.stop="clickMask(idx)"></cover-view>
