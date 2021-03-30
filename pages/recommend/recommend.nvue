@@ -90,7 +90,7 @@
 		data() {
 			return {
 				title: 'picker',
-				sortArray: ['値上がり率順', '値下がり率順', 'ストップ高順', 'ストップ安順'],
+				sortArray: ['模型推薦','上昇傾向', '運転資金'],
 				sortIndex: 0,
 				joukenArray: ['値上がり率', 'ストップ高', '条件３', '条件４'],
 				jouken: [{
@@ -163,7 +163,7 @@
 				this.jouken.splice(index, 1)
 			},
 			sortChange(e) {
-				this.index = e.detail.value
+				this.sortIndex = e.detail.value
 				this.getKabuDaily();
 			},
 			joukenChange(index, e) {
