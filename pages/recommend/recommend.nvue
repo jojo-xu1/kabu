@@ -90,7 +90,7 @@
 		data() {
 			return {
 				title: 'picker',
-				sortArray: ['模型推薦','上昇傾向', '運転資金'],
+				sortArray: ['上昇傾向', '運転資金'],
 				sortIndex: 0,
 				joukenArray: ['値上がり率', 'ストップ高', '条件３', '条件４'],
 				jouken: [{
