@@ -1,11 +1,14 @@
 
 <template>
 	<div class="page">
-		<uni-nav-bar right-text="upload" title="動画" 
+<!-- 		<uni-nav-bar right-text="upload" title="動画" 
 		backgroundColor="#2F85FC"  color="#FFFFFF" 
-	 	@clickRight="gogogo">
+	 	@clickRight="gogogo"> -->
+		<uni-nav-bar right-icon="videocam" title="動画"
+		backgroundColor="#2F85FC"  color="#FFFFFF" 
+		@clickRight="gogogo">
 		</uni-nav-bar>
-		<uni-search-bar @confirm="search" @input="input" placeholder="Please enter a keyword" 
+		<uni-search-bar @confirm="search" v-model="keyword" @input="input" placeholder="Please enter a keyword" 
 			cancelButton="none" >
 		</uni-search-bar>
 		<div class="custom"><div class="mask"></div></div>
@@ -86,6 +89,17 @@
 						duration:149
 					},
 					{
+						src:'http://13.112.112.160/video/megurokawa.mp4',
+						content:'Crisis sense full! A car is more reliable than you',
+						flag:false,
+						like:'7w',
+						comment:'1045',
+						avatar:'http://img.kaiyanapp.com/e44ed5fcfa424ba35761ce5f1339bc16.jpeg?imageMogr2/quality/60/format/jpg',
+						initialTime:0,
+						at:'Advertising Selection',
+						duration:150
+					},
+					{
 						src:'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=164016&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
 						content:'you have not seen the big crayfish scene',
 						flag:false,
@@ -131,9 +145,9 @@
 		},
 		onReachBottom() {
 			this.throttle(()=>{
-				if(this.videoList.length-newVal-1<this.listNumber){
-					this.pushVideoList()
-				}
+				// if(this.videoList.length-newVal-1<this.listNumber){
+				// 	this.pushVideoList()
+				// }
 			},200)()
 		},
 		methods: {
@@ -148,19 +162,45 @@
 					}
 				});
 			},
+			search() {
+				// console.log('abcdefg')
+				// alert('abcdefg')
+				console.log(this.keyword);
+				var inputKey = this.keyword ;
+				//------------------------------------------------
+				uni.request({
+				     url: '`',
+					 // url: 'http://127.0.0.1:8091/kabu-video/get',
+				     data: {
+						 // id: 2
+					 },
+				     success: (result) => {
+					    console.log(result);
+				      // var endTime = new Date();
+				      // console.log("--------------0314-------000000000000------------");
+				      // console.log(result.data.data)
+				      
+				      // const data_list = result.data.data.list.map((news) => {
+				      //   console.log(news)
+				      //   });
+				      // console.log("--------------0314-------11111111111111111111------------");
+				     },
+					 fail: (result)=>{
+						 console.log(result)
+					 },
+					 complete: (result) =>{
+						 console.log(result);
+					 }
+				    });
+				
+			},
 			
 			gogogo() {
 				uni.navigateTo({
 				    url: 'addVideo'
 				});
-				// this.$router.push('addVideo');
-					// this.$router.push('addVideo');				
-				    // self.$router.push('addVideo');
-					// this.$router.replace('addVideo');
 			}
-			// goTo(){
-			// 	alert('1111111');
-			// }
+
 			,
 			pushVideoList(){
 				let promise = new Promise((resolve,reject)=>{
@@ -215,9 +255,9 @@
 			index:{
 				handler:async function(newVal){
 					this.throttle(()=>{
-						if(this.videoList.length-newVal-1<this.listNumber){
-							this.pushVideoList()
-						}
+						// if(this.videoList.length-newVal-1<this.listNumber){
+						// 	this.pushVideoList()
+						// }
 					},200)()
 				}
 			},
