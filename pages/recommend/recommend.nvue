@@ -21,7 +21,8 @@
 						<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
 					</uni-view>
 				</uni-view>
-				<uni-view class="kabuRate"><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
+				<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
+				<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 				<uni-view class="uni-column kabuCol2">
 					<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
 					<uni-view class="kabuToriUp"></uni-view>
@@ -99,45 +100,24 @@
 				}],
 				kabuDaily: [{
 						"stock": {
-							"stockId": "2269",
-							"stockName": "明治ホールディングス(株)",
-							"industry": "食料品",
-							"total": "152,683,400",
-							"dividendYield": "2.16%",
-							"dividendPershare": "150.00",
-							"per": "15.23",
-							"pbr": "1.69",
-							"eps": "454.90",
-							"bps": "4,099.35",
-							"unit": "100"
+							"stockId": "",
+							"stockName":  "",
+							"industry":  "",
+							"total":  "",
+							"dividendYield": "",
+							"dividendPershare": "",
+							"per":  "",
+							"pbr":  "",
+							"eps":  "",
+							"bps":  "",
+							"unit":  ""
 						},
-						"dayId": "20210201",
-						"startPrice": 7120,
-						"endPrice": 7150,
-						"highPrice": 7060,
-						"lowPrice": 7110,
-						"vol": 343500
-					},
-					{
-						"stock": {
-							"stockId": "2282",
-							"stockName": "日本ハム(株)",
-							"industry": "食料品",
-							"total": "102,958,904",
-							"dividendYield": "1.88%",
-							"dividendPershare": "91.00",
-							"per": "19.12",
-							"pbr": "1.17",
-							"eps": "253.13",
-							"bps": "4,134.18",
-							"unit": "100"
-						},
-						"dayId": "20210201",
-						"startPrice": 4475,
-						"endPrice": 4580,
-						"highPrice": 4440,
-						"lowPrice": 4490,
-						"vol": 681200
+						"dayId":  "",
+						"startPrice": "",
+						"endPrice": "",
+						"highPrice": "",
+						"lowPrice": "",
+						"todayUpRate":  ""
 					}
 				]
 			}
@@ -180,15 +160,28 @@
 			appendZero(str) {
 				return ("00" + str).substr((str + "").length);
 			},
+			// goTo(stockId) {
+			//       // 带参数跳转
+			// 	  console.log('stockId:', stockId)
+			//       this.$router.push({ path:'@/pages/stockquot/', name: 'Kline', params: { alert: '页面跳转成功', stock_id: stockId }})
+			      
+			//     },
+			// goTo(stockId) {
+			// 	uni.navigateTo({
+			// 		url: '../pages/stockquot/Kline?query=' + encodeURIComponent(JSON.stringify(stockId))
+			// 	});
+			// 	console.log('stockId:', stockId)
+			// },
 			getKabuDaily() {
 				var url = "http://13.112.112.160:8090/stock/dailyList"
+				// var url = "http://127.0.0.1:8090/stock/dailyList"
 				var num = "?num=1"
-				var size = "&size=10"
+				var size = "&size=1000"
 				// var crtDate = new Date();
 				// var crtDateStr = "&dailyId=" + crtDate.getFullYear() +
 				// 	this.appendZero(crtDate.getMonth() + 1) +
 				// 	this.appendZero(crtDate.getDate())
-				var crtDateStr = "&dailyId=20210201"
+				var crtDateStr = "&dailyId=20210326"
 				var flag = "&flag=1"
 
 				uni.request({
@@ -196,7 +189,7 @@
 					data: {},
 					success: (result) => {
 						if (result.statusCode == 200) {
-							console.log(result)
+							console.log(result.data.data.list)
 							this.kabuDaily = result.data.data.list
 						}
 					}
@@ -263,24 +256,23 @@
 	}
 
 	.kabuCol1 {
-		width: 300upx;
+		width: 250upx;
 		height: 80upx;
 		margin-left: 5upx;
 	}
 
 	.kabuName {
-		width: 300upx;
+		width: 220upx;
 		height: 40upx;
 		padding-bottom: 0;
 	}
 
 	.kabuNameTxt {
-		font-size: 35upx;
+		font-size: 20upx;
 		font-weight: bold;
 	}
-
 	.kabuCode {
-		width: 350upx;
+		width: 200upx;
 		height: 30upx;
 		padding-top: 0;
 	}
@@ -289,21 +281,30 @@
 		font-size: 25upx;
 		color: #A9A9A9;
 	}
-
+	
+	.kabuIndustry{
+		width: 180upx;
+		height: 80upx;
+	}
+	.kabuIndustryTxt{
+		font-size: 20upx;
+		font-weight: bold;
+	}
+	
 	.kabuRate {
-		width: 250upx;
+		width: 80upx;
 		height: 80upx;
 	}
 
 	.kabuRateTxt {
-		font-size: 40upx;
+		font-size: 30upx;
 		color: #007AFF;
 		text-align: center;
 	}
 
 	.kabuCol2 {
-		width: 225upx;
-		height: 80upx;
+		width: 100upx;
+
 	}
 
 	.kabuTori {
