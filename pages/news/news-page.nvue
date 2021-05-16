@@ -105,8 +105,7 @@
 				uni.request({
 					// url: this.$host + 'api/news',
 					//Luke Zhou
-					// url: 'http://13.112.112.160:8090/rich-text/list',
-					url: 'http://139.224.56.43:8090/rich-text/list',
+					url: 'http://13.112.112.160:8090/rich-text/list',
 					data: this.requestParams,
 					success: (result) => {
 						var endTime = new Date();
