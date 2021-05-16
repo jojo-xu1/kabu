@@ -36,9 +36,52 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/kiniiri/show",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
 			"path": "pages/video/addVideo",
+			"style": {
+				"app-plus":{
+					"titleNView":false
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/agreement",
+			"style": {
+				"app-plus":{
+					"titleNView":false
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/forget",
+			"style": {
+				"app-plus":{
+					"titleNView":false
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"app-plus":{
+					"titleNView":false
+				},
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/reg",
 			"style": {
 				"app-plus":{
 					"titleNView":false
@@ -68,17 +111,24 @@
 			"iconPath": "static/center.png",
 			"selectedIconPath": "static/center-active.png",
 			"text": "推薦"
+		},{
+			"pagePath": "pages/kiniiri/show",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "お気に入り"
 		}, {
 			"pagePath": "pages/stockquot/Kline",
 			"iconPath": "static/center.png",
 			"selectedIconPath": "static/center-active.png",
 			"text": "株価"
-		}, {
-			"pagePath": "pages/video/video",
-			"iconPath": "static/center.png",
-			"selectedIconPath": "static/center-active.png",
-			"text": "動画"
-		}, {
+		}
+		// , {
+		// 	"pagePath": "pages/video/video",
+		// 	"iconPath": "static/center.png",
+		// 	"selectedIconPath": "static/center-active.png",
+		// 	"text": "動画"
+		// }
+		, {
 			"pagePath": "pages/ucenter/ucenter",
 			"iconPath": "static/center.png",
 			"selectedIconPath": "static/center-active.png",

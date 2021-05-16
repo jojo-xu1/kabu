@@ -3,7 +3,7 @@
 		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
 			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
 			<view class="logo-title">
-				<text class="uer-name">Hi，{{login ? uerInfo.name : 'login'}}</text>
+				<text class="uer-name">Hi !  {{login ? uerInfo.name : uername}}</text>
 				<text class="go-login-navigat-arrow navigat-arrow" v-if="!login">&#xe65e;</text>
 			</view>
 		</view>
@@ -38,18 +38,54 @@
 
 <script>
 	export default {
+		onLoad: function (option) {
+			// alert(this.$route.query.id);	
+				// this.getSessionForStatus();		
+		        // console.log(option.id);
+				// return {
+				// 	login: false,
+				// 	avatarUrl: '/static/logo.png',
+				// 	// uername: this.$route.query.id,
+				// 	uername: option.mailaddress,
+				// 	// uername: result.data,
+				// }
+				this.uername = option.mailaddress;
+		    },
 		data() {
 			return {
 				login: false,
 				avatarUrl: '/static/logo.png',
-				uerInfo: {}
+				// uername: this.$route.query.mailaddress,
+				// uername: uni.$route.query.mailaddress,
+				uername: '',
 			}
 		},
 		methods: {
-			goLogin() {
-				if (!this.login) {
-					console.log('点击前往登录');
+			getSessionForStatus(){
+		  
+			 var nowUrl = 'http://139.224.56.43:8090/kabu-user/getStatus'
+			 uni.request({
+				url: nowUrl ,
+				data: {},
+				success: (result) => {
+					
+					console.log('kkkkkkkkkkkkkkkkkk'+result.data);
+					// alert(result.data);
+					
+				},
+				fail: (err) => {
+				},
+				complete: (e) => {
 				}
+			 });			
+			},
+			goLogin() {
+				// if (!this.login) {
+				// 	console.log('点击前往登录');
+				// }
+				uni.navigateTo({
+				    url: '../login/login'
+				});
 			}
 		}
 	}
