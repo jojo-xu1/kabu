@@ -27,6 +27,10 @@
 			"style": {}
 		},
 		{
+			"path": "pages/collect/collect",
+			"style": {}
+		},
+		{
 			"path": "pages/ucenter/ucenter",
 			"style": {}
 		}, {
@@ -111,6 +115,11 @@
 			"iconPath": "static/center.png",
 			"selectedIconPath": "static/center-active.png",
 			"text": "推薦"
+		}, {
+			"pagePath": "pages/collect/collect",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "お気に入り"
 		},{
 			"pagePath": "pages/kiniiri/show",
 			"iconPath": "static/center.png",
