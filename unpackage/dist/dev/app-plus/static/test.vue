@@ -319,7 +319,9 @@
 		methods: {
 			getServerData() {
 				uni.request({
-					url: 'http://13.112.112.160:8090/daily/kline?stockId=5013&day=15',
+					//Luke Zhou
+					// url: 'http://13.112.112.160:8090/daily/kline?stockId=5013&day=15',
+					url: 'http://139.224.56.43:8090/daily/kline?stockId=5013&day=15',
 					data: {},
 
 					success: function(res) {
