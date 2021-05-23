@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view class="search-block">
-			<input id="IDsearch" type="text" value="" placeholder="kabu code..." class="search-text" confirm-type="search" @input="onKeyInput"
-			 @confirm="kabuSearch" maxlength="6" focus="false" />
+			<input id="IDsearch" type="text" value="" placeholder="kabu code..." class="search-text" confirm-type="search"
+			 @input="onKeyInput" @confirm="kabuSearch" maxlength="6" focus="false" />
 		</view>
 		<view style="flex: 1; ">
 			{{Candle.series[0].name}} {{Candle.series[0].ID}}
@@ -19,33 +19,42 @@
 					<view class="qiun-charts2">
 						<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts2"></canvas>
 					</view>
-		<view class="qiun-padding qiun-bg-white ">
-			<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove"
-			 @change="sliderMove" />
-		</view>
-	</view>
+					<view class="qiun-padding qiun-bg-white ">
+						<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove"
+						 @change="sliderMove" />
+					</view>
+				</view>
 			</view>
 			<view v-show="current === 1">
-				<!--					<view class="qiun-columns">
-						<view class="qiun-charts">
-							<canvas canvas-id="canvasCandle" id="canvasCandle" class="charts" disable-scroll=true @touchstart="touchCandle" @touchmove="moveCandle" @touchend="touchEndCandle"></canvas>
-						</view>
-						<view class="qiun-padding qiun-bg-white ">
-							<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove" @change="sliderMove"/>
-						</view>
-					</view> -->
-			</view>
-			<view v-show="current === 2">
-				<!-- 					<view class="qiun-columns">
-						<view class="qiun-charts">
-							<canvas canvas-id="canvasCandle" id="canvasCandle" class="charts" disable-scroll=true @touchstart="touchCandle" @touchmove="moveCandle" @touchend="touchEndCandle"></canvas>
-						</view>
-						<view class="qiun-padding qiun-bg-white ">
-							<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove" @change="sliderMove"/>
-						</view>
-					</view> -->
+				<view class="qiun-charts">
+					<canvas canvas-id="canvasCandle1" id="canvasCandle1" class="charts" disable-scroll=true @touchstart="touchCandle"
+					 @touchmove="moveCandle" @touchend="touchEndCandle"></canvas>
+				</view>
+				<view class="qiun-charts2">
+					<canvas canvas-id="canvasColumn1" id="canvasColumn1" class="charts2"></canvas>
+				</view>
+				<view class="qiun-padding qiun-bg-white ">
+					<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove"
+					 @change="sliderMove" />
+				</view>
 			</view>
 		</view>
+		<view v-show="current === 2">
+			<view class="qiun-columns">
+				<view class="qiun-charts">
+					<canvas canvas-id="canvasCandle2" id="canvasCandle2" class="charts" disable-scroll=true @touchstart="touchCandle"
+					 @touchmove="moveCandle" @touchend="touchEndCandle"></canvas>
+				</view>
+				<view class="qiun-charts2">
+					<canvas canvas-id="canvasColumn2" id="canvasColumn2" class="charts2"></canvas>
+				</view>
+				<view class="qiun-padding qiun-bg-white ">
+					<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove"
+					 @change="sliderMove" />
+				</view>
+			</view>
+		</view>
+	</view>
 	</view>
 </template>
 
@@ -72,80 +81,152 @@
 				itemCount: 20, //x轴单屏数据密度
 				sliderMax: 50,
 				IDsearch: "",
-				Ktemp:[],
-				temp:[],
-				chartData1: { //后台调取数据需清空
-					categories: ['20190501', '2019/5/2', '2019/5/3', '2019/5/4', '2019/5/5', '2019/5/6',
-						'2019/5/7', '2019/5/8', '2019/5/9', '2019/5/10', '2019/5/11', '2019/5/12', '2019/5/13', '2019/5/14',
-						'2019/5/15', '2019/5/16', '2019/5/17', '2019/5/18', '2019/5/19', '2019/5/20', '2019/5/21', '2019/5/22',
-						'2019/5/23', '2019/5/24', '2019/5/25', '2019/5/26', '2019/5/27', '2019/5/2', '2019/5/29', '2019/5/30',
-						'2019/5/31', '2019/6/1'
-					],
-					series: [{
-						name: '日清食品ホールディングス(株)',
-						ID: "2897",
-						data: [ //开盘，收盘，最低，最高
-							[2320.26, 2302.6, 2287.3, 2362.94],
-							[2300, 2291.3, 2288.26, 2308.38],
-							[2376.35, 2336.5, 2335.35, 2426.92],
-							[2347.22, 2358.98, 2337.35, 2363.8],
-							[2370.75, 2382.48, 2347.89, 2383.76],
-							[2363.43, 2385.42, 2360.23, 2386.82],
-							[2277.41, 2419.02, 2369.57, 2421.15],
-							[2483.43, 2385.42, 2371.23, 2379.82],
-							[2277.41, 2419.02, 2369.57, 2421.15],
-							[2380, 2391.3, 2288.26, 2308.38],
-							[2365.35, 2346.5, 2395.35, 2346.92],
-							[2447.22, 2358.98, 2337.35, 2363.8],
-							[2330.75, 2382.48, 2347.89, 2383.76],
-							[2383.43, 2385.42, 2371.23, 2391.82],
-							[2377.41, 2419.02, 2369.57, 2421.15],
-							[2373.43, 2385.42, 2371.23, 2391.82],
-							[2375.41, 2359.02, 2369.57, 2421.15],
-							[2343.43, 2385.42, 2371.23, 2391.82],
-							[2407.41, 2411.02, 2369.57, 2421.15],
-							[2303.43, 2407.42, 2371.23, 2391.82],
-							[2287.41, 2401.02, 2369.57, 2421.15],
-							[2303.43, 2396.42, 2371.23, 2391.82],
-							[2397.41, 2399.02, 2369.57, 2421.15],
-							[2413.43, 2390.42, 2371.23, 2391.82],
-							[2357.41, 2394.02, 2369.57, 2421.15],
-							[2333.43, 2397.42, 2371.23, 2391.82],
-							[2339.41, 2407.02, 2369.57, 2421.15],
-							[2343.43, 2396.42, 2371.23, 2391.82],
-							[2345.41, 2401.02, 2369.57, 2421.15],
-							[2349.43, 2408.42, 2371.23, 2391.82],
-							[2346.41, 2419.02, 2369.57, 2421.15],
-							[2348, 2291.3, 2288.26, 2308.38],
-						]
-					}]
-				},
-				chartData2: { //后台调取数据需清空
-					categories: ['2019/5/1', '2019/5/2', '2019/5/3', '2019/5/4', '2019/5/5', '2019/5/6',
-						'2019/5/7', '2019/5/8', '2019/5/9', '2019/5/10'
-					],
-					series: [{
-						name: 'J T ',
-						ID: "2914",
-						data: [ //开盘，收盘，最低，最高
-							[2320.26, 2302.6, 2287.3, 2362.94],
-							[2300, 2291.3, 2288.26, 2308.38],
-							[2376.35, 2336.5, 2335.35, 2426.92],
-							[2347.22, 2358.98, 2337.35, 2363.8],
-							[2370.75, 2382.48, 2347.89, 2383.76],
-							[2363.43, 2385.42, 2360.23, 2386.82],
-							[2277.41, 2419.02, 2369.57, 2421.15],
-							[2483.43, 2385.42, 2371.23, 2379.82],
-							[2277.41, 2419.02, 2369.57, 2421.15],
-							[2380, 2391.3, 2288.26, 2308.38],
-						]
-					}]
-				},
+				Ktemp: [],
+				temp: [],
+				start: 0,
+				end: 0,
+				weekArr: [
+					[]
+				],
+				monthArr: [
+					[]
+				],
+				date: '20210418',
+				SQLdata: {}, //后台获取
+				// SQLdata: {//测试用
+				// 	"code": "200",
+				// 	"message": "success!",
+				// 	"data": {
+				// 		"stockId": "5013",
+				// 		"stockName": "ユシロ化学工業(株)",
+				// 		"kLineDailyOutDto": [{
+				// 				"dayId": "20210325",
+				// 				"startPrice": 1189,
+				// 				"endPrice": 1194,
+				// 				"highPrice": 1167,
+				// 				"lowPrice": 1192,
+				// 				"vol": 20200
+				// 			},
+				// 			{
+				// 				"dayId": "20210324",
+				// 				"startPrice": 1183,
+				// 				"endPrice": 1183,
+				// 				"highPrice": 1158,
+				// 				"lowPrice": 1165,
+				// 				"vol": 28900
+				// 			},
+				// 			{
+				// 				"dayId": "20210323",
+				// 				"startPrice": 1231,
+				// 				"endPrice": 1237,
+				// 				"highPrice": 1188,
+				// 				"lowPrice": 1192,
+				// 				"vol": 38600
+				// 			},
+				// 			{
+				// 				"dayId": "20210322",
+				// 				"startPrice": 1178,
+				// 				"endPrice": 1215,
+				// 				"highPrice": 1167,
+				// 				"lowPrice": 1209,
+				// 				"vol": 71500
+				// 			},
+				// 			{
+				// 				"dayId": "20210319",
+				// 				"startPrice": 1189,
+				// 				"endPrice": 1195,
+				// 				"highPrice": 1152,
+				// 				"lowPrice": 1152,
+				// 				"vol": 361000
+				// 			},
+				// 			{
+				// 				"dayId": "20210318",
+				// 				"startPrice": 1183,
+				// 				"endPrice": 1194,
+				// 				"highPrice": 1154,
+				// 				"lowPrice": 1191,
+				// 				"vol": 46200
+				// 			},
+				// 			{
+				// 				"dayId": "20210317",
+				// 				"startPrice": 1181,
+				// 				"endPrice": 1183,
+				// 				"highPrice": 1166,
+				// 				"lowPrice": 1183,
+				// 				"vol": 35400
+				// 			},
+				// 			{
+				// 				"dayId": "20210316",
+				// 				"startPrice": 1198,
+				// 				"endPrice": 1203,
+				// 				"highPrice": 1167,
+				// 				"lowPrice": 1181,
+				// 				"vol": 38000
+				// 			},
+				// 			{
+				// 				"dayId": "20210315",
+				// 				"startPrice": 1178,
+				// 				"endPrice": 1212,
+				// 				"highPrice": 1176,
+				// 				"lowPrice": 1202,
+				// 				"vol": 47300
+				// 			},
+				// 			{
+				// 				"dayId": "20210312",
+				// 				"startPrice": 1166,
+				// 				"endPrice": 1178,
+				// 				"highPrice": 1152,
+				// 				"lowPrice": 1168,
+				// 				"vol": 36000
+				// 			},
+				// 			{
+				// 				"dayId": "20210311",
+				// 				"startPrice": 1170,
+				// 				"endPrice": 1176,
+				// 				"highPrice": 1150,
+				// 				"lowPrice": 1169,
+				// 				"vol": 22800
+				// 			},
+				// 			{
+				// 				"dayId": "20210310",
+				// 				"startPrice": 1163,
+				// 				"endPrice": 1170,
+				// 				"highPrice": 1141,
+				// 				"lowPrice": 1170,
+				// 				"vol": 30800
+				// 			},
+				// 			{
+				// 				"dayId": "20210309",
+				// 				"startPrice": 1137,
+				// 				"endPrice": 1185,
+				// 				"highPrice": 1120,
+				// 				"lowPrice": 1183,
+				// 				"vol": 33100
+				// 			},
+				// 			{
+				// 				"dayId": "20210308",
+				// 				"startPrice": 1132,
+				// 				"endPrice": 1138,
+				// 				"highPrice": 1105,
+				// 				"lowPrice": 1120,
+				// 				"vol": 23500
+				// 			},
+				// 			{
+				// 				"dayId": "20210305",
+				// 				"startPrice": 1105,
+				// 				"endPrice": 1133,
+				// 				"highPrice": 1100,
+				// 				"lowPrice": 1133,
+				// 				"vol": 20200
+				// 			}
+				// 		]
+				// 	}
+				// },
 				Candle: {
-					categories: [ ],
+					categories: [],
 					series: [{
 						name: "",
-						data: []
+						data: [] //
 					}]
 				},
 				CandleColumn: {
@@ -154,158 +235,10 @@
 						"data": []
 					}]
 				}
-				// Candle: {
-				// 	"categories": [
-				// 		"2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
-				// 		"2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6",
-				// 		"2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20",
-				// 		"2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27",
-				// 		"2013/2/28", "2013/3/1", "2013/3/4", "2013/3/5", "2013/3/6",
-				// 		"2013/3/7", "2013/3/8", "2013/3/11", "2013/3/12", "2013/3/13",
-				// 		"2013/3/14", "2013/3/15", "2013/3/18", "2013/3/19", "2013/3/20",
-				// 		"2013/3/21", "2013/3/22", "2013/3/25", "2013/3/26", "2013/3/27",
-				// 		"2013/3/28", "2013/3/29", "2013/4/1", "2013/4/2", "2013/4/3",
-				// 		"2013/4/8", "2013/4/9", "2013/4/10", "2013/4/11", "2013/4/12",
-				// 		"2013/4/15", "2013/4/16", "2013/4/17", "2013/4/18", "2013/4/19",
-				// 		"2013/4/22", "2013/4/23", "2013/4/24", "2013/4/25", "2013/4/26",
-				// 		"2013/5/2", "2013/5/3", "2013/5/6", "2013/5/7", "2013/5/8",
-				// 		"2013/5/9", "2013/5/10", "2013/5/13", "2013/5/14", "2013/5/15",
-				// 		"2013/5/16", "2013/5/17", "2013/5/20", "2013/5/21", "2013/5/22",
-				// 		"2013/5/23", "2013/5/24", "2013/5/27", "2013/5/28", "2013/5/29",
-				// 		"2013/5/30", "2013/5/31", "2013/6/3", "2013/6/4", "2013/6/5",
-				// 		"2013/6/6", "2013/6/7", "2013/6/13"
-				// 	],
-				// 	"series": [{
-				// 		"name": "上证指数",
-				// 		"data": [
-				// 			[2320.26, 2302.6, 2287.3, 2362.94],
-				// 			[2300, 2291.3, 2288.26, 2308.38],
-				// 			[2295.35, 2346.5, 2295.35, 2346.92],
-				// 			[2347.22, 2358.98, 2337.35, 2363.8],
-				// 			[2360.75, 2382.48, 2347.89, 2383.76],
-				// 			[2383.43, 2385.42, 2371.23, 2391.82],
-				// 			[2377.41, 2419.02, 2369.57, 2421.15],
-				// 			[2425.92, 2428.15, 2417.58, 2440.38],
-				// 			[2411, 2433.13, 2403.3, 2437.42],
-				// 			[2432.68, 2434.48, 2427.7, 2441.73],
-				// 			[2430.69, 2418.53, 2394.22, 2433.89],
-				// 			[2416.62, 2432.4, 2414.4, 2443.03],
-				// 			[2441.91, 2421.56, 2415.43, 2444.8],
-				// 			[2420.26, 2382.91, 2373.53, 2427.07],
-				// 			[2383.49, 2397.18, 2370.61, 2397.94],
-				// 			[2378.82, 2325.95, 2309.17, 2378.82],
-				// 			[2322.94, 2314.16, 2308.76, 2330.88],
-				// 			[2320.62, 2325.82, 2315.01, 2338.78],
-				// 			[2313.74, 2293.34, 2289.89, 2340.71],
-				// 			[2297.77, 2313.22, 2292.03, 2324.63],
-				// 			[2322.32, 2365.59, 2308.92, 2366.16],
-				// 			[2364.54, 2359.51, 2330.86, 2369.65],
-				// 			[2332.08, 2273.4, 2259.25, 2333.54],
-				// 			[2274.81, 2326.31, 2270.1, 2328.14],
-				// 			[2333.61, 2347.18, 2321.6, 2351.44],
-				// 			[2340.44, 2324.29, 2304.27, 2352.02],
-				// 			[2326.42, 2318.61, 2314.59, 2333.67],
-				// 			[2314.68, 2310.59, 2296.58, 2320.96],
-				// 			[2309.16, 2286.6, 2264.83, 2333.29],
-				// 			[2282.17, 2263.97, 2253.25, 2286.33],
-				// 			[2255.77, 2270.28, 2253.31, 2276.22],
-				// 			[2269.31, 2278.4, 2250, 2312.08],
-				// 			[2267.29, 2240.02, 2239.21, 2276.05],
-				// 			[2244.26, 2257.43, 2232.02, 2261.31],
-				// 			[2257.74, 2317.37, 2257.42, 2317.86],
-				// 			[2318.21, 2324.24, 2311.6, 2330.81],
-				// 			[2321.4, 2328.28, 2314.97, 2332],
-				// 			[2334.74, 2326.72, 2319.91, 2344.89],
-				// 			[2318.58, 2297.67, 2281.12, 2319.99],
-				// 			[2299.38, 2301.26, 2289, 2323.48],
-				// 			[2273.55, 2236.3, 2232.91, 2273.55],
-				// 			[2238.49, 2236.62, 2228.81, 2246.87],
-				// 			[2229.46, 2234.4, 2227.31, 2243.95],
-				// 			[2234.9, 2227.74, 2220.44, 2253.42],
-				// 			[2232.69, 2225.29, 2217.25, 2241.34],
-				// 			[2196.24, 2211.59, 2180.67, 2212.59],
-				// 			[2215.47, 2225.77, 2215.47, 2234.73],
-				// 			[2224.93, 2226.13, 2212.56, 2233.04],
-				// 			[2236.98, 2219.55, 2217.26, 2242.48],
-				// 			[2218.09, 2206.78, 2204.44, 2226.26],
-				// 			[2199.91, 2181.94, 2177.39, 2204.99],
-				// 			[2169.63, 2194.85, 2165.78, 2196.43],
-				// 			[2195.03, 2193.8, 2178.47, 2197.51],
-				// 			[2181.82, 2197.6, 2175.44, 2206.03],
-				// 			[2201.12, 2244.64, 2200.58, 2250.11],
-				// 			[2236.4, 2242.17, 2232.26, 2245.12],
-				// 			[2242.62, 2184.54, 2182.81, 2242.62],
-				// 			[2187.35, 2218.32, 2184.11, 2226.12],
-				// 			[2213.19, 2199.31, 2191.85, 2224.63],
-				// 			[2203.89, 2177.91, 2173.86, 2210.58],
-				// 			[2170.78, 2174.12, 2161.14, 2179.65],
-				// 			[2179.05, 2205.5, 2179.05, 2222.81],
-				// 			[2212.5, 2231.17, 2212.5, 2236.07],
-				// 			[2227.86, 2235.57, 2219.44, 2240.26],
-				// 			[2242.39, 2246.3, 2235.42, 2255.21],
-				// 			[2246.96, 2232.97, 2221.38, 2247.86],
-				// 			[2228.82, 2246.83, 2225.81, 2247.67],
-				// 			[2247.68, 2241.92, 2231.36, 2250.85],
-				// 			[2238.9, 2217.01, 2205.87, 2239.93],
-				// 			[2217.09, 2224.8, 2213.58, 2225.19],
-				// 			[2221.34, 2251.81, 2210.77, 2252.87],
-				// 			[2249.81, 2282.87, 2248.41, 2288.09],
-				// 			[2286.33, 2299.99, 2281.9, 2309.39],
-				// 			[2297.11, 2305.11, 2290.12, 2305.3],
-				// 			[2303.75, 2302.4, 2292.43, 2314.18],
-				// 			[2293.81, 2275.67, 2274.1, 2304.95],
-				// 			[2281.45, 2288.53, 2270.25, 2292.59],
-				// 			[2286.66, 2293.08, 2283.94, 2301.7],
-				// 			[2293.4, 2321.32, 2281.47, 2322.1],
-				// 			[2323.54, 2324.02, 2321.17, 2334.33],
-				// 			[2316.25, 2317.75, 2310.49, 2325.72],
-				// 			[2320.74, 2300.59, 2299.37, 2325.53],
-				// 			[2300.21, 2299.25, 2294.11, 2313.43],
-				// 			[2297.1, 2272.42, 2264.76, 2297.1],
-				// 			[2270.71, 2270.93, 2260.87, 2276.86],
-				// 			[2264.43, 2242.11, 2240.07, 2266.69],
-				// 			[2242.26, 2210.9, 2205.07, 2250.63],
-				// 			[2190.1, 2148.35, 2126.22, 2190.1]
-				// 		]
-				// 	}]
-				// },
-				// CandleColumn: {
-				// 	"categories": [
-				// 		"2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
-				// 		"2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6",
-				// 		"2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20",
-				// 		"2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27",
-				// 		"2013/2/28", "2013/3/1", "2013/3/4", "2013/3/5", "2013/3/6",
-				// 		"2013/3/7", "2013/3/8", "2013/3/11", "2013/3/12", "2013/3/13",
-				// 		"2013/3/14", "2013/3/15", "2013/3/18", "2013/3/19", "2013/3/20",
-				// 		"2013/3/21", "2013/3/22", "2013/3/25", "2013/3/26", "2013/3/27",
-				// 		"2013/3/28", "2013/3/29", "2013/4/1", "2013/4/2", "2013/4/3",
-				// 		"2013/4/8", "2013/4/9", "2013/4/10", "2013/4/11", "2013/4/12",
-				// 		"2013/4/15", "2013/4/16", "2013/4/17", "2013/4/18", "2013/4/19",
-				// 		"2013/4/22", "2013/4/23", "2013/4/24", "2013/4/25", "2013/4/26",
-				// 		"2013/5/2", "2013/5/3", "2013/5/6", "2013/5/7", "2013/5/8",
-				// 		"2013/5/9", "2013/5/10", "2013/5/13", "2013/5/14", "2013/5/15",
-				// 		"2013/5/16", "2013/5/17", "2013/5/20", "2013/5/21", "2013/5/22",
-				// 		"2013/5/23", "2013/5/24", "2013/5/27", "2013/5/28", "2013/5/29",
-				// 		"2013/5/30", "2013/5/31", "2013/6/3", "2013/6/4", "2013/6/5",
-				// 		"2013/6/6", "2013/6/7", "2013/6/13"
-				// 	],
-				// 	"series": [{
-				// 		"name": "成交量1",
-				// 		"data": [15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20,
-				// 			45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20,
-				// 			45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20,
-				// 			45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45, 37, 43, 15, 20,
-				// 			45, 37, 43, 15, 20, 45, 37, 43, 15, 20, 45
-				// 		]
-				// 	}]
-				// }
 			}
 		},
-		// onLoad: function(stockId){
-		// 	console.log("接受数据：", stockId)
-		// },
-		onLoad() {
+		onLoad: function(option) {
+			console.log("xxxxxxxxxxxxxx", option.stockId)
 			_self = this;
 			//#ifdef MP-ALIPAY
 			uni.getSystemInfo({
@@ -321,87 +254,142 @@
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			this.cHeight2 = uni.upx2px(200);
-			// if (this.$route.params.stock_id === undefined) {
-			      this.getServerData();
-			   //  } else {
-			   //    // this.kabuSearch()
-				  // console.log("get STOCK ID::::::::")
-			   //  }
-			// this.getServerData();
-			// _self.showCandle("canvasCandle", this.Candle);
-			// _self.showColumn("canvasColumn", this.CandleColumn);
+			if (option.stockId === undefined) {
+				this.getServerData();
+			} else {
+				this.gotoSearch(option.stockId)
+			}
 		},
 		methods: {
 			getServerData() {
-				var that = this ;
+				var that = this;
 				uni.request({
-					url: 'http://13.112.112.160:8090/daily/kline?stockId=5013&day=130',
+					url: 'http://13.112.112.160:8090/daily/kline?stockId=5013&day=180',
 					data: {},
 					success: function(res) {
 						console.log("-----服务器获取数据：", res.data.data)
 						console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
 						console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
 						let tempdata = res.data.data;
+						that.SQLdata = res.data.data;
 						console.log("保存获取数据：", tempdata)
 						console.log("股票名称:", tempdata.stockName);
-						let Ktemp = [];
-						//获取股票名称，股票代码
-						that.Candle.series[0].name = tempdata.stockName;
-						that.Candle.series[0].ID = tempdata.stockId;
-						console.log("股票名称:", that.Candle.series[0].name);
-						console.log("股票代码:", that.Candle.series[0].ID);
-						//处理Candle数据
-						for(var i=0; i < tempdata.kLineDailyOutDto.length ;i++){
-							that.Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
-							
-							var arr = [];
-							arr.push(tempdata.kLineDailyOutDto[i].startPrice);
-							arr.push(tempdata.kLineDailyOutDto[i].endPrice);
-							arr.push(tempdata.kLineDailyOutDto[i].lowPrice);
-							arr.push(tempdata.kLineDailyOutDto[i].highPrice);
-							console.log("arr:", arr)
-							that.Candle.series[0].data.push(arr);
-							console.log("candle", that.Candle);
-							// console.log( i );
-							// Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
-							// }
-							// Candle.series.data.push(Ktemp);
-						};
-						that.Candle.categories.sort();
-						that.CandleColumn.categories = that.Candle.categories;
-						that.Candle.series[0].data.reverse();
-						console.log("Candle PUSH：", that.Candle);
-						//处理Colunm数据
-						for(var i=0; i < tempdata.kLineDailyOutDto.length ;i++){
-							console.log("cloumn日期", that.CandleColumn.categories)
-							var arr = [];
-							that.CandleColumn.series[0].data.push(tempdata.kLineDailyOutDto[i].vol);
-							console.log("CandleColumn", that.CandleColumn);
-							// console.log( i );
-							// Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
-							// }
-							// Candle.series.data.push(Ktemp);
-						};
-						that.CandleColumn.series[0].data.reverse();
-						console.log("column PUSH：", that.CandleColumn);
-						
-						// let Column = {
-						// 	categories: [],
-						// 	series: []
+						that.dayLine();
+						// let Ktemp = [];
+						// //获取股票名称，股票代码
+						// that.Candle.series[0].name = tempdata.stockName;
+						// that.Candle.series[0].ID = tempdata.stockId;
+						// console.log("股票名称:", that.Candle.series[0].name);
+						// console.log("股票代码:", that.Candle.series[0].ID);
+						// //处理Candle数据
+						// for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
+						// 	that.Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
+						// 	var arr = [];
+						// 	arr.push(tempdata.kLineDailyOutDto[i].startPrice);
+						// 	arr.push(tempdata.kLineDailyOutDto[i].endPrice);
+						// 	arr.push(tempdata.kLineDailyOutDto[i].lowPrice);
+						// 	arr.push(tempdata.kLineDailyOutDto[i].highPrice);
+						// 	console.log("arr:", arr)
+						// 	that.Candle.series[0].data.push(arr);
+						// 	console.log("candle", that.Candle);
 						// };
-						//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
-						// Candle.categories = res.data.data.Candle.categories;
-						// Candle.series = res.data.data.Candle.series;
-						// Column.categories = res.data.data.CandleColumn.categories;
-						// Column.series = res.data.data.CandleColumn.series;
-						_self.showCandle("canvasCandle", that.Candle);
-						_self.showColumn("canvasColumn", that.CandleColumn);
+						// that.Candle.categories.sort();
+						// that.CandleColumn.categories = that.Candle.categories;
+						// that.Candle.series[0].data.reverse();
+						// console.log("Candle PUSH：", that.Candle);
+						// //处理Colunm数据
+						// for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
+						// 	console.log("cloumn日期", that.CandleColumn.categories)
+						// 	var arr = [];
+						// 	that.CandleColumn.series[0].data.push(tempdata.kLineDailyOutDto[i].vol);
+						// 	console.log("CandleColumn", that.CandleColumn);
+						// };
+						// that.CandleColumn.series[0].data.reverse();
+						// console.log("column PUSH：", that.CandleColumn);
+						// _self.showCandle("canvasCandle", that.Candle);
+						// _self.showColumn("canvasColumn", that.CandleColumn);
 					},
 					fail: () => {
 						_self.tips = "Error!";
 						console.log("获取失败")
 					},
 				});
+			},
+			getWeek(dateString) {
+				var dateArray = dateString.split("-");
+				console.log("日期分割：", dateArray)
+				var day = new Date(dateArray[0], parseInt(dateArray[1] - 1), dateArray[2]);
+				// return "周" + "日一二三四五六".charAt(day.getDay());
+				var arr = [6, 0, 1, 2, 3, 4, 5]
+				var res = arr[day.getDay()]
+				console.log("判断同一周：", this.compareDate())
+				return res
+			},
+			getDateString(str) {
+				//年
+				var year = str.substr(0, 4); //第一位表示起始位，第二位表示个数
+				var month = str.substr(4, 2)
+				var day = str.substr(6, 2)
+				var dateString = year + "-" + month + "-" + day
+				return dateString;
+			},
+			//算前一天的方法 dataStr日期字符串 dayCount 要减的天数 return 减n天后的日期字符串
+			preDate(dataStr, dayCount) {
+				var dataStr = "2021-04-25";
+				var dayCount = 1;
+				var strdate = dataStr; //日期字符串
+				var isdate = new Date(strdate.replace(/-/g, "/")); //把日期字符串转换成日期格式
+				isdate = new Date((isdate / 1000 - (86400 * dayCount)) * 1000); //日期减1天
+				var pdate = isdate.getFullYear() + "-" + (isdate.getMonth() + 1) + "-" + (isdate.getDate()); //把日期格式转换成字符串
+				return pdate;
+			},
+			/**通过时间参数 判断是否在范围内 在范围内返回false  不在范围内更改范围并返回true
+			 * @param {Object} dayId 时间参数
+			 */
+			newWeek(dayId) {
+				var day1 = this.getDateString(dayId);
+				var time1 = Date.parse(day1 + " 00:00:00");
+				console.log("时间戳::::", time1);
+				console.log("范围：",this.start,this.end);
+				if (this.start == 0 || this.end == 0 || this.start > time1) {
+					var daymark = this.getWeek(day1)
+					console.log("周几：：", daymark)
+					this.start = time1 - (daymark - 0) * 24 * 60 * 60 * 1000;
+					this.end = time1 + (6 - daymark) * 24 * 60 * 60 * 1000;
+					return true;
+				} else {
+					return false;
+				}
+			},
+			newMonth(dayId) {
+				var day1 = this.getDateString(dayId);
+				var time1 = Date.parse(day1 + " 00:00:00");
+				console.log("时间戳::::", time1);
+				var year = dayId.substr(0, 4); //第一位表示起始位，第二位表示个数
+				var month = dayId.substr(4, 2);
+				var day0 = year + "-" + month + "-" + "01";
+				console.log("本月一号：：", day0)
+				var time0 = Date.parse(day0 + " 00:00:00");
+				console.log("月初时间戳::::", time1);
+				var day31 = this.getDateString(dayId);
+				var time31 = Date.parse(day1 + " 23:59:59");
+				console.log("月末时间戳：：：", time31);
+				if (this.start == 0 || this.end == 0 || this.start > time1) {
+					this.start = time0;
+					this.end = time31;
+					return true;
+				} else {
+					return false;
+				}
+			},
+			compareDate(date1, date2) {
+				var oDate1 = new Date("2021-04-25");
+				var oDate2 = new Date("2021-04-24");
+				if (oDate1.getTime() >= oDate2.getTime()) {
+					return true;
+				} else {
+					return false;
+				}
 			},
 			showCandle(canvasId, chartData) {
 				console.log("kabu name:", this.Candle.series[0].name);
@@ -522,19 +510,16 @@
 				});
 			},
 			onClickItem(e) {
+				//  切换日，周，月K线图
 				if (this.current !== e.currentIndex) {
 					this.current = e.currentIndex;
 					if (this.current === 0) {
-						this.chartData = this.chartData1
-						console.log("data1:", this.chartData)
-						this.showCandle("canvasCandle", this.chartData)
+						// this.getServerData();
+						this.dayLine();
 					} else if (this.current === 1) {
-						this.chartData = this.chartData2
-						console.log("data2:", this.chartData)
-						this.showCandle("canvasCandle", this.chartData)
+						this.weekLine();
 					} else {
-						this.chartData = this.chartData3;
-						this.showCandle("canvasCandle", this.chartData);
+						this.monthLine();
 					}
 				}
 			},
@@ -545,15 +530,28 @@
 			kabuSearch() {
 				console.log("kabu  Search")
 				var that = this;
+				this.Candle = {
+					categories: [],
+					series: [{
+						name: "",
+						data: []
+					}]
+				};
+				this.CandleColumn = {
+					"categories": [],
+					"series": [{
+						"data": []
+					}]
+				};
 				var searchid = this.inputValue;
 				console.log('ID :', this.inputValue);
-				var that = this ;
+				var that = this;
 				uni.request({
-					url: 'http://13.112.112.160:8090/daily/kline?stockId=' + this.inputValue +'&day=130',
+					url: 'http://13.112.112.160:8090/daily/kline?stockId=' + searchid + '&day=180',
 					data: {},
 					success: function(res) {
-						that.Candle ={
-							categories: [ ],
+						that.Candle = {
+							categories: [],
 							series: [{
 								name: "",
 								data: []
@@ -569,6 +567,313 @@
 						console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
 						console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
 						let searchTemp = res.data.data;
+						that.SQLdata = res.data.data;
+						console.log("保存获取数据：", searchTemp)
+						console.log("股票名称:", searchTemp.stockName);
+						that.dayLine();
+						// let Ktemp = [];
+						// //获取股票名称，股票代码
+						// that.Candle.series[0].name = searchTemp.stockName;
+						// that.Candle.series[0].ID = searchTemp.stockId;
+						// console.log("股票名称:", that.Candle.series[0].name);
+						// console.log("股票代码:", that.Candle.series[0].ID);
+						// //处理Candle数据
+						// for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
+						// 	that.Candle.categories.push(searchTemp.kLineDailyOutDto[i].dayId);
+						// 	var arr = [];
+						// 	arr.push(searchTemp.kLineDailyOutDto[i].startPrice);
+						// 	arr.push(searchTemp.kLineDailyOutDto[i].endPrice);
+						// 	arr.push(searchTemp.kLineDailyOutDto[i].lowPrice);
+						// 	arr.push(searchTemp.kLineDailyOutDto[i].highPrice);
+						// 	console.log("arr:", arr)
+						// 	that.Candle.series[0].data.push(arr);
+						// 	console.log("candle", that.Candle);
+						// };
+						// that.Candle.categories.sort();
+						// that.CandleColumn.categories = that.Candle.categories;
+						// that.Candle.series[0].data.reverse();
+						// console.log("Candle PUSH：", that.Candle);
+						// //处理Colunm数据
+						// for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
+						// 	console.log("cloumn日期", that.CandleColumn.categories)
+						// 	var arr = [];
+						// 	that.CandleColumn.series[0].data.push(searchTemp.kLineDailyOutDto[i].vol);
+						// 	console.log("CandleColumn", that.CandleColumn);
+						// };
+						// that.CandleColumn.series[0].data.reverse();
+						// console.log("column PUSH：", that.CandleColumn);
+						// _self.showCandle("canvasCandle1", that.Candle);
+						// _self.showColumn("canvasColumn1", that.CandleColumn);
+					},
+					fail: () => {
+						_self.tips = "Error!";
+						console.log("获取失败")
+					},
+				});
+
+			},
+			dayLine() {
+				console.log("日K")
+
+				this.Candle = {
+					categories: [],
+					series: [{
+						name: "",
+						data: []
+					}]
+				};
+				this.CandleColumn = {
+					"categories": [],
+					"series": [{
+						"data": []
+					}]
+				};
+				var res = this.SQLdata; //使用模拟数据
+				let tempdata = res;
+				console.log("保存服务器数据：：：：：：", this.SQLdata);
+				// console.log("保存获取数据：", tempdata)
+				// console.log("股票名称:", tempdata.stockName);
+				let Ktemp = [];
+				//获取股票名称，股票代码
+				this.Candle.series[0].name = tempdata.stockName;
+				this.Candle.series[0].ID = tempdata.stockId;
+				console.log("股票名称:", this.Candle.series[0].name);
+				console.log("股票代码:", this.Candle.series[0].ID);
+				//处理Candle数据
+				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
+					this.Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
+					var arr = [];
+					arr.push(tempdata.kLineDailyOutDto[i].startPrice);
+					arr.push(tempdata.kLineDailyOutDto[i].endPrice);
+					arr.push(tempdata.kLineDailyOutDto[i].lowPrice);
+					arr.push(tempdata.kLineDailyOutDto[i].highPrice);
+					console.log("arr:", arr)
+					this.Candle.series[0].data.push(arr);
+					console.log("candle", this.Candle);
+				};
+				this.Candle.categories.sort();
+				this.CandleColumn.categories = this.Candle.categories;
+				this.Candle.series[0].data.reverse();
+				console.log("Candle PUSH：", this.Candle);
+				//处理Colunm数据
+				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
+					console.log("cloumn日期", this.CandleColumn.categories)
+					var arr = [];
+					this.CandleColumn.series[0].data.push(tempdata.kLineDailyOutDto[i].vol);
+					console.log("CandleColumn", this.CandleColumn);
+				};
+				this.CandleColumn.series[0].data.reverse();
+				console.log("column PUSH：", this.CandleColumn);
+				_self.showCandle("canvasCandle", this.Candle);
+				_self.showColumn("canvasColumn", this.CandleColumn);
+			},
+			weekLine() { //周线
+				console.log("周K")
+
+				this.Candle = {
+					categories: [],
+					series: [{
+						name: "",
+						data: []
+					}]
+				};
+				this.CandleColumn = {
+					"categories": [],
+					"series": [{
+						"data": []
+					}]
+				};
+				// console.log("-----服务器获取数据：", res.data.data)
+				// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
+				// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
+				// let tempdata = res.data.data;
+				var res = this.SQLdata; //使用模拟数据
+				let tempdata = res;
+				console.log("保存服务器数据：：：：：：", this.SQLdata);
+				// console.log("保存获取数据：", tempdata)
+				// console.log("股票名称:", tempdata.stockName);
+				let Ktemp = [];
+				//获取股票名称，股票代码
+				this.Candle.series[0].name = tempdata.stockName;
+				this.Candle.series[0].ID = tempdata.stockId;
+				console.log("股票名称:", this.Candle.series[0].name);
+				console.log("股票代码:", this.Candle.series[0].ID);
+				this.getDateString(tempdata.kLineDailyOutDto[0].dayId);
+				//原数据处理为周数据；
+				var week = []
+				//归零范围
+				this.start = 0;
+				this.end = 0;
+				var weekMark = -1
+				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
+					var isNewWeek = this.newWeek(tempdata.kLineDailyOutDto[i].dayId);
+					console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewWeek);
+					if (isNewWeek && i != 0) {
+						weekMark++;
+						this.weekArr[weekMark] = week;
+						week = [];
+					}
+					week.push(tempdata.kLineDailyOutDto[i]);
+					console.log("week", week);
+					if (i == tempdata.kLineDailyOutDto.length - 1) {
+						weekMark++;
+						this.weekArr[weekMark] = week;
+					}
+				}
+				console.log("weekArr", this.weekArr);
+				//按周处理
+				for (i = 0; i < this.weekArr.length; i++) {
+					this.Candle.categories.push(this.weekArr[i][this.weekArr[i].length - 1].dayId);
+					console.log('每周第一天：：：', this.weekArr[i][this.weekArr[i].length - 1].dayId)
+					var arr = [];
+					arr.push(this.weekArr[i][this.weekArr[i].length - 1].startPrice);
+					arr.push(this.weekArr[i][0].endPrice);
+					var lowPrice = 99999;
+					var highPrice = 0;
+					var vol = 0
+					for (var j = 0; j < this.weekArr[i].length; j++) {
+						if (this.weekArr[i][j].lowPrice < lowPrice) {
+							lowPrice = this.weekArr[i][j].lowPrice
+						}
+						vol = vol + this.weekArr[i][j].vol
+						if (this.weekArr[i][j].highPrice > highPrice) {
+							highPrice = this.weekArr[i][j].highPrice
+						}
+					}
+					arr.push(lowPrice);
+					arr.push(highPrice);
+					console.log("单次数据：：：：", arr);
+					this.Candle.series[0].data.push(arr);
+					arr = [];
+					this.CandleColumn.series[0].data.push(vol);
+				}
+				//调整数据顺序
+				this.CandleColumn.series[0].data.reverse();
+				this.Candle.categories.sort();
+				this.CandleColumn.categories = this.Candle.categories;
+				this.Candle.series[0].data.reverse();
+				console.log("Candle PUSH：", this.Candle);
+				console.log("column PUSH：", this.CandleColumn);
+				_self.showCandle("canvasCandle1", this.Candle);
+				_self.showColumn("canvasColumn1", this.CandleColumn);
+			},
+			monthLine() { //月线
+				console.log("月K")
+				var that = this;
+				that.Candle = {
+					categories: [],
+					series: [{
+						name: "",
+						data: []
+					}]
+				};
+				that.CandleColumn = {
+					"categories": [],
+					"series": [{
+						"data": []
+					}]
+				};
+				// console.log("-----服务器获取数据：", res.data.data)
+				// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
+				// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
+				// let tempdata = res.data.data;
+				var res = that.SQLdata; //使用模拟数据
+				let tempdata = res;
+				console.log("保存获取数据：", tempdata)
+				console.log("股票名称:", tempdata.stockName);
+				let Ktemp = [];
+				//获取股票名称，股票代码
+				that.Candle.series[0].name = tempdata.stockName;
+				that.Candle.series[0].ID = tempdata.stockId;
+				console.log("股票名称:", that.Candle.series[0].name);
+				console.log("股票代码:", that.Candle.series[0].ID);
+				that.getDateString(tempdata.kLineDailyOutDto[0].dayId);
+				//原数据处理为月数据；
+				var month = [];
+				//归零范围
+				this.start = 0;
+				this.end = 0;
+				var monthMark = -1
+				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
+					var isNewMonth = this.newMonth(tempdata.kLineDailyOutDto[i].dayId);
+					console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewMonth);
+					if (isNewMonth && i != 0) {
+						monthMark++;
+						this.monthArr[monthMark] = month;
+						month = [];
+					}
+					month.push(tempdata.kLineDailyOutDto[i]);
+					console.log("循环判断push:", tempdata.kLineDailyOutDto[i])
+					console.log("month", month);
+					if (i == tempdata.kLineDailyOutDto.length - 1) {
+						monthMark++;
+						this.monthArr[monthMark] = month;
+					}
+				}
+				console.log("monthArr", this.monthArr);
+				//按周处理
+				for (i = 0; i < this.monthArr.length; i++) {
+					this.Candle.categories.push(this.monthArr[i][this.monthArr[i].length - 1].dayId);
+					console.log('每月第一天：：：', this.monthArr[i][this.monthArr[i].length - 1].dayId)
+					var arr = [];
+					arr.push(this.monthArr[i][this.monthArr[i].length - 1].startPrice);
+					arr.push(this.monthArr[i][0].endPrice);
+					var lowPrice = 99999;
+					var highPrice = 0;
+					var vol = 0
+					for (var j = 0; j < this.monthArr[i].length; j++) {
+						if (this.monthArr[i][j].lowPrice < lowPrice) {
+							lowPrice = this.monthArr[i][j].lowPrice
+						}
+						vol = vol + this.monthArr[i][j].vol
+						if (this.monthArr[i][j].highPrice > highPrice) {
+							highPrice = this.monthArr[i][j].highPrice
+						}
+					}
+					arr.push(lowPrice);
+					arr.push(highPrice);
+					console.log("单次数据：：：：", arr);
+					this.Candle.series[0].data.push(arr);
+					arr = [];
+					this.CandleColumn.series[0].data.push(vol);
+				}
+				this.CandleColumn.series[0].data.reverse();
+				this.Candle.categories.sort();
+				this.CandleColumn.categories = this.Candle.categories;
+				this.Candle.series[0].data.reverse();
+				console.log("Candle PUSH：", this.Candle);
+				console.log("column PUSH：", this.CandleColumn);
+				_self.showCandle("canvasCandle2", this.Candle);
+				_self.showColumn("canvasColumn2", this.CandleColumn);
+			},
+			gotoSearch(stockId) {
+				console.log("kabu  Search")
+				var that = this;
+				var searchid = stockId;
+				console.log('跳转搜索ID :', stockId);
+				var that = this;
+				uni.request({
+					url: 'http://13.112.112.160:8090/daily/kline?stockId=' + stockId + '&day=130',
+					data: {},
+					success: function(res) {
+						that.Candle = {
+							categories: [],
+							series: [{
+								name: "",
+								data: []
+							}]
+						};
+						that.CandleColumn = {
+							"categories": [],
+							"series": [{
+								"data": []
+							}]
+						};
+						console.log("-----服务器获取数据：", res.data.data)
+						console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
+						console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
+						let searchTemp = res.data.data;
+						that.SQLdata = res.data.data;
 						console.log("保存获取数据：", searchTemp)
 						console.log("股票名称:", searchTemp.stockName);
 						let Ktemp = [];
@@ -578,9 +883,8 @@
 						console.log("股票名称:", that.Candle.series[0].name);
 						console.log("股票代码:", that.Candle.series[0].ID);
 						//处理Candle数据
-						for(var i=0; i < searchTemp.kLineDailyOutDto.length ;i++){
+						for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
 							that.Candle.categories.push(searchTemp.kLineDailyOutDto[i].dayId);
-							
 							var arr = [];
 							arr.push(searchTemp.kLineDailyOutDto[i].startPrice);
 							arr.push(searchTemp.kLineDailyOutDto[i].endPrice);
@@ -589,38 +893,20 @@
 							console.log("arr:", arr)
 							that.Candle.series[0].data.push(arr);
 							console.log("candle", that.Candle);
-							// console.log( i );
-							// Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
-							// }
-							// Candle.series.data.push(Ktemp);
 						};
 						that.Candle.categories.sort();
 						that.CandleColumn.categories = that.Candle.categories;
 						that.Candle.series[0].data.reverse();
 						console.log("Candle PUSH：", that.Candle);
 						//处理Colunm数据
-						for(var i=0; i < searchTemp.kLineDailyOutDto.length ;i++){
+						for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
 							console.log("cloumn日期", that.CandleColumn.categories)
 							var arr = [];
 							that.CandleColumn.series[0].data.push(searchTemp.kLineDailyOutDto[i].vol);
 							console.log("CandleColumn", that.CandleColumn);
-							// console.log( i );
-							// Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
-							// }
-							// Candle.series.data.push(Ktemp);
 						};
 						that.CandleColumn.series[0].data.reverse();
 						console.log("column PUSH：", that.CandleColumn);
-						
-						// let Column = {
-						// 	categories: [],
-						// 	series: []
-						// };
-						//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
-						// Candle.categories = res.data.data.Candle.categories;
-						// Candle.series = res.data.data.Candle.series;
-						// Column.categories = res.data.data.CandleColumn.categories;
-						// Column.series = res.data.data.CandleColumn.series;
 						_self.showCandle("canvasCandle", that.Candle);
 						_self.showColumn("canvasColumn", that.CandleColumn);
 					},
