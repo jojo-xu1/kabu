@@ -121,7 +121,7 @@
 			}
 		},
 		onReady() {
-			this.getKabuDaily();
+			// this.getKabuDaily();
 		},
 		methods: {
 			open() {
@@ -142,7 +142,7 @@
 			},
 			sortChange(e) {
 				this.sortIndex = e.detail.value
-				this.getKabuDaily();
+				// this.getKabuDaily();
 			},
 			joukenChange(index, e) {
 				this.jouken[index].joukenIndex = e.detail.value

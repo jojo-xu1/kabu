@@ -30,6 +30,7 @@
 </template>
 
 <script>
+	import cookies from 'weapp-cookie'
   export default {
 	  props: {
 	  	nid: {
@@ -85,10 +86,12 @@
 		 //    }
 		 //  });
 		 //--------------------------------------------------------------------------------------
-		 var url = this.$baseUrl + '/kabu-user/get'
+		// var url = 'http://127.0.0.1:8090/kabu-user/login'
+		 var url = this.$baseUrl + '/kabu-user/login'
 		 var mailaddress = this.mailuser
 		 var passwordMessage = this.password
 		 var usersParam = '?user_id=' + mailaddress + '&password=' + passwordMessage
+		 
 		 uni.request({
 		 	// url: 'http://139.224.56.43:8090/kabu-user/get',
 			url: url + usersParam ,
@@ -100,6 +103,7 @@
 				var jumpUrl =  '../ucenter/ucenter?mailaddress=' + mailaddress
 				if (result.data.code == 200) {
 					
+					uni.setStorage({key: 'userId',data: result.data.data.userID})
 					uni.reLaunch({
 					    // url: '../ucenter/ucenter?id=mailaddress'
 						url: jumpUrl

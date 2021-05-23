@@ -5,7 +5,8 @@
   "main": "main.js",
   "dependencies": {
     "echarts": "^5.0.2",
-    "mpvue-echarts": "^0.3.2"
+    "mpvue-echarts": "^0.3.2",
+    "weapp-cookie": "^1.4.6"
   },
   "devDependencies": {
     "node-sass": "^5.0.0"
