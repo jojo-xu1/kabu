@@ -263,8 +263,9 @@
 		methods: {
 			getServerData() {
 				var that = this;
+				console.log("THIS", this.$baseUrl)
 				uni.request({
-					url: 'http://13.112.112.160:8090/daily/kline?stockId=5013&day=180',
+					url: `${this.$baseUrl}/daily/kline?stockId=5013&day=180`,
 					data: {},
 					success: function(res) {
 						console.log("-----服务器获取数据：", res.data.data)
@@ -547,7 +548,7 @@
 				console.log('ID :', this.inputValue);
 				var that = this;
 				uni.request({
-					url: 'http://13.112.112.160:8090/daily/kline?stockId=' + searchid + '&day=180',
+					url: this.$baseUrl + '/daily/kline?stockId=' + searchid + '&day=180',
 					data: {},
 					success: function(res) {
 						that.Candle = {
@@ -853,7 +854,7 @@
 				console.log('跳转搜索ID :', stockId);
 				var that = this;
 				uni.request({
-					url: 'http://13.112.112.160:8090/daily/kline?stockId=' + stockId + '&day=130',
+					url: this.$baseUrl + '/daily/kline?stockId=' + stockId + '&day=130',
 					data: {},
 					success: function(res) {
 						that.Candle = {

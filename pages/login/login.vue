@@ -85,7 +85,8 @@
 		 //    }
 		 //  });
 		 //--------------------------------------------------------------------------------------
-		 var url = 'http://139.224.56.43:8090/kabu-user/get'
+		 var url = this.$baseUrl + '/kabu-user/get'
+		 console.log("URL：：：：", url)
 		 var mailaddress = this.mailuser
 		 var passwordMessage = this.password
 		 var usersParam = '?user_id=' + mailaddress + '&password=' + passwordMessage

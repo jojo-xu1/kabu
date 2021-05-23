@@ -272,21 +272,20 @@
 				]
 			}
 		},
-		onReady() {
+		onLoad:function() {
 			this.getLoginStatus();
 			this.getkabuDaily01();
 		},
 		methods: {
 			getLoginStatus(){
 				//var url = "http://127.0.0.1:8090/kabu-user/getStatus"
-				var url = "http://13.112.112.160:8090/kabu-user/getStatus"
 				var that = this
+				var baseUrl = uni.getStorageSync('baseUrl');
 				uni.request({
-					url: url,
+					url: baseUrl + '/kabu-user/getStatus',
 					data: {},
 					success: (result) => {
 						if (result.statusCode == 200) {
-							
 							console.log(result.data.status)
 							if(result.data.status== "1"){
 								that.loginStatus = true
@@ -339,9 +338,9 @@
 				console.log('stockId:', stockId)
 			},
 			setUserColt(stockId){
-				
+				var baseUrl = uni.getStorageSync('baseUrl');
 				if(this.loginStatus){
-					var url = "http://13.112.112.160:8090/stock/setUserColt"
+					var url = baseUrl + "/stock/setUserColt"
 					
 					//var url = "http://127.0.0.1:8090/stock/setUserColt"
 					
@@ -406,13 +405,13 @@
 			},
 			
 			getkabuDaily01() {
-				var url = "http://13.112.112.160:8090/stock/dailyList"
+				var baseUrl = uni.getStorageSync('baseUrl');
+				var url = baseUrl + "/stock/dailyList"
 				//var url = "http://127.0.0.1:8090/stock/dailyList"
 				var num = "?num=1"
 				var size = "&size=1000"
 				var crtDateStr = "&dailyId=20210326"
 				var flag = "&flag=1"
-
 				uni.request({
 					url: url + num + size + crtDateStr + flag,
 					data: {},
@@ -425,7 +424,7 @@
 							
 							if(this.loginStatus){
 								//获取登录用户已收藏股票userCollectionList
-								var url2 = "http://13.112.112.160:8090/daily/collectionList"
+								var url2 = baseUrl + "/daily/collectionList"
 								var that = this
 								uni.request({
 									url: url2,

@@ -209,7 +209,8 @@
 			// },
 			// 获取已收藏股票
 			getCollect() {
-				var url = "http://13.112.112.160:8090/stock/dailyList"
+				var baseUrl = uni.getStorageSync('baseUrl');
+				var url = baseUrl + "/stock/dailyList"
 				// var url = "http://127.0.0.1:8090/stock/dailyList"
 				var num = "?num=1"
 				// var num = "?num=1&userId="
