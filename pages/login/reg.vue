@@ -168,15 +168,15 @@
         //   });
         //   return;
         // }
-			 console.log(this.phone);
-        uni.request({
-		  url: 'http://13.112.112.160:8090/kabu-user/createUser', 
+		console.log(this.phone);
+		uni.request({
+		  url: 'http://139.224.56.43:8090/kabu-user/createUser', 
           // url: 'http://***/reg.html',
           data: {
             userId: this.phone,
             password: this.password
           },
-          method: 'POST',
+          method: 'GET',
           dataType: 'json',
           success: (res) => {
      //        if (res.data.code != 200) {
@@ -190,7 +190,9 @@
      //            title: res.data.msg
      //          });
      //          setTimeout(function() {
-     //            uni.navigateBack();
+				uni.navigateTo({
+				    url: '../login/login'
+				});
      //          }, 1500)
      //        }
           }
