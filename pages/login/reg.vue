@@ -190,7 +190,9 @@
      //            title: res.data.msg
      //          });
      //          setTimeout(function() {
-     //            uni.navigateBack();
+				uni.navigateTo({
+				    url: '../login/login'
+				});
      //          }, 1500)
      //        }
           }
