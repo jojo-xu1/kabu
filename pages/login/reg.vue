@@ -7,7 +7,7 @@
     <view class="list">
       <view class="list-call">
         <image class="img" src="/static/shilu-login/1.png"></image>
-        <input class="sl-input" v-model="phone" type="number" maxlength="11" placeholder="メール" />
+        <input class="sl-input" v-model="phone" type="text" maxlength="32" placeholder="メール" />
       </view>
       <view class="list-call">
         <image class="img" src="/static/shilu-login/2.png"></image>
@@ -52,6 +52,7 @@
     data() {
       return {
         phone: '',
+		userId: '',
         password: '',
         code: '',
         invitation: '',
@@ -139,62 +140,79 @@
         // });
       },
       bindLogin() {
-        if (this.agreement == false) {
-          uni.showToast({
-            icon: 'none',
-            title: '请先阅读《软件用户协议》'
-          });
-          return;
-        }
-        if (this.phone.length != 11) {
-          uni.showToast({
-            icon: 'none',
-            title: '手机号不正确'
-          });
-          return;
-        }
-        if (this.password.length < 6) {
-          uni.showToast({
-            icon: 'none',
-            title: '密码不正确'
-          });
-          return;
-        }
-        if (this.code.length != 4) {
-          uni.showToast({
-            icon: 'none',
-            title: '验证码不正确'
-          });
-          return;
-        }
+        // if (this.agreement == false) {
+        //   uni.showToast({
+        //     icon: 'none',
+        //     title: '请先阅读《软件用户协议》'
+        //   });
+        //   return;
+        // }
+        // if (this.phone.length != 11) {
+        //   uni.showToast({
+        //     icon: 'none',
+        //     title: '手机号不正确'
+        //   });
+        //   return;
+        // }
+        // if (this.password.length < 6) {
+        //   uni.showToast({
+        //     icon: 'none',
+        //     title: '密码不正确'
+        //   });
+        //   return;
+        // }
+        // if (this.code.length != 4) {
+        //   uni.showToast({
+        //     icon: 'none',
+        //     title: '验证码不正确'
+        //   });
+        //   return;
+        // }
+			 console.log(this.phone);
         uni.request({
-          url: 'http://***/reg.html',
+		  url: 'http://13.112.112.160:8090/kabu-user/createUser', 
+          // url: 'http://***/reg.html',
           data: {
-            phone: this.phone,
-            password: this.password,
-            code: this.code,
-            invitation: this.invitation
+            userId: this.phone,
+            password: this.password
           },
           method: 'POST',
           dataType: 'json',
           success: (res) => {
-            if (res.data.code != 200) {
-              uni.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              });
-            } else {
-              uni.showToast({
-                title: res.data.msg
-              });
-              setTimeout(function() {
-                uni.navigateBack();
-              }, 1500)
-            }
+     //        if (res.data.code != 200) {
+				 // console.log('新规失败打桩');
+     //          // uni.showToast({
+     //          //   title: res.data.msg,
+     //          //   icon: 'none'
+     //          // });
+     //        } else {
+     //          uni.showToast({
+     //            title: res.data.msg
+     //          });
+     //          setTimeout(function() {
+     //            uni.navigateBack();
+     //          }, 1500)
+     //        }
           }
         });
 
       }
+	  // ,
+	  // createUser() {
+	  // 	uni.request({
+	  // 	    url: 'http://13.112.112.160:8090/kabu-user/createUser', 
+	  // 	    method: 'POST',
+	  // 	    data: {
+	  // 	        phone: this.mailuser,
+	  // 			password: this.password
+	  // 	    },
+	  // 	    dataType:'json',
+	  // 	    success: (res) => {
+	  // 	    var result = JSON.parse(res.data.projectList);
+	  	                    					       		
+	  // 	    } 
+	  // 	}); 
+	  // }
     }
   }
 </script>
