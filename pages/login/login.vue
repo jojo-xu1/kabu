@@ -52,7 +52,7 @@
 		};
 	},
     methods: {
-		// http://139.224.56.43:8090/kabu-user/get
+		// http://13.112.112.160:8090/kabu-user/get
 		bindLogin() {
 
 		  if (this.password.length < 2) {
@@ -65,7 +65,7 @@
 
 		 //  uni.request({
 			
-		 //    url: 'http://139.224.56.43:8090/kabu-user/get',
+		 //    url: 'http://13.112.112.160:8090/kabu-user/get',
 		 //    data: {
 		 //      user_id: this.mailuser
 		 //    },
@@ -86,7 +86,6 @@
 		 //  });
 		 //--------------------------------------------------------------------------------------
 		 var url = this.$baseUrl + '/kabu-user/get'
-		 console.log("URL：：：：", url)
 		 var mailaddress = this.mailuser
 		 var passwordMessage = this.password
 		 var usersParam = '?user_id=' + mailaddress + '&password=' + passwordMessage
@@ -143,9 +142,25 @@
 		 	}
 		 });
 		 
-		 
-		//---------------------------------------------------------------------------------------
 		}
+		// ,
+		// createUser() {
+		// 	// var url = 'http://139.224.56.43:8090/kabu-user/logout'
+		// 	//------------------------
+		// 	uni.request({
+		// 	    url: 'http://139.224.56.43:8090/kabu-user/createUser', 
+		// 	    method: 'POST',
+		// 	    data: {
+		// 	        user_id: this.mailuser,
+		// 			password: this.password
+		// 	    },
+		// 	    dataType:'json',
+		// 	    success: (res) => {
+		// 	    var result = JSON.parse(res.data.projectList);
+			                    					       		
+		// 	    } 
+		// 	}); 
+		// }
     }
   }
 </script>

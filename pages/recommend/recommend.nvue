@@ -286,8 +286,8 @@
 					data: {},
 					success: (result) => {
 						if (result.statusCode == 200) {
-							console.log(result.data.status)
-							if(result.data.status== "1"){
+							
+							if(result.data.date== "1"){
 								that.loginStatus = true
 							}else{
 								that.loginStatus = false
@@ -445,6 +445,7 @@
 											
 											for(var i=0;i<kabuDailyList02.length;i++){
 												kabuDailyList02[i].collectionFlag = "01"
+												
 												for(var j=0;j<that.userCollectionList.length;j++){
 														if(kabuDailyList02[i].stock.stockId ==that.userCollectionList[j].stock.stockId){
 															kabuDailyList02[i].collectionFlag = "00"
@@ -469,7 +470,7 @@
 									kabuDailyList01[i].collectionFlag = "01"
 								}
 								for(var i=0;i<kabuDailyList02.length;i++){
-									kabuDailyList03[i].collectionFlag = "01"
+									kabuDailyList02[i].collectionFlag = "01"
 								}
 								for(var i=0;i<kabuDailyList03.length;i++){
 									kabuDailyList03[i].collectionFlag = "01"
