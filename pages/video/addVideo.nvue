@@ -151,7 +151,7 @@
 </script>
 
 
-<style scoped lang="less">
+<!-- <style scoped lang="less">
 // .u-demo {
 // 	//height: 200vh;
 // 	height: calc(100% - 44px);
@@ -235,4 +235,4 @@
 // 		font-size: 160rpx;
 // 	}
 // }
-</style>
+</style> -->
