@@ -35,7 +35,7 @@
 	// #endif
 
 	import newsPage from './news-page.nvue';
-
+	
 	// 缓存每页最多
 	const MAX_CACHE_DATA = 100;
 	// 缓存页签数量
@@ -83,6 +83,8 @@
 			}
 		},
 		onReady() {
+			// uni.setStorage({key: 'baseUrl',data: 'http://13.112.112.160:8090'});
+			
 			this._lastTabIndex = 0;
 			this.swiperWidth = 0;
 			this.tabbarWidth = 0;
@@ -103,6 +105,7 @@
 			this.getTabbarItemsSize();
 		},
 		methods: {
+			
 			ontabtap(e) {
 				let index = e.target.dataset.current || e.currentTarget.dataset.current;
 				//let offsetIndex = this._touchTabIndex = Math.abs(index - this._lastTabIndex) > 1;

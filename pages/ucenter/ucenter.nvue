@@ -3,7 +3,7 @@
 		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
 			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
 			<view class="logo-title">
-				<text class="uer-name">Hi !  {{login ? uerInfo.name : uername}}</text>
+				<text class="uer-name">Hi ! {{login ? uerInfo.name : uername}}</text>
 				<text class="go-login-navigat-arrow navigat-arrow" v-if="!login">&#xe65e;</text>
 			</view>
 		</view>
@@ -38,19 +38,19 @@
 
 <script>
 	export default {
-		onLoad: function (option) {
+		onLoad: function(option) {
 			// alert(this.$route.query.id);	
-				// this.getSessionForStatus();		
-		        // console.log(option.id);
-				// return {
-				// 	login: false,
-				// 	avatarUrl: '/static/logo.png',
-				// 	// uername: this.$route.query.id,
-				// 	uername: option.mailaddress,
-				// 	// uername: result.data,
-				// }
-				this.uername = option.mailaddress;
-		    },
+			// this.getSessionForStatus();		
+			// console.log(option.id);
+			// return {
+			// 	login: false,
+			// 	avatarUrl: '/static/logo.png',
+			// 	// uername: this.$route.query.id,
+			// 	uername: option.mailaddress,
+			// 	// uername: result.data,
+			// }
+			this.uername = option.mailaddress;
+		},
 		data() {
 			return {
 				login: false,
@@ -61,23 +61,24 @@
 			}
 		},
 		methods: {
-			getSessionForStatus(){
-		  
-			 var nowUrl = 'http://13.112.112.160:8090/kabu-user/getStatus'
-			 uni.request({
-				url: nowUrl ,
-				data: {},
-				success: (result) => {
-					
-					console.log('kkkkkkkkkkkkkkkkkk'+result.data);
-					// alert(result.data);
-					
-				},
-				fail: (err) => {
-				},
-				complete: (e) => {
-				}
-			 });			
+
+			getSessionForStatus() {
+				var baseUrl = uni.getStorageSync('baseUrl');
+				var nowUrl = baseUrl + '/kabu-user/getStatus'
+				console.log("NOWURL", nowUrl)
+				uni.request({
+					url: nowUrl,
+					data: {},
+					success: (result) => {
+
+						console.log('kkkkkkkkkkkkkkkkkk' + result.data);
+						// alert(result.data);
+
+					},
+					fail: (err) => {},
+					complete: (e) => {}
+				});
+
 			},
 			// showSession() {
 			// 	var word = session.getAttribute("displayName");
@@ -88,7 +89,7 @@
 				// 	console.log('点击前往登录');
 				// }
 				uni.navigateTo({
-				    url: '../login/login'
+					url: '../login/login'
 				});
 			},
 			goLogout() {

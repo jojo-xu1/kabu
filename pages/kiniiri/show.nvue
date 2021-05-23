@@ -183,7 +183,7 @@
 			getKabuDaily() {
 				//Luke Zhou
 				// var url = "http://13.112.112.160:8090/stock/dailyList"
-				var url = "http://139.224.56.43:8090/stock/dailyList"
+				var url = this.$baseUrl + "/stock/dailyList"
 				var num = "?num=1"
 				var size = "&size=10"
 				// var crtDate = new Date();
