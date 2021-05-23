@@ -29,7 +29,7 @@
 					</uni-view>
 					<uni-view >
 						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
-						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
+						
 					</uni-view>
 				</uni-view>
 			</uni-view>
@@ -155,10 +155,11 @@
 </template>
 
 <script>
+	
 	// #ifdef APP-PLUS
 	const dom = weex.requireModule('dom');
 	// #endif
-
+	import cookies from 'weapp-cookie'
 	export default {
 		components: {},
 		data() {
@@ -178,6 +179,7 @@
 				showUpList02:false,
 				showUpList03:false,
 				loginStatus :false,
+				userId : '',
 				userCollectionList:[{
 						"stock": {
 							"stockId": "",
@@ -272,30 +274,20 @@
 				]
 			}
 		},
-		onLoad:function() {
+		onReady() {
 			this.getLoginStatus();
 			this.getkabuDaily01();
 		},
 		methods: {
 			getLoginStatus(){
-				//var url = "http://127.0.0.1:8090/kabu-user/getStatus"
-				var that = this
-				var baseUrl = uni.getStorageSync('baseUrl');
-				uni.request({
-					url: baseUrl + '/kabu-user/getStatus',
-					data: {},
-					success: (result) => {
-						if (result.statusCode == 200) {
-							
-							if(result.data.date== "1"){
-								that.loginStatus = true
-							}else{
-								that.loginStatus = false
-							}
-							
-						}
-					}
-				});
+				var userId = uni.getStorageSync('userId');
+				if(userId != null){
+					this.userId = userId
+					this.loginStatus = true
+					console.log(this.userId )
+				}else {
+					this.loginStatus = false
+				}
 			},
 			open() {
 				// 通过组件定义的ref调用uni-popup方法
@@ -346,14 +338,16 @@
 					
 					uni.request({
 						url: url,
-						data: {kabuCode: stockId},
+						data: {stockId: stockId,userId:this.userId},
 						success: (result) => {
 							if (result.statusCode == 200) {
-								
-								console.log(result.data)
-								
-								
-								//this.getkabuDaily01();
+								//跳转到登陆页面
+								if(result.data){
+									uni.reLaunch({
+										url: '/pages/collect/collect'
+									})
+								}
+								this.getkabuDaily01();
 							}
 						}
 					});
@@ -412,6 +406,7 @@
 				var size = "&size=1000"
 				var crtDateStr = "&dailyId=20210326"
 				var flag = "&flag=1"
+
 				uni.request({
 					url: url + num + size + crtDateStr + flag,
 					data: {},
@@ -424,11 +419,12 @@
 							
 							if(this.loginStatus){
 								//获取登录用户已收藏股票userCollectionList
+								//var url2 = "http://127.0.0.1:8090/daily/collectionList"
 								var url2 = baseUrl + "/daily/collectionList"
 								var that = this
 								uni.request({
 									url: url2,
-									data: {},
+									data: {userId:that.userId},
 									success: (result01) => {
 										if (result.statusCode == 200) {
 											that.userCollectionList = result01.data
@@ -445,7 +441,6 @@
 											
 											for(var i=0;i<kabuDailyList02.length;i++){
 												kabuDailyList02[i].collectionFlag = "01"
-												
 												for(var j=0;j<that.userCollectionList.length;j++){
 														if(kabuDailyList02[i].stock.stockId ==that.userCollectionList[j].stock.stockId){
 															kabuDailyList02[i].collectionFlag = "00"
