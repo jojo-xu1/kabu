@@ -169,8 +169,10 @@
         //   return;
         // }
 		console.log(this.phone);
+			var baseUrl = uni.getStorageSync('baseUrl');
+			var url = baseUrl + "/kabu-user/createUser";
 		uni.request({
-		  url: 'http://13.112.112.160:8090/kabu-user/createUser', 
+		  url: url, 
           // url: 'http://***/reg.html',
           data: {
             userId: this.phone,

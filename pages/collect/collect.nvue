@@ -229,9 +229,8 @@
 			getCollect() {
 				var that = this;
 				var baseUrl = uni.getStorageSync('baseUrl');
-				// const userId = uni.getStorageSync('id');
-				// console.log("用户ID：：：", this.userId);
-				var userId = "sos@gmail.com";
+				 const userId = uni.getStorageSync('userId');
+				 console.log("用户ID：：：", this.userId);
 				var url = baseUrl + "/daily/collectionList";
 				console.log("url1111", url)
 				uni.request({
