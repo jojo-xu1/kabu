@@ -30,7 +30,6 @@
 </template>
 
 <script>
-	import cookies from 'weapp-cookie'
   export default {
 	  props: {
 	  	nid: {
@@ -104,6 +103,7 @@
 				if (result.data.code == 200) {
 					
 					uni.setStorage({key: 'userId',data: result.data.data.userID})
+					uni.setStorageSync('userId',result.data.data.userID)
 					uni.reLaunch({
 					    // url: '../ucenter/ucenter?id=mailaddress'
 						url: jumpUrl
