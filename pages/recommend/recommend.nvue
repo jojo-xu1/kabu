@@ -159,7 +159,6 @@
 	// #ifdef APP-PLUS
 	const dom = weex.requireModule('dom');
 	// #endif
-	import cookies from 'weapp-cookie'
 	export default {
 		components: {},
 		data() {

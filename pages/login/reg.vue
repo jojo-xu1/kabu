@@ -170,7 +170,7 @@
         // }
 		console.log(this.phone);
 		uni.request({
-		  url: 'http://139.224.56.43:8090/kabu-user/createUser', 
+		  url: 'http://13.112.112.160:8090/kabu-user/createUser', 
           // url: 'http://***/reg.html',
           data: {
             userId: this.phone,
@@ -190,6 +190,8 @@
      //            title: res.data.msg
      //          });
      //          setTimeout(function() {
+		        
+
 				uni.navigateTo({
 				    url: '../login/login'
 				});
