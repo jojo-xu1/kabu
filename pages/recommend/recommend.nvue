@@ -5,12 +5,12 @@
 				<view class="center-list">
 					<view class="center-list-item border-bottom">
 						<text class="list-text">低リスク銘柄一覧 <年収益率 5%></text>
-						<text v-show="showUpImg01" class="navigat-arrow" @click="changeImg01">&#171;</text>
-						<text v-show="!showUpImg01" class="navigat-arrow" @click="changeImg01">&#187;</text>
+						<text v-if="showUpImg01" class="navigat-arrow" @click="changeImg01">&#171;</text>
+						<text v-if="!showUpImg01" class="navigat-arrow" @click="changeImg01">&#187;</text>
 					</view>
 				</view>
 			</uni-view>
-			<uni-view class="uni-column" v-show="showUpList01" v-model="kabuDaily01">
+			<uni-view class="uni-column" v-if="showUpList01" v-model="kabuDaily01">
 				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily01" :key="item.stock.stockId">
 					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
 					<uni-view class="uni-column kabuCol1">
@@ -39,12 +39,12 @@
 				<view class="center-list">
 					<view class="center-list-item border-bottom">
 						<text class="list-text">中リスク銘柄一覧 <年収益率 20%></text>
-						<text v-show="showUpImg02" class="navigat-arrow" @click="changeImg02">&#171;</text>
-						<text v-show="!showUpImg02" class="navigat-arrow" @click="changeImg02">&#187;</text>
+						<text v-if="showUpImg02" class="navigat-arrow" @click="changeImg02">&#171;</text>
+						<text v-if="!showUpImg02" class="navigat-arrow" @click="changeImg02">&#187;</text>
 					</view>
 				</view>
 			</uni-view>
-			<uni-view class="uni-column" v-show="showUpList02" v-model="kabuDaily02">
+			<uni-view class="uni-column" v-if="showUpList02" v-model="kabuDaily02">
 				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily02" :key="item.stock.stockId">
 					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
 					<uni-view class="uni-column kabuCol1">
@@ -73,12 +73,12 @@
 				<view class="center-list">
 					<view class="center-list-item border-bottom">
 						<text class="list-text">高リスク銘柄一覧 <年収益率 100%></text>
-						<text v-show="showUpImg03" class="navigat-arrow" @click="changeImg03">&#171;</text>
-						<text v-show="!showUpImg03" class="navigat-arrow" @click="changeImg03">&#187;</text>
+						<text v-if="showUpImg03" class="navigat-arrow" @click="changeImg03">&#171;</text>
+						<text v-if="!showUpImg03" class="navigat-arrow" @click="changeImg03">&#187;</text>
 					</view>
 				</view>
 			</uni-view>
-			<uni-view class="uni-column" v-show="showUpList03" v-model="kabuDaily03">
+			<uni-view class="uni-column" v-if="showUpList03" v-model="kabuDaily03">
 				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily03" :key="item.stock.stockId">
 					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
 					<uni-view class="uni-column kabuCol1">
