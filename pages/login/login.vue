@@ -102,7 +102,7 @@
 				var jumpUrl =  '../ucenter/ucenter?mailaddress=' + mailaddress
 				if (result.data.code == 200) {
 					
-					uni.setStorage({key: 'userId',data: result.data.data.userID})
+					//uni.setStorage({key: 'userId',data: result.data.data.userID})
 					uni.setStorageSync('userId',result.data.data.userID)
 					uni.reLaunch({
 					    // url: '../ucenter/ucenter?id=mailaddress'
