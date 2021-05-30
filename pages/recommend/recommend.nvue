@@ -280,7 +280,7 @@
 		methods: {
 			getLoginStatus(){
 				var userId = uni.getStorageSync('userId');
-				if(userId != null){
+				if(userId != null && userId !=''){
 					this.userId = userId
 					this.loginStatus = true
 					console.log(this.userId )

@@ -93,10 +93,12 @@
 				});
 			},
 			goLogout() {
-				// var url = 'http://13.112.112.160:8090/kabu-user/logout'
-				//------------------------
+			var baseUrl = uni.getStorageSync('baseUrl');
+			var url = baseUrl + "/kabu-user/logout";
+				uni.setStorageSync('userId','');
 				uni.request({
-				                    url: 'http://13.112.112.160:8090/kabu-user/logout', 
+				                    
+									url: url, 
 				                    success: (res) => {
 				                        console.log('get成功');
 										this.uername = '未登録';
