@@ -1,5 +1,39 @@
 <template>
 	<view>
+		<uni-view class="user-recommend">
+			<uni-view class="uni-row head">
+				<view class="center-list">
+					<view class="center-list-item border-bottom">
+						<text class="list-text">あなたのおすすめ</text>
+						<text v-if="showUpImg04" class="navigat-arrow" @click="changeImg04">&#171;</text>
+						<text v-if="!showUpImg04" class="navigat-arrow" @click="changeImg04">&#187;</text>
+					</view>
+				</view>
+			</uni-view>
+			<uni-view class="uni-column" v-if="showUpList04" v-model="kabuDaily04">
+				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily04" :key="item.stock.stockId">
+					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
+					<uni-view class="uni-column kabuCol1">
+						<uni-view class="kabuName">
+							<text class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text>
+						</uni-view>
+						<uni-view class="kabuCode">
+							<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
+						</uni-view>
+					</uni-view>
+					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
+					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
+					<uni-view class="uni-column kabuCol2">
+						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
+						<uni-view class="kabuToriUp"></uni-view>
+					</uni-view>
+					<uni-view >
+						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
+						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
+					</uni-view>
+				</uni-view>
+			</uni-view>
+		</uni-view>	
 		<uni-view class="rask-low">
 			<uni-view class="uni-row head">
 				<view class="center-list">
@@ -24,7 +58,7 @@
 					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
 					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 					<uni-view class="uni-column kabuCol2">
-						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
+						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
@@ -58,7 +92,7 @@
 					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
 					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 					<uni-view class="uni-column kabuCol2">
-						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
+						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
@@ -92,7 +126,7 @@
 					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
 					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 					<uni-view class="uni-column kabuCol2">
-						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
+						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
@@ -102,55 +136,7 @@
 				</uni-view>
 			</uni-view>
 		</uni-view>	
-		<uni-popup ref="popup" type="top" class="popUp">
-			<uni-view class="uni-column" v-model="jouken">
-				<uni-view class="uni-row">
-					<uni-button @click="close" type="primary" class="close">
-						<text class="closeTxt popUpTxt">キャンセル</text>
-					</uni-button>
-					<uni-view style="width: 442upx;">
-						<text style="height: 100upx; background-color: #FFFFFF;"></text>
-					</uni-view>
-					<uni-button @click="close" type="primary" class="confirm">
-						<text class="confirmTxt popUpTxt">確認</text>
-					</uni-button>
-				</uni-view>
-				<uni-view class="uni-row" v-for="(item,index) in jouken" :key="item.joukenId">
-					<uni-view class="andOrKubn">
-						<text v-if="index != 0" class="popUpBg popUpTxt andOrKubnTxt">かつ</text>
-						<text v-else class="popUpBg popUpTxt andOrKubnTxt" style="background-color: #FFFFFF;"></text>
-					</uni-view>
-					<uni-view class="joukenName">
-						<picker @change="joukenChange(index, $event)" :value="item.joukenIndex" :range="joukenArray">
-							<uni-view>
-								<text
-									class="popUpBg popUpTxt joukenNameTxt">{{joukenArray[item.joukenIndex] + '  ▼'}}</text>
-							</uni-view>
-						</picker>
-					</uni-view>
-					<uni-view class="joukenValue">
-						<input class="popUpBg popUpTxt joukenValueTxt" type="digit" maxlength="4" placeholder="0" />
-					</uni-view>
-					<uni-view class="joukenLabel">
-						<text class="popUpBg popUpTxt joukenLabelTxt">から</text>
-					</uni-view>
-					<uni-view class="joukenValue">
-						<input class="popUpBg popUpTxt joukenValueTxt" type="digit" maxlength="4" placeholder="100" />
-					</uni-view>
-					<uni-view class="joukenLabel">
-						<text class="popUpBg popUpTxt joukenLabelTxt">まで</text>
-					</uni-view>
-					<uni-button @click="reduceJouken(index)" type="primary" class="rdcJouken">
-						<text class="popUpBg popUpTxt rdcJoukenTxt">×</text>
-					</uni-button>
-				</uni-view>
-				<uni-view>
-					<uni-button @click="addJouken" type="primary" class="addJouken">
-						<text class="addJoukenTxt">＋</text>
-					</uni-button>
-				</uni-view>
-			</uni-view>
-		</uni-popup>
+		
 	</view>
 </template>
 
@@ -174,11 +160,38 @@
 				showUpImg01:false,
 				showUpImg02:false,
 				showUpImg03:false,
+				showUpImg04:false,
 				showUpList01:false,
 				showUpList02:false,
 				showUpList03:false,
+				showUpList04:false,
 				loginStatus :false,
 				userId : '',
+				listAll:[
+					[{
+							"stock": {
+								"stockId": "",
+								"stockName":  "",
+								"industry":  "",
+								"total":  "",
+								"dividendYield": "",
+								"dividendPershare": "",
+								"per":  "",
+								"pbr":  "",
+								"eps":  "",
+								"bps":  "",
+								"unit":  ""
+							},
+							"dayId":  "",
+							"startPrice": "",
+							"startPrice": "",
+							"highPrice": "",
+							"lowPrice": "",
+							"todayUpRate":  "",
+							"collectionFlag":"",
+						}
+					]	
+				],
 				userCollectionList:[{
 						"stock": {
 							"stockId": "",
@@ -195,7 +208,7 @@
 						},
 						"dayId":  "",
 						"startPrice": "",
-						"endPrice": "",
+						"startPrice": "",
 						"highPrice": "",
 						"lowPrice": "",
 						"todayUpRate":  "",
@@ -218,7 +231,7 @@
 						},
 						"dayId":  "",
 						"startPrice": "",
-						"endPrice": "",
+						"startPrice": "",
 						"highPrice": "",
 						"lowPrice": "",
 						"todayUpRate":  "",
@@ -241,7 +254,7 @@
 						},
 						"dayId":  "",
 						"startPrice": "",
-						"endPrice": "",
+						"startPrice": "",
 						"highPrice": "",
 						"lowPrice": "",
 						"todayUpRate":  "",
@@ -264,7 +277,30 @@
 						},
 						"dayId":  "",
 						"startPrice": "",
-						"endPrice": "",
+						"startPrice": "",
+						"highPrice": "",
+						"lowPrice": "",
+						"todayUpRate":  "",
+						"collectionFlag":"",
+					}
+				],
+				kabuDaily04: [{
+						"stock": {
+							"stockId": "",
+							"stockName":  "",
+							"industry":  "",
+							"total":  "",
+							"dividendYield": "",
+							"dividendPershare": "",
+							"per":  "",
+							"pbr":  "",
+							"eps":  "",
+							"bps":  "",
+							"unit":  ""
+						},
+						"dayId":  "",
+						"startPrice": "",
+						"startPrice": "",
 						"highPrice": "",
 						"lowPrice": "",
 						"todayUpRate":  "",
@@ -275,7 +311,7 @@
 		},
 		onReady() {
 			this.getLoginStatus();
-			this.getkabuDaily01();
+			this.getkabuDaily();
 		},
 		methods: {
 			getLoginStatus(){
@@ -306,7 +342,7 @@
 			},
 			sortChange(e) {
 				this.sortIndex = e.detail.value
-				this.getkabuDaily01();
+				this.getkabuDaily();
 			},
 			joukenChange(index, e) {
 				this.jouken[index].joukenIndex = e.detail.value
@@ -346,7 +382,7 @@
 										url: '/pages/collect/collect'
 									})
 								}
-								this.getkabuDaily01();
+								this.getkabuDaily();
 							}
 						}
 					});
@@ -365,8 +401,10 @@
 					this.showUpList01 = true
 					this.showUpList02 = false
 					this.showUpList03 = false
+					this.showUpList04 = false
 					this.showUpImg02 = false
 					this.showUpImg03 = false
+					this.showUpImg04 = false
 				}else{
 					this.showUpList01 = false
 				}
@@ -377,8 +415,10 @@
 					this.showUpList02 = true
 					this.showUpList01 = false
 					this.showUpList03 = false
+					this.showUpList04 = false
 					this.showUpImg01 = false
 					this.showUpImg03 = false
+					this.showUpImg04 = false
 				}else{
 					this.showUpList02 = false
 				}
@@ -389,15 +429,32 @@
 					this.showUpList03 = true
 					this.showUpList01 = false
 					this.showUpList02 = false
+					this.showUpList04 = false
 					this.showUpImg01 = false
 					this.showUpImg02 = false
+					this.showUpImg04 = false
 					
 				}else{
 					this.showUpList03 = false
 				}
 			},
+			changeImg04:function(){
+				this.showUpImg04 = !this.showUpImg04
+				if(this.showUpImg04){
+					this.showUpList04 = true
+					this.showUpList01 = false
+					this.showUpList02 = false
+					this.showUpList03 = false
+					this.showUpImg01 = false
+					this.showUpImg02 = false
+					this.showUpImg03 = false
+					
+				}else{
+					this.showUpList04 = false
+				}
+			},
 			
-			getkabuDaily01() {
+			getkabuDaily() {
 				var baseUrl = uni.getStorageSync('baseUrl');
 				var url = baseUrl + "/stock/dailyList"
 				//var url = "http://127.0.0.1:8090/stock/dailyList"
@@ -411,7 +468,6 @@
 					data: {},
 					success: (result) => {
 						if (result.statusCode == 200) {
-							
 							var kabuDailyList01 = result.data.data.listLow  //listLow
 							var kabuDailyList02 = result.data.data.listMed
 							var kabuDailyList03 = result.data.data.listHigh  // listHigh
@@ -474,6 +530,33 @@
 							this.kabuDaily01 = kabuDailyList01
 							this.kabuDaily02 = kabuDailyList02
 							this.kabuDaily03 = kabuDailyList03
+							//あなたのおすすめリスト
+							var kabuDailyListUser = this.kabuDaily01 
+							var investmentFunds = uni.getStorageSync('investmentFunds');
+							var eXptRate = uni.getStorageSync('eXptRate');
+							var frequency = uni.getStorageSync('frequency');
+							if(eXptRate == 1){
+								kabuDailyListUser = this.kabuDaily01 
+							}else{
+								if(frequency== 1){
+									kabuDailyListUser = this.kabuDaily02
+								}else{
+									kabuDailyListUser = this.kabuDaily03
+								}
+							}
+						
+							
+							
+							this.kabuDaily04 = kabuDailyListUser.filter(item =>{  
+							    return item.startPrice < investmentFunds;  
+							})
+						
+							
+							this.listAll[0] =this.kabuDaily01
+							this.listAll.push(this.kabuDaily02)
+							this.listAll.push(this.kabuDaily03)
+							this.listAll.push(this.kabuDaily04)
+							console.log(this.listAll)
 						}
 					}
 				});

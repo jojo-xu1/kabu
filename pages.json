@@ -1,5 +1,14 @@
 {
-	"pages": [{
+	"pages": [
+		{
+			"path": "pages/recommend/ask",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		{
 			"path": "pages/news/index",
 			"style": {}
 		},
@@ -29,14 +38,16 @@
 		{
 			"path": "pages/ucenter/ucenter",
 			"style": {}
-		}, {
+		}, 
+		{
 			"path": "pages/recommend/recommend",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 
-		}, {
+		},
+		{
 			"path": "pages/collect/collect",
 			"style": {
 				"navigationBarTitleText": "",

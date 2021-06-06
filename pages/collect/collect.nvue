@@ -1,102 +1,20 @@
 <template>
 	<view>
-	<!-- 	<uni-view class="uni-row head">
-			<view class="uni-list-cell-db sort">
-				<picker @change="sortChange" :value="sortIndex" :range="sortArray">
-					<view><text class="sortTxt">{{sortArray[sortIndex] + '  ▼'}}</text></view>
-				</picker>
-			</view>
-			<uni-button @click="open" type="primary" class="shibori">
-				<text class="shiboriTxt">絞り込み</text>
-			</uni-button>
-		</uni-view> -->
-		<!-- 		<uni-view class="uni-column" v-model="kabuDaily">
-			<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily" :key="item.stock.stockId">
-				<uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view>
-				<uni-view class="uni-column kabuCol1">
-					<uni-view class="kabuName">
-						<text class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text>
-					</uni-view>
-					<uni-view class="kabuCode">
-						<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
-					</uni-view>
-				</uni-view>
-				<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
-				<uni-view class="kabuRate" v-on:click=goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
-				<uni-view class="uni-column kabuCol2">
-					<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
-					<uni-view class="kabuToriUp"></uni-view>
-				</uni-view>
-			</uni-view>
-		</uni-view> -->
-		<uni-view class="uni-column"  v-model="colist">
+		<uni-view class="uni-column" v-model="colist">
+			<text class="kabuTitle" >      銘柄                                             業種                              購入日              売出日</text>
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
-					<uni-view class="kabuName">
-						<text class="kabuNameTxt" v-on:click=goTo(item.stock.stockId) >{{item.stock.stockName}}</text>
-					</uni-view>
-					<uni-view class="kabuCode">
-						<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
-					</uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click=goTo(item.stock.stockId)>{{ item.stock.stockName}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt">{{ item.stock.stockId }}</text></uni-view>
 				</uni-view>
 				<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
 				<uni-view class="kabuRate" v-on:click=goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 				<uni-view class="uni-column kabuCol2">
-					<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
-					<uni-view class="kabuToriUp"></uni-view>
+				<uni-view class="kabuBuyday"><text class="kabuBuydayTxt">{{item.startbuydate}}   ·   {{item.endselldate}}</text></uni-view>
 				</uni-view>
-				<uni-view class="kabuIndustry"><text class="kabustartDayTxt">{{ item.stock.industry}}</text></uni-view>	
-				<uni-view class="kabuIndustry"><text class="kabuendDayTxt">{{ item.stock.industry}}</text></uni-view>			
+
 			</uni-view>
 		</uni-view>
-		<!-- 		<uni-popup ref="popup" type="top" class="popUp">
-			<uni-view class="uni-column" v-model="jouken">
-				<uni-view class="uni-row">
-					<uni-button @click="close" type="primary" class="close">
-						<text class="closeTxt popUpTxt">キャンセル</text>
-					</uni-button>
-					<uni-view style="width: 442upx;">
-						<text style="height: 100upx; background-color: #FFFFFF;"></text>
-					</uni-view>
-					<uni-button @click="close" type="primary" class="confirm">
-						<text class="confirmTxt popUpTxt">確認</text>
-					</uni-button>
-				</uni-view>
-				<uni-view class="uni-row" v-for="(item,index) in jouken" :key="item.joukenId">
-					<uni-view class="andOrKubn">
-						<text v-if="index != 0" class="popUpBg popUpTxt andOrKubnTxt">かつ</text>
-						<text v-else class="popUpBg popUpTxt andOrKubnTxt" style="background-color: #FFFFFF;"></text>
-					</uni-view>
-					<uni-view class="joukenName">
-						<picker @change="joukenChange(index, $event)" :value="item.joukenIndex" :range="joukenArray">
-							<uni-view>
-								<text class="popUpBg popUpTxt joukenNameTxt">{{joukenArray[item.joukenIndex] + '  ▼'}}</text>
-							</uni-view>
-						</picker>
-					</uni-view>
-					<uni-view class="joukenValue">
-						<input class="popUpBg popUpTxt joukenValueTxt" type="digit" maxlength="4" placeholder="0" />
-					</uni-view>
-					<uni-view class="joukenLabel">
-						<text class="popUpBg popUpTxt joukenLabelTxt">から</text>
-					</uni-view>
-					<uni-view class="joukenValue">
-						<input class="popUpBg popUpTxt joukenValueTxt" type="digit" maxlength="4" placeholder="100" />
-					</uni-view>
-					<uni-view class="joukenLabel">
-						<text class="popUpBg popUpTxt joukenLabelTxt">まで</text>
-					</uni-view>
-					<uni-button @click="reduceJouken(index)" type="primary" class="rdcJouken">
-						<text class="popUpBg popUpTxt rdcJoukenTxt">×</text>
-					</uni-button>
-				</uni-view>
-				<uni-view>
-					<uni-button @click="addJouken" type="primary" class="addJouken">
-						<text class="addJoukenTxt">＋</text>
-					</uni-button>
-				</uni-view>
-			</uni-view>
-		</uni-popup> -->
 	</view>
 </template>
 
@@ -117,6 +35,16 @@
 					"joukenId": "jouken0",
 					"joukenIndex": 0
 				}],
+				tradeDate:[
+					{"buyday":"20200102",
+					 "sellday":"20200103"},
+					{"buyday":"20200202",
+					 "sellday":"20200203"},
+					{"buyday":"20200302",
+					 "sellday":"20200303"},
+					{"buyday":"20200402",
+					 "sellday":"20200403"},
+				],
 				colist: [{
 					"stock": {
 						"stockId": "",
@@ -203,36 +131,12 @@
 				const id = uni.getStorageSync('id')
 				console.log("用户ID：：：", this.userId)
 			},
-			// getKabuDaily() {
-			// 	var url = "http://13.112.112.160:8090/stock/dailyList"
-			// 	// var url = "http://127.0.0.1:8090/stock/dailyList"
-			// 	var num = "?num=1"
-			// 	// var num = "?num=1&userId="
-			// 	var size = "&size=1000"
-			// 	// var crtDate = new Date();
-			// 	// var crtDateStr = "&dailyId=" + crtDate.getFullYear() +
-			// 	// 	this.appendZero(crtDate.getMonth() + 1) +
-			// 	// 	this.appendZero(crtDate.getDate())
-			// 	var crtDateStr = "&dailyId=20210326"
-			// 	var flag = "&flag=1"
-			// 	uni.request({
-			// 		url: url + num + size + crtDateStr + flag,
-			// 		// url: url + num + this.userId + size + crtDateStr + flag,
-			// 		data: {},
-			// 		success: (result) => {
-			// 			if (result.statusCode == 200) {
-			// 				console.log(result.data.data.list)
-			// 				this.kabuDaily = result.data.data.list
-			// 			}
-			// 		}
-			// 	});
-			// },
 			// 获取已收藏股票
 			getCollect() {
 				var that = this;
 				var baseUrl = uni.getStorageSync('baseUrl');
-				 const userId = uni.getStorageSync('userId');
-				 console.log("用户ID：：：", this.userId);
+				const userId = uni.getStorageSync('userId');
+				console.log("用户ID：：：", this.userId);
 				var url = baseUrl + "/daily/collectionList";
 				console.log("url1111", url)
 				uni.request({
@@ -314,7 +218,11 @@
 		height: 80upx;
 		margin-left: 5upx;
 	}
-
+	
+	.kabuTitle {
+		font-size: 20upx;
+		font-weight: bold;
+	}
 	.kabuName {
 		width: 220upx;
 		height: 40upx;
@@ -346,6 +254,26 @@
 		font-size: 20upx;
 		font-weight: bold;
 	}
+	
+	.kabuBuyday {
+		width: 250upx;
+		height: 80upx;
+	}
+	
+	.kabuBuydayTxt {
+		font-size: 20upx;
+		font-weight: bold;
+	}
+	
+	.kabuSellday {
+		width: 100%;
+		height: 80upx;
+	}
+	
+	.kabuSelldayTxt {
+		font-size: 20upx;
+		font-weight: bold;
+	}
 
 	.kabuRate {
 		width: 80upx;
@@ -359,12 +287,12 @@
 	}
 
 	.kabuCol2 {
-		width: 100upx;
+		width: 500upx;
 
 	}
 
 	.kabuTori {
-		width: 80upx;
+		width: 40upx;
 		height: 80upx;
 	}
 
