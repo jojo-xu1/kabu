@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-view class="uni-row head">
+	<!-- 	<uni-view class="uni-row head">
 			<view class="uni-list-cell-db sort">
 				<picker @change="sortChange" :value="sortIndex" :range="sortArray">
 					<view><text class="sortTxt">{{sortArray[sortIndex] + '  ▼'}}</text></view>
@@ -9,7 +9,7 @@
 			<uni-button @click="open" type="primary" class="shibori">
 				<text class="shiboriTxt">絞り込み</text>
 			</uni-button>
-		</uni-view>
+		</uni-view> -->
 		<!-- 		<uni-view class="uni-column" v-model="kabuDaily">
 			<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily" :key="item.stock.stockId">
 				<uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view>
@@ -45,6 +45,8 @@
 					<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.endPrice }}</text></uni-view>
 					<uni-view class="kabuToriUp"></uni-view>
 				</uni-view>
+				<uni-view class="kabuIndustry"><text class="kabustartDayTxt">{{ item.stock.industry}}</text></uni-view>	
+				<uni-view class="kabuIndustry"><text class="kabuendDayTxt">{{ item.stock.industry}}</text></uni-view>			
 			</uni-view>
 		</uni-view>
 		<!-- 		<uni-popup ref="popup" type="top" class="popUp">
