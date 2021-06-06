@@ -261,7 +261,7 @@
     justify-content: space-between;
     align-items: center;
     height: 100rpx;
-	width: 135px;
+	width: 150px;
     color: #333333;
     border-bottom: 0.5px solid #e2e2e2;
   }
