@@ -192,13 +192,52 @@
      //            title: res.data.msg
      //          });
      //          setTimeout(function() {
-		        
-
-				uni.navigateTo({
-				    url: '../login/login'
-				});
      //          }, 1500)
      //        }
+	 //Luke Zhou0606
+			
+	        var url1 = this.$baseUrl + '/kabu-user/login'
+	        var mailaddress = this.phone
+	        var passwordMessage = this.password
+	        var usersParam1 = '?user_id=' + mailaddress + '&password=' + passwordMessage
+	        
+	        uni.request({
+	        	// url: 'http://139.224.56.43:8090/kabu-user/get',
+	        			url: url1 + usersParam1 ,
+	        			data: {},
+	        			success: (result) => {
+	        				var jumpUrl =  '../ucenter/ucenter?mailaddress=' + mailaddress
+	        				if (result.data.code == 200) {
+	        					
+	        					uni.setStorageSync('userId',result.data.data.userID)
+	        					uni.reLaunch({
+	        						url: jumpUrl
+	        					});
+	        				}
+	        				else{
+	        
+	        					uni.showToast({
+	        					  icon: 'none',
+	        					  title: 'password is wrong'
+	        					});
+	        					uni.navigateBack();
+	        					
+	        				}
+
+	        	
+	        			},
+	        	fail: (err) => {
+
+	        	},
+	        	complete: (e) => {
+
+	        	}
+	        });
+			
+			uni.navigateTo({
+			    url: '../ucenter/ucenter'
+			});
+			
           }
         });
 

@@ -11,7 +11,7 @@
 			  <text>1.投資の金額を教えてください</text>
 			</view>
 			<view class="list-call">
-	        <input class="sl-input" v-model="mailuser" type="text" maxlength="20" /> <text>万円</text>
+	        <input class="sl-input" v-model="investmentFunds" type="text" maxlength="20" /> <text>万円</text>
 			</view>
 		</view>
 		<view class="list">
@@ -68,48 +68,50 @@
       return {
         mailuser: '',
         password: '',
+		investmentFunds: '',
+		rate: '',
 		radiodata:[
 						{
-							id:'zhifubao',
+							id:'1',
 							text:'５％前後',
 							isChecked:false,
 						},
 						{
-							id:'wechat',
+							id:'2',
 							text:'２０％前後',
 							isChecked:false,
 							radio:'margin-top: 20upx;'
 						},
 						{
-							id:'yinlian',
+							id:'3',
 							text:'３０％以上',
 							isChecked:false,
 							radio:'margin-top: 20upx;',
 							yinlianlabel:'margin-left: 35upx;line-height: 2em;'
 						}
 					],
-		 current: 0,
 		 radiosecond:[
 		 				{
-		 					id:'zhifubao',
+		 					id:'1',
 		 					text:'頻繫に取引しても問題ない',
 		 					isChecked:false,
 		 				},
 		 				{
-		 					id:'wechat',
+		 					id:'2',
 		 					text:'週ベースで取引したい',
 		 					isChecked:false,
 		 					radio:'margin-top: 20upx;'
 		 				},
 		 				{
-		 					id:'yinlian',
+		 					id:'3',
 		 					text:'月ベースで取引したい',
 		 					isChecked:false,
 		 					radio:'margin-top: 20upx;',
 		 					yinlianlabel:'margin-left: 35upx;line-height: 2em;'
 		 				}
 		 			],
-		  current2: 0
+					eXptRate: 0,
+					frequency: 0
       };
     },
 	created() {
@@ -122,29 +124,35 @@
 	},
     methods: {
 		setUserrecommned: function(){
+			uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
+			uni.setStorageSync('eXptRate',this.eXptRate)
+			uni.setStorageSync('frequency',this.frequency)
 			console.log("come setUserrecommned");	
 			uni.reLaunch({
-				url: '/pages/recommend/recommend'
+				url: '/pages/recommend/recommend' 
 			})
 			//uni.reLaunch({
 			// url: '/pages/recommend/recommend'
 			//});
 		},
 		radioChange: function(evt) {
-		    for (let i = 0; i < this.radiodata.length; i++) {
-		        if (this.radiodata[i].value === evt.detail.value) {
-		            this.current = i;
-		            break;
-		        }
-		    }
+		  //   for (let i = 0; i < this.radiodata.length; i++) {
+				// console.log(evt.detail.value)
+		  //       if (this.radiodata[i].value === evt.detail.value) {
+		  //           this.eXptRate = i;
+		  //           break;
+		  //       }
+		  //   }
+		  this.eXptRate = evt.detail.value
 		},
 		radioChangesecond: function(evt) {
-		    for (let i = 0; i < this.radiosecond.length; i++) {
-		        if (this.radiosecond[i].value === evt.detail.value) {
-		            this.current2 = i;
-		            break;
-		        }
-		    }
+		    // for (let i = 0; i < this.radiosecond.length; i++) {
+		    //     if (this.radiosecond[i].value === evt.detail.value) {
+		    //         this.frequency = i;
+		    //         break;
+		    //     }
+		    // }
+			this.frequency = evt.detail.value
 		},
 		bindLogin() {
 		  if (this.password.length < 2) {
