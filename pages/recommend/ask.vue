@@ -11,7 +11,7 @@
 			  <text>1.投資の金額を教えてください</text>
 			</view>
 			<view class="list-call">
-	        <input class="sl-input" v-model="investmentFunds" type="text" maxlength="20" /> <text>万円</text>
+	        <input class="sl-input" style="width: 100px;"　v-model="investmentFunds" type="text" maxlength="20" /> <text>万円</text>
 			</view>
 		</view>
 		<view class="list">
@@ -51,7 +51,7 @@
 		  <text></text>
 		</view>
     <view class="agreenment">
-		  <button type="default" @click="setUserrecommned">次へ</button>						
+		  <button style="margin-right:50px;"　type="default" class="next" @click="setUserrecommned">次へ</button>						
     </view>
   </view>
 </template>
@@ -261,6 +261,7 @@
     justify-content: space-between;
     align-items: center;
     height: 100rpx;
+	width: 135px;
     color: #333333;
     border-bottom: 0.5px solid #e2e2e2;
   }
@@ -270,7 +271,7 @@
     height: 40rpx;
   }
 
-  .list-call .sl-input {
+  .list-call  {
     flex: 1;
     text-align: left;
     font-size: 32rpx;
@@ -295,8 +296,7 @@
   .button-hover {
     background: linear-gradient(-90deg, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));
   }
-
-  .agreenment {
+.agreenment {
     display: flex;
     flex-direction: row;
     justify-content: center;

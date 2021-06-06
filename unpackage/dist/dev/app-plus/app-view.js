@@ -271,6 +271,7 @@ var render = function() {
             [
               _c("v-uni-input", {
                 staticClass: _vm._$g(9, "sc"),
+                staticStyle: { width: "100px" },
                 attrs: { type: "text", maxlength: "20", _i: 9 },
                 model: {
                   value: _vm._$g(9, "v-model"),
@@ -454,6 +455,8 @@ var render = function() {
           _c(
             "v-uni-button",
             {
+              staticClass: _vm._$g(32, "sc"),
+              staticStyle: { "margin-right": "50px" },
               attrs: { type: "default", _i: 32 },
               on: {
                 click: function($event) {
@@ -558,7 +561,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../Downloads/HBuilderX.3.1.12.20210428.full/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.content {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n}\n.header {\n    background: rgba(63, 205, 235, 1);\n    width: 221rpx;\n    height: 161rpx;\n    margin-top: 20rpx;\n    margin-left: auto;\n    margin-right: auto;\n}\n.list-title{\n    width: 40rpx;\n    height: 40rpx;\n}\n.list {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    padding-top: 10rpx;\n    padding-left: 70rpx;\n    padding-right: 70rpx;\n}\n.list-call {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: justify;\n    -webkit-justify-content: space-between;\n            justify-content: space-between;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    height: 100rpx;\n    color: #333333;\n    border-bottom: 0.5px solid #e2e2e2;\n}\n.list-call .img {\n    width: 40rpx;\n    height: 40rpx;\n}\n.list-call .sl-input {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n            flex: 1;\n    text-align: left;\n    font-size: 32rpx;\n    margin-left: 16rpx;\n}\n.button-login {\n    color: #FFFFFF;\n    font-size: 34rpx;\n    width: 470rpx;\n    height: 100rpx;\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(164, 217, 228, 0.2);\n    border-radius: 50rpx;\n    line-height: 100rpx;\n    text-align: center;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 10rpx;\n}\n.button-hover {\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n}\n.agreenment {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 30rpx;\n    margin-top: 20rpx;\n    color: #FFA800;\n    text-align: center;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.agreenment uni-text {\n    font-size: 24rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n.headtitle {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: left;\n    -webkit-justify-content: left;\n            justify-content: left;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 40rpx;\n    color: #000000;\n    text-align: left;\n\tmargin-top: 20rpx;\n\tmargin-left: 20rpx;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.headrideo {\n\t  margin-top: 20rpx;\n  \tmargin-left: 30rpx;\n}\n.headtitle uni-text {\n    font-size: 32rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n", ""]);
+exports.push([module.i, "\n.content {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n}\n.header {\n    background: rgba(63, 205, 235, 1);\n    width: 221rpx;\n    height: 161rpx;\n    margin-top: 20rpx;\n    margin-left: auto;\n    margin-right: auto;\n}\n.list-title{\n    width: 40rpx;\n    height: 40rpx;\n}\n.list {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    padding-top: 10rpx;\n    padding-left: 70rpx;\n    padding-right: 70rpx;\n}\n.list-call {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: justify;\n    -webkit-justify-content: space-between;\n            justify-content: space-between;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    height: 100rpx;\n\twidth: 135px;\n    color: #333333;\n    border-bottom: 0.5px solid #e2e2e2;\n}\n.list-call .img {\n    width: 40rpx;\n    height: 40rpx;\n}\n.list-call  {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n            flex: 1;\n    text-align: left;\n    font-size: 32rpx;\n    margin-left: 16rpx;\n}\n.button-login {\n    color: #FFFFFF;\n    font-size: 34rpx;\n    width: 470rpx;\n    height: 100rpx;\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(164, 217, 228, 0.2);\n    border-radius: 50rpx;\n    line-height: 100rpx;\n    text-align: center;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 10rpx;\n}\n.button-hover {\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n}\n.agreenment {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 30rpx;\n    margin-top: 20rpx;\n    color: #FFA800;\n    text-align: center;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.agreenment uni-text {\n    font-size: 24rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n.headtitle {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: left;\n    -webkit-justify-content: left;\n            justify-content: left;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 40rpx;\n    color: #000000;\n    text-align: left;\n\tmargin-top: 20rpx;\n\tmargin-left: 20rpx;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.headrideo {\n\t  margin-top: 20rpx;\n  \tmargin-left: 30rpx;\n}\n.headtitle uni-text {\n    font-size: 32rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -2036,28 +2039,23 @@ var render = function() {
           _c(
             "v-uni-view",
             { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-            [_vm._v("アカウントをお忘れですか？")]
-          ),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } },
             [
               _c("v-uni-image", {
-                staticClass: _vm._$g(4, "sc"),
-                attrs: { src: "/static/shilu-login/1.png", _i: 4 }
+                staticClass: _vm._$g(3, "sc"),
+                attrs: { src: "/static/shilu-login/1.png", _i: 3 }
               }),
               _c("v-uni-input", {
-                staticClass: _vm._$g(5, "sc"),
+                staticClass: _vm._$g(4, "sc"),
                 attrs: {
                   type: "number",
                   maxlength: "11",
                   placeholder: "メール",
-                  _i: 5
+                  _i: 4
                 },
                 model: {
-                  value: _vm._$g(5, "v-model"),
+                  value: _vm._$g(4, "v-model"),
                   callback: function($$v) {
-                    _vm.$handleVModelEvent(5, $$v)
+                    _vm.$handleVModelEvent(4, $$v)
                   },
                   expression: "phone"
                 }
@@ -2067,32 +2065,69 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
+            { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
             [
               _c("v-uni-image", {
-                staticClass: _vm._$g(7, "sc"),
-                attrs: { src: "/static/shilu-login/2.png", _i: 7 }
+                staticClass: _vm._$g(6, "sc"),
+                attrs: { src: "/static/shilu-login/2.png", _i: 6 }
               }),
               _c("v-uni-input", {
-                staticClass: _vm._$g(8, "sc"),
+                staticClass: _vm._$g(7, "sc"),
                 attrs: {
                   type: "text",
                   maxlength: "32",
-                  placeholder: "パスワードを再設定してください.",
-                  password: _vm._$g(8, "a-password"),
-                  _i: 8
+                  placeholder: "パスワード",
+                  password: _vm._$g(7, "a-password"),
+                  _i: 7
                 },
                 model: {
-                  value: _vm._$g(8, "v-model"),
+                  value: _vm._$g(7, "v-model"),
                   callback: function($$v) {
-                    _vm.$handleVModelEvent(8, $$v)
+                    _vm.$handleVModelEvent(7, $$v)
                   },
                   expression: "password"
                 }
               }),
               _c("v-uni-image", {
-                staticClass: _vm._$g(9, "sc"),
-                attrs: { src: _vm._$g(9, "a-src"), _i: 9 },
+                staticClass: _vm._$g(8, "sc"),
+                attrs: { src: _vm._$g(8, "a-src"), _i: 8 },
+                on: {
+                  click: function($event) {
+                    return _vm.$handleViewEvent($event)
+                  }
+                }
+              })
+            ],
+            1
+          ),
+          _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
+            [
+              _c("v-uni-image", {
+                staticClass: _vm._$g(10, "sc"),
+                attrs: { src: "/static/shilu-login/2.png", _i: 10 }
+              }),
+              _c("v-uni-input", {
+                staticClass: _vm._$g(11, "sc"),
+                attrs: {
+                  type: "text",
+                  maxlength: "32",
+                  placeholder: "パスワードを再設定してください.",
+                  newPassword: _vm._$g(11, "a-newPassword"),
+                  _i: 11
+                },
+                model: {
+                  value: _vm._$g(11, "v-model"),
+                  callback: function($$v) {
+                    _vm.$handleVModelEvent(11, $$v)
+                  },
+                  expression: "newPassword"
+                }
+              }),
+              _c("v-uni-image", {
+                staticClass: _vm._$g(12, "sc"),
+                attrs: { src: _vm._$g(12, "a-src"), _i: 12 },
                 on: {
                   click: function($event) {
                     return _vm.$handleViewEvent($event)
@@ -2108,15 +2143,15 @@ var render = function() {
       _c(
         "v-uni-view",
         {
-          staticClass: _vm._$g(10, "sc"),
-          attrs: { "hover-class": "button-hover", _i: 10 },
+          staticClass: _vm._$g(13, "sc"),
+          attrs: { "hover-class": "button-hover", _i: 13 },
           on: {
             click: function($event) {
               return _vm.$handleViewEvent($event)
             }
           }
         },
-        [_c("v-uni-text", { attrs: { _i: 11 } }, [_vm._v("再設定")])],
+        [_c("v-uni-text", { attrs: { _i: 14 } }, [_vm._v("再設定")])],
         1
       )
     ],

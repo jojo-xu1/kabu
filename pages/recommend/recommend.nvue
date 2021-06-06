@@ -1,5 +1,39 @@
 <template>
 	<view>
+		<uni-view class="user-recommend">
+			<uni-view class="uni-row head">
+				<view class="center-list">
+					<view class="center-list-item border-bottom">
+						<text class="list-text">あなたのおすすめ</text>
+						<text v-if="showUpImg04" class="navigat-arrow" @click="changeImg04">&#171;</text>
+						<text v-if="!showUpImg04" class="navigat-arrow" @click="changeImg04">&#187;</text>
+					</view>
+				</view>
+			</uni-view>
+			<uni-view class="uni-column" v-if="showUpList04" v-model="kabuDaily04">
+				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily04" :key="item.stock.stockId">
+					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
+					<uni-view class="uni-column kabuCol1">
+						<uni-view class="kabuName">
+							<text class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text>
+						</uni-view>
+						<uni-view class="kabuCode">
+							<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
+						</uni-view>
+					</uni-view>
+					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
+					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
+					<uni-view class="uni-column kabuCol2">
+						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
+						<uni-view class="kabuToriUp"></uni-view>
+					</uni-view>
+					<uni-view >
+						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
+						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
+					</uni-view>
+				</uni-view>
+			</uni-view>
+		</uni-view>	
 		<uni-view class="rask-low">
 			<uni-view class="uni-row head">
 				<view class="center-list">
@@ -102,40 +136,7 @@
 				</uni-view>
 			</uni-view>
 		</uni-view>	
-		<uni-view class="user-recommend">
-			<uni-view class="uni-row head">
-				<view class="center-list">
-					<view class="center-list-item border-bottom">
-						<text class="list-text">あなたのおすすめ</text>
-						<text v-if="showUpImg04" class="navigat-arrow" @click="changeImg04">&#171;</text>
-						<text v-if="!showUpImg04" class="navigat-arrow" @click="changeImg04">&#187;</text>
-					</view>
-				</view>
-			</uni-view>
-			<uni-view class="uni-column" v-if="showUpList04" v-model="kabuDaily04">
-				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily04" :key="item.stock.stockId">
-					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
-					<uni-view class="uni-column kabuCol1">
-						<uni-view class="kabuName">
-							<text class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text>
-						</uni-view>
-						<uni-view class="kabuCode">
-							<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
-						</uni-view>
-					</uni-view>
-					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
-					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
-					<uni-view class="uni-column kabuCol2">
-						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
-						<uni-view class="kabuToriUp"></uni-view>
-					</uni-view>
-					<uni-view >
-						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
-						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
-					</uni-view>
-				</uni-view>
-			</uni-view>
-		</uni-view>	
+		
 	</view>
 </template>
 
