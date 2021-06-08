@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-view class="uni-column" v-model="colist">
-			<text class="kabuTitle" >      銘柄                                             業種                              購入日              売出日</text>
+			<text class="kabuTitle" >       銘柄                                           業種</text>
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
 					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click=goTo(item.stock.stockId)>{{ item.stock.stockName}}</text></uni-view>
@@ -9,9 +9,17 @@
 				</uni-view>
 				<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
 				<uni-view class="kabuRate" v-on:click=goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
+				
 				<uni-view class="uni-column kabuCol2">
-				<uni-view class="kabuBuyday"><text class="kabuBuydayTxt">{{item.startbuydate}}   ·   {{item.endselldate}}</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt">{{ item.startbuydate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt">購入</text></uni-view>
 				</uni-view>
+				<uni-view class="uni-column kabuCol2">
+					<uni-view class="kabuName"><text class="kabuNameTxt">{{item.endselldate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt">売出</text></uni-view>
+				</uni-view>
+				
+				
 
 			</uni-view>
 		</uni-view>
@@ -218,6 +226,11 @@
 		height: 80upx;
 		margin-left: 5upx;
 	}
+	.kabuCol2 {
+		width: 150upx;
+		height: 80upx;
+		margin-left: 5upx;
+	}
 	
 	.kabuTitle {
 		font-size: 20upx;
@@ -284,11 +297,6 @@
 		font-size: 25upx;
 		color: #007AFF;
 		text-align: center;
-	}
-
-	.kabuCol2 {
-		width: 500upx;
-
 	}
 
 	.kabuTori {
