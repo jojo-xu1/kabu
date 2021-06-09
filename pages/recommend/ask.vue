@@ -260,6 +260,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+	flex: 1;
+	text-align: right;
+	font-size: 32rpx;
+	margin-left: 16rpx;
     height: 100rpx;
 	width: 150px;
     color: #333333;
@@ -269,13 +273,6 @@
   .list-call .img {
     width: 40rpx;
     height: 40rpx;
-  }
-
-  .list-call  {
-    flex: 1;
-    text-align: left;
-    font-size: 32rpx;
-    margin-left: 16rpx;
   }
 
   .button-login {

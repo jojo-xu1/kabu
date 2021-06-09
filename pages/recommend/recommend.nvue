@@ -29,7 +29,7 @@
 					</uni-view>
 					<uni-view >
 						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
-						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
+						
 					</uni-view>
 				</uni-view>
 			</uni-view>
@@ -160,11 +160,11 @@
 				showUpImg01:false,
 				showUpImg02:false,
 				showUpImg03:false,
-				showUpImg04:false,
+				showUpImg04:true,
 				showUpList01:false,
 				showUpList02:false,
 				showUpList03:false,
-				showUpList04:false,
+				showUpList04:true,
 				loginStatus :false,
 				userId : '',
 				listAll:[
@@ -615,7 +615,7 @@
 		padding-top: 1px;
 		background-color: #007AFF;
 		color: #FFFFFF;
-		font-size: 1px;
+		font-size: 0.5px;
 		text-align: center;
 	}
 	.kabuCollection-off {
@@ -624,7 +624,7 @@
 		padding-top: 1px;
 		background-color: #92969b;
 		color: #2c8aed;
-		font-size: 1px;
+		font-size: 0.5px;
 		text-align: center;
 		pointer-events: none;
 	}
