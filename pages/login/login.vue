@@ -1,13 +1,15 @@
 <template>
   <view class="content">
-    <view class="header">
+<!--    <view class="header">
       <image src="../../static/shilu-login/logo.png"></image>
-    </view>
+    </view> -->
 
     <view class="list">
       <view class="list-call">
         <image class="img" src="/static/shilu-login/1.png"></image>
-        <input class="sl-input" v-model="mailuser" type="text" maxlength="30" placeholder="メール" />
+		<!-- style="text-color:#FFA800" -->
+        <input class="sl-input" v-model="mailuser" type="text" maxlength="30" 
+		placeholder="メール"/>
       </view>
       <view class="list-call">
         <image class="img" src="/static/shilu-login/2.png"></image>
@@ -17,7 +19,7 @@
     </view>
 
     <view class="button-login" hover-class="button-hover" @tap="bindLogin()">
-      <text>登録</text>
+      <text>ログイン</text>
     </view>
 	
 
@@ -26,6 +28,38 @@
       <text>|</text>
       <navigator url="reg" open-type="navigate">新規</navigator>
     </view>
+
+	<text>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</text>
+
   </view>
 </template>
 
@@ -172,14 +206,18 @@
 <style>
   .content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+     flex-direction: column; 
+    /* justify-content: center; */
+	background: #000000;
+	height: 10000rpx;
+	
   }
 
   .header {
     width: 161rpx;
     height: 161rpx;
-    background: rgba(63, 205, 235, 1);
+    /* background: rgba(63, 205, 235, 1); */
+	background: #000000;
     box-shadow: 0rpx 12rpx 13rpx 0rpx rgba(63, 205, 235, 0.47);
     border-radius: 50%;
     margin-top: 30rpx;
@@ -224,7 +262,8 @@
   }
 
   .button-login {
-    color: #FFFFFF;
+   color: #FFFFFF;
+	
     font-size: 34rpx;
     width: 470rpx;
     height: 100rpx;

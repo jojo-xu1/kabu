@@ -104,14 +104,17 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "投資情報",
-		"navigationBarBackgroundColor": "#2F85FC",
-		"backgroundColor": "#FFFFFF"
+		// "navigationBarBackgroundColor": "#2F85FC",
+		"navigationBarBackgroundColor": "#000000",
+		// "backgroundColor": "#FFFFFF",
+		"backgroundColor": "#000000"
 	},
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
+		// "backgroundColor": "#ffffff",
+		"backgroundColor": "#000000",
 		"list": [{
 			"pagePath": "pages/news/index",
 			"iconPath": "static/center.png",

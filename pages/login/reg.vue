@@ -1,8 +1,5 @@
 <template>
   <view class="content">
-    <view class="header">
-      <image src="../../static/shilu-login/logo.png"></image>
-    </view>
 
     <view class="list">
       <view class="list-call">
@@ -266,7 +263,9 @@
   .content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
+	background: #000000;
+	height: 10000rpx;
   }
 
   .header {
