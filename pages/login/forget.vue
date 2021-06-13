@@ -176,7 +176,9 @@
   .content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
+	background: #000000;
+	height: 10000rpx;
   }
 
   .tishi {

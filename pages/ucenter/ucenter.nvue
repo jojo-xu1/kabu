@@ -1,5 +1,5 @@
 <template>
-	<view class="center">
+	<view class="center" style="text-color:#FFA800">
 		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
 			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
 			<view class="logo-title">
@@ -7,6 +7,7 @@
 				<text class="go-login-navigat-arrow navigat-arrow" v-if="!login">&#xe65e;</text>
 			</view>
 		</view>
+		<!-- <button @click="goLogout" text-align="left" >logout </button> -->
 		<view class="center-list">
 			<view class="center-list-item border-bottom">
 				<text class="list-icon">&#xe60f;</text>
@@ -140,7 +141,8 @@
 	}
 
 	page {
-		background-color: #f8f8f8;
+		/* background-color: #f8f8f8; */
+		background-color: #000000;
 	}
 
 	/* #endif*/
@@ -163,7 +165,8 @@
 		width: 750upx;
 		height: 240upx;
 		padding: 20upx;
-		background-color: #2F85FC;
+		/* background-color: #2F85FC; */
+		background-color: #000000;
 		flex-direction: row;
 		align-items: center;
 	}

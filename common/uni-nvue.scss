@@ -13,7 +13,9 @@ page {
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
-	background-color: #efeff4;
+	// Luke Zhou
+	// background-color: #efeff4;
+	background-color: #000000;
 	min-height: 100%;
 	height: auto;
 }
@@ -30,7 +32,8 @@ view {
 .example-info {
 	padding: 15px;
 	color: #3b4144;
-	background: #ffffff;
+	// background: #ffffff;
+	background-color: #000000;
 }
 
 .example-body {
@@ -42,7 +45,8 @@ view {
 	justify-content: center;
 	padding: 0;
 	font-size: 14px;
-	background-color: #ffffff;
+	// background-color: #ffffff;
+	background-color: #000000;
 }
 /* #endif */
 .example {
@@ -55,7 +59,8 @@ view {
 	/* #endif */
 	padding: 15px;
 	color: #3b4144;
-	background-color: #ffffff;
+	// background-color: #ffffff;
+	background-color: #000000;
 	font-size: 14px;
 	line-height: 20px;
 }
@@ -70,12 +75,14 @@ view {
 .example-body {
   flex-direction: column;
   padding: 15px;
-  background-color: #ffffff;
+  // background-color: #ffffff;
+  background-color: #000000;
 }
 
 .word-btn-white{
 	font-size: 18px;
-  color:#FFFFFF;
+  // color:#FFFFFF;
+  color:#000000;
 }
 
 .word-btn {
@@ -88,9 +95,11 @@ view {
   border-radius: 6px;
   height: 48px;
   margin: 15px;
-  background-color: #007AFF;
+  // background-color: #007AFF;
+  background-color: #000000;
 }
 
 .word-btn--hover {
-  background-color: #4ca2ff;
+  // background-color: #4ca2ff;
+  background-color: #000000;
 }
