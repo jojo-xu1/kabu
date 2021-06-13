@@ -1,14 +1,19 @@
 <template>
   <view class="content">
     <view class="list">
-      <view class="tishi">アカウントをお忘れですか？</view>
+      <!-- <view class="tishi">アカウントをお忘れですか？</view> -->
       <view class="list-call">
         <image class="img" src="/static/shilu-login/1.png"></image>
         <input class="sl-input" type="number" v-model="phone" maxlength="11" placeholder="メール" />
       </view>
+	  <view class="list-call">
+	    <image class="img" src="/static/shilu-login/2.png"></image>
+	    <input class="sl-input" type="text" v-model="password" maxlength="32" placeholder="パスワード" :password="!showPassword" />
+	    <image class="img" :src="showPassword?'/static/shilu-login/op.png':'/static/shilu-login/cl.png'" @tap="display"></image>
+	  </view>
       <view class="list-call">
         <image class="img" src="/static/shilu-login/2.png"></image>
-        <input class="sl-input" type="text" v-model="password" maxlength="32" placeholder="パスワードを再設定してください." :password="!showPassword" />
+        <input class="sl-input" type="text" v-model="newPassword" maxlength="32" placeholder="パスワードを再設定してください." :newPassword="!showPassword" />
         <image class="img" :src="showPassword?'/static/shilu-login/op.png':'/static/shilu-login/cl.png'" @tap="display"></image>
       </view>
 <!--      <view class="list-call">

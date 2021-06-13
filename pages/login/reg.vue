@@ -195,6 +195,7 @@
      //          }, 1500)
      //        }
 	 //Luke Zhou0606
+			
 	        var url1 = this.$baseUrl + '/kabu-user/login'
 	        var mailaddress = this.phone
 	        var passwordMessage = this.password
