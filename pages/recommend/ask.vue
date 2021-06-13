@@ -18,17 +18,17 @@
 			<view class="headtitle">
 			  <text>2.年間利益率希望</text>
 			</view>				  
-				  <view class="headrideo">
-				  				<radio-group class="radiolist" @change='radioChange'>
-				  					<view v-for="(item,index) in radiodata" :key="index">
-				  						<radio :value="item.id"   color="#ff5500" :checked="item.isChecked" :style="item.radio">
-				  							<view class="imageAndText">
-				  								<label class="label" >{{item.text}}</label>
-				  							</view>
-				  						</radio>
-				  					</view>
-				  				</radio-group>
-				  			</view>
+			<view class="headrideo">
+				<radio-group  class="radiolist" @change='radioChange'>
+					<view v-for="(item,index) in radiodata" :key="index">
+						<radio :value="item.id"   color="#ff5500" :checked="item.isChecked" :style="item.radio">
+							<view class="imageAndText">
+								<label class="label" >{{item.text}}</label>
+							</view>
+						</radio>
+					</view>
+				</radio-group>
+			</view>
 				  
 	    </view>
 		<view class="list">
@@ -122,18 +122,47 @@
 			// user_id: this.mailuser,
 		};
 	},
+	onReady() {
+		this.investmentFunds = uni.getStorageSync('investmentFunds')/10000;
+		this.eXptRate = uni.getStorageSync('eXptRate');
+		this.frequency = uni.getStorageSync('frequency');
+		for(var i=0;i<this.radiodata.length;i++){
+			if(this.radiodata[i].id ==this.eXptRate){
+				this.radiodata[i].isChecked = true
+			}
+			
+		}
+		for(var i=0;i<this.radiosecond.length;i++){
+			if(this.radiosecond[i].id ==this.frequency){
+				this.radiosecond[i].isChecked = true
+			}
+			
+		}
+	},
     methods: {
 		setUserrecommned: function(){
-			uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
-			uni.setStorageSync('eXptRate',this.eXptRate)
-			uni.setStorageSync('frequency',this.frequency)
-			console.log("come setUserrecommned");	
+			if(this.investmentFunds != 0){
+				uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
+			}else{
+				alert("投資金額を入力してください")
+			}
+			
+			if(this.eXptRate != 0){
+				uni.setStorageSync('eXptRate',this.eXptRate)
+			}else{
+				alert("希望利益率範囲を選択してください")
+			}
+			
+			if(this.frequency != 0){
+				uni.setStorageSync('frequency',this.frequency)
+			}else{
+				alert("売買頻度を選択してください")
+			}
+		if(this.investmentFunds != 0&&this.eXptRate != 0&&this.frequency != 0){
 			uni.reLaunch({
 				url: '/pages/recommend/recommend' 
 			})
-			//uni.reLaunch({
-			// url: '/pages/recommend/recommend'
-			//});
+		}
 		},
 		radioChange: function(evt) {
 		  //   for (let i = 0; i < this.radiodata.length; i++) {
@@ -143,6 +172,7 @@
 		  //           break;
 		  //       }
 		  //   }
+		  console.log(this.rate)
 		  this.eXptRate = evt.detail.value
 		},
 		radioChangesecond: function(evt) {
