@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<view class="rask-assessment">
+			  <button　type="default" class="assessment" @click="setUserrecommned">投資リスク判定</button>						
+		</view>
 		<uni-view class="user-recommend">
 			<uni-view class="uni-row head">
 				<view class="center-list">
@@ -314,6 +317,12 @@
 			this.getkabuDaily();
 		},
 		methods: {
+			setUserrecommned: function(){
+					
+				uni.reLaunch({
+					url: '/pages/recommend/ask' 
+				})
+			},
 			getLoginStatus(){
 				var userId = uni.getStorageSync('userId');
 				if(userId != null && userId !=''){
@@ -843,5 +852,9 @@
 		color: #555;
 		text-align: right;
 		font-family: texticons;
+	}
+	.assessment{
+		color: #FF0000;
+		background: #d1d1d1;
 	}
 </style>
