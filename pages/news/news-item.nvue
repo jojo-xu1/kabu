@@ -99,7 +99,8 @@
         lines: 3;
         text-overflow: ellipsis;
         font-size: 30upx;
-        color: #555555;
+        /* color: #555555; */
+		color: #ffffff;
     }
 
     .media-title2 {
