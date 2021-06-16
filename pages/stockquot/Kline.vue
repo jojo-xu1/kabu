@@ -1,17 +1,17 @@
 <template>
-	<view>
+	<view class="page">
 		<view class="search-block">
 			<input id="IDsearch" type="text" value="" placeholder="kabu code..." class="search-text" confirm-type="search"
 			 @input="onKeyInput" @confirm="kabuSearch" maxlength="6" focus="false" />
 		</view>
-		<view style="flex: 1; ">
+		<view style="flex: 1; color: #FFFFFF">
 			{{Candle.series[0].name}} {{Candle.series[0].ID}}
 		</view>
 		<uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" styleType="button" activeColor="#d9ce2c"
 		 style="padding: 10px;"></uni-segmented-control>
-		<view class="content">
-			<view v-show="current === 0">
-				<view class="qiun-columns">
+		<view class="content" >
+			<view v-show="current === 0" class="chart123">
+				<view class="qiun-columns" >
 					<view class="qiun-charts">
 						<canvas canvas-id="canvasCandle" id="canvasCandle" class="charts" disable-scroll=true @touchstart="touchCandle"
 						 @touchmove="moveCandle" @touchend="touchEndCandle"></canvas>
@@ -19,13 +19,13 @@
 					<view class="qiun-charts2">
 						<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts2"></canvas>
 					</view>
-					<view class="qiun-padding qiun-bg-white ">
+					<view class="qiun-padding qiun-bg-black ">
 						<slider :value="itemCount" min="5" :max="sliderMax" block-color="#f8f8f8" block-size="18" @changing="sliderMove"
 						 @change="sliderMove" />
 					</view>
 				</view>
 			</view>
-			<view v-show="current === 1">
+			<view v-show="current === 1" class="chart123">
 				<view class="qiun-charts">
 					<canvas canvas-id="canvasCandle1" id="canvasCandle1" class="charts" disable-scroll=true @touchstart="touchCandle"
 					 @touchmove="moveCandle" @touchend="touchEndCandle"></canvas>
@@ -39,7 +39,7 @@
 				</view>
 			</view>
 		</view>
-		<view v-show="current === 2">
+		<view v-show="current === 2" class="chart123" @click="sliderChange">
 			<view class="qiun-columns">
 				<view class="qiun-charts">
 					<canvas canvas-id="canvasCandle2" id="canvasCandle2" class="charts" disable-scroll=true @touchstart="touchCandle"
@@ -54,7 +54,6 @@
 				</view>
 			</view>
 		</view>
-	</view>
 	</view>
 </template>
 
@@ -268,47 +267,14 @@
 					url: `${this.$baseUrl}/daily/kline?stockId=5013&day=180`,
 					data: {},
 					success: function(res) {
-						console.log("-----服务器获取数据：", res.data.data)
-						console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
-						console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
+						// console.log("-----服务器获取数据：", res.data.data)
+						// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
+						// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
 						let tempdata = res.data.data;
 						that.SQLdata = res.data.data;
-						console.log("保存获取数据：", tempdata)
-						console.log("股票名称:", tempdata.stockName);
+						// console.log("保存获取数据：", tempdata)
+						// console.log("股票名称:", tempdata.stockName);
 						that.dayLine();
-						// let Ktemp = [];
-						// //获取股票名称，股票代码
-						// that.Candle.series[0].name = tempdata.stockName;
-						// that.Candle.series[0].ID = tempdata.stockId;
-						// console.log("股票名称:", that.Candle.series[0].name);
-						// console.log("股票代码:", that.Candle.series[0].ID);
-						// //处理Candle数据
-						// for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
-						// 	that.Candle.categories.push(tempdata.kLineDailyOutDto[i].dayId);
-						// 	var arr = [];
-						// 	arr.push(tempdata.kLineDailyOutDto[i].startPrice);
-						// 	arr.push(tempdata.kLineDailyOutDto[i].endPrice);
-						// 	arr.push(tempdata.kLineDailyOutDto[i].lowPrice);
-						// 	arr.push(tempdata.kLineDailyOutDto[i].highPrice);
-						// 	console.log("arr:", arr)
-						// 	that.Candle.series[0].data.push(arr);
-						// 	console.log("candle", that.Candle);
-						// };
-						// that.Candle.categories.sort();
-						// that.CandleColumn.categories = that.Candle.categories;
-						// that.Candle.series[0].data.reverse();
-						// console.log("Candle PUSH：", that.Candle);
-						// //处理Colunm数据
-						// for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
-						// 	console.log("cloumn日期", that.CandleColumn.categories)
-						// 	var arr = [];
-						// 	that.CandleColumn.series[0].data.push(tempdata.kLineDailyOutDto[i].vol);
-						// 	console.log("CandleColumn", that.CandleColumn);
-						// };
-						// that.CandleColumn.series[0].data.reverse();
-						// console.log("column PUSH：", that.CandleColumn);
-						// _self.showCandle("canvasCandle", that.Candle);
-						// _self.showColumn("canvasColumn", that.CandleColumn);
 					},
 					fail: () => {
 						_self.tips = "Error!";
@@ -318,12 +284,12 @@
 			},
 			getWeek(dateString) {
 				var dateArray = dateString.split("-");
-				console.log("日期分割：", dateArray)
+				// console.log("日期分割：", dateArray)
 				var day = new Date(dateArray[0], parseInt(dateArray[1] - 1), dateArray[2]);
 				// return "周" + "日一二三四五六".charAt(day.getDay());
 				var arr = [6, 0, 1, 2, 3, 4, 5]
 				var res = arr[day.getDay()]
-				console.log("判断同一周：", this.compareDate())
+				// console.log("判断同一周：", this.compareDate())
 				return res
 			},
 			getDateString(str) {
@@ -350,11 +316,11 @@
 			newWeek(dayId) {
 				var day1 = this.getDateString(dayId);
 				var time1 = Date.parse(day1 + " 00:00:00");
-				console.log("时间戳::::", time1);
-				console.log("范围：",this.start,this.end);
+				// console.log("时间戳::::", time1);
+				// console.log("范围：",this.start,this.end);
 				if (this.start == 0 || this.end == 0 || this.start > time1) {
 					var daymark = this.getWeek(day1)
-					console.log("周几：：", daymark)
+					// console.log("周几：：", daymark)
 					this.start = time1 - (daymark - 0) * 24 * 60 * 60 * 1000;
 					this.end = time1 + (6 - daymark) * 24 * 60 * 60 * 1000;
 					return true;
@@ -365,16 +331,16 @@
 			newMonth(dayId) {
 				var day1 = this.getDateString(dayId);
 				var time1 = Date.parse(day1 + " 00:00:00");
-				console.log("时间戳::::", time1);
+				// console.log("时间戳::::", time1);
 				var year = dayId.substr(0, 4); //第一位表示起始位，第二位表示个数
 				var month = dayId.substr(4, 2);
 				var day0 = year + "-" + month + "-" + "01";
-				console.log("本月一号：：", day0)
+				// console.log("本月一号：：", day0)
 				var time0 = Date.parse(day0 + " 00:00:00");
-				console.log("月初时间戳::::", time1);
+				// console.log("月初时间戳::::", time1);
 				var day31 = this.getDateString(dayId);
 				var time31 = Date.parse(day1 + " 23:59:59");
-				console.log("月末时间戳：：：", time31);
+				// console.log("月末时间戳：：：", time31);
 				if (this.start == 0 || this.end == 0 || this.start > time1) {
 					this.start = time0;
 					this.end = time31;
@@ -393,17 +359,18 @@
 				}
 			},
 			showCandle(canvasId, chartData) {
-				console.log("kabu name:", this.Candle.series[0].name);
+				// console.log("kabu name:", this.Candle.series[0].name);
 				canvaCandle = new uCharts({
 					$this: _self,
 					canvasId: canvasId,
 					type: 'candle',
+					reshow:true,
 					fontSize: 11,
 					padding: [10, 15, 0, 15],
 					legend: {
 						show: true,
 					},
-					background: '#FFFFFF',
+					background: '#000000',
 					pixelRatio: _self.pixelRatio,
 					categories: chartData.categories,
 					series: chartData.series,
@@ -462,7 +429,7 @@
 						}
 					},
 				});
-				console.log("NEW：：：", canvaCandle)
+				// console.log("NEW：：：", canvaCandle)
 
 			},
 			touchCandle(e) {
@@ -517,12 +484,25 @@
 					if (this.current === 0) {
 						// this.getServerData();
 						this.dayLine();
+						
 					} else if (this.current === 1) {
 						this.weekLine();
+						setTimeout(function() {
+							_self.showCandle("canvasCandle1", _self.Candle);
+							_self.showColumn("canvasColumn1", _self.CandleColumn);
+						     }, 300)
 					} else {
 						this.monthLine();
+						setTimeout(function() {
+							_self.showCandle("canvasCandle2", _self.Candle);
+							_self.showColumn("canvasColumn2", _self.CandleColumn);
+						     }, 300)
 					}
 				}
+			},
+			sliderChange(){
+				this.itemCount = this.itemCount +1;
+
 			},
 			onKeyInput: function(event) {
 				this.inputValue = event.target.value
@@ -564,47 +544,14 @@
 								"data": []
 							}]
 						};
-						console.log("-----服务器获取数据：", res.data.data)
-						console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
-						console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
+						// console.log("-----服务器获取数据：", res.data.data)
+						// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
+						// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
 						let searchTemp = res.data.data;
 						that.SQLdata = res.data.data;
-						console.log("保存获取数据：", searchTemp)
-						console.log("股票名称:", searchTemp.stockName);
+						// console.log("保存获取数据：", searchTemp)
+						// console.log("股票名称:", searchTemp.stockName);
 						that.dayLine();
-						// let Ktemp = [];
-						// //获取股票名称，股票代码
-						// that.Candle.series[0].name = searchTemp.stockName;
-						// that.Candle.series[0].ID = searchTemp.stockId;
-						// console.log("股票名称:", that.Candle.series[0].name);
-						// console.log("股票代码:", that.Candle.series[0].ID);
-						// //处理Candle数据
-						// for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
-						// 	that.Candle.categories.push(searchTemp.kLineDailyOutDto[i].dayId);
-						// 	var arr = [];
-						// 	arr.push(searchTemp.kLineDailyOutDto[i].startPrice);
-						// 	arr.push(searchTemp.kLineDailyOutDto[i].endPrice);
-						// 	arr.push(searchTemp.kLineDailyOutDto[i].lowPrice);
-						// 	arr.push(searchTemp.kLineDailyOutDto[i].highPrice);
-						// 	console.log("arr:", arr)
-						// 	that.Candle.series[0].data.push(arr);
-						// 	console.log("candle", that.Candle);
-						// };
-						// that.Candle.categories.sort();
-						// that.CandleColumn.categories = that.Candle.categories;
-						// that.Candle.series[0].data.reverse();
-						// console.log("Candle PUSH：", that.Candle);
-						// //处理Colunm数据
-						// for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
-						// 	console.log("cloumn日期", that.CandleColumn.categories)
-						// 	var arr = [];
-						// 	that.CandleColumn.series[0].data.push(searchTemp.kLineDailyOutDto[i].vol);
-						// 	console.log("CandleColumn", that.CandleColumn);
-						// };
-						// that.CandleColumn.series[0].data.reverse();
-						// console.log("column PUSH：", that.CandleColumn);
-						// _self.showCandle("canvasCandle1", that.Candle);
-						// _self.showColumn("canvasColumn1", that.CandleColumn);
 					},
 					fail: () => {
 						_self.tips = "Error!";
@@ -615,7 +562,6 @@
 			},
 			dayLine() {
 				console.log("日K")
-
 				this.Candle = {
 					categories: [],
 					series: [{
@@ -631,7 +577,7 @@
 				};
 				var res = this.SQLdata; //使用模拟数据
 				let tempdata = res;
-				console.log("保存服务器数据：：：：：：", this.SQLdata);
+				// console.log("保存服务器数据：：：：：：", this.SQLdata);
 				// console.log("保存获取数据：", tempdata)
 				// console.log("股票名称:", tempdata.stockName);
 				let Ktemp = [];
@@ -648,9 +594,9 @@
 					arr.push(tempdata.kLineDailyOutDto[i].endPrice);
 					arr.push(tempdata.kLineDailyOutDto[i].lowPrice);
 					arr.push(tempdata.kLineDailyOutDto[i].highPrice);
-					console.log("arr:", arr)
+					// console.log("arr:", arr)
 					this.Candle.series[0].data.push(arr);
-					console.log("candle", this.Candle);
+					// console.log("candle", this.Candle);
 				};
 				this.Candle.categories.sort();
 				this.CandleColumn.categories = this.Candle.categories;
@@ -658,10 +604,10 @@
 				console.log("Candle PUSH：", this.Candle);
 				//处理Colunm数据
 				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
-					console.log("cloumn日期", this.CandleColumn.categories)
+					// console.log("cloumn日期", this.CandleColumn.categories)
 					var arr = [];
 					this.CandleColumn.series[0].data.push(tempdata.kLineDailyOutDto[i].vol);
-					console.log("CandleColumn", this.CandleColumn);
+					// console.log("CandleColumn", this.CandleColumn);
 				};
 				this.CandleColumn.series[0].data.reverse();
 				console.log("column PUSH：", this.CandleColumn);
@@ -670,7 +616,6 @@
 			},
 			weekLine() { //周线
 				console.log("周K")
-
 				this.Candle = {
 					categories: [],
 					series: [{
@@ -684,13 +629,9 @@
 						"data": []
 					}]
 				};
-				// console.log("-----服务器获取数据：", res.data.data)
-				// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
-				// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
-				// let tempdata = res.data.data;
 				var res = this.SQLdata; //使用模拟数据
 				let tempdata = res;
-				console.log("保存服务器数据：：：：：：", this.SQLdata);
+				// console.log("保存服务器数据：：：：：：", this.SQLdata);
 				// console.log("保存获取数据：", tempdata)
 				// console.log("股票名称:", tempdata.stockName);
 				let Ktemp = [];
@@ -708,20 +649,20 @@
 				var weekMark = -1
 				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
 					var isNewWeek = this.newWeek(tempdata.kLineDailyOutDto[i].dayId);
-					console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewWeek);
+					// console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewWeek);
 					if (isNewWeek && i != 0) {
 						weekMark++;
 						this.weekArr[weekMark] = week;
 						week = [];
 					}
 					week.push(tempdata.kLineDailyOutDto[i]);
-					console.log("week", week);
+					// console.log("week", week);
 					if (i == tempdata.kLineDailyOutDto.length - 1) {
 						weekMark++;
 						this.weekArr[weekMark] = week;
 					}
 				}
-				console.log("weekArr", this.weekArr);
+				// console.log("weekArr", this.weekArr);
 				//按周处理
 				for (i = 0; i < this.weekArr.length; i++) {
 					this.Candle.categories.push(this.weekArr[i][this.weekArr[i].length - 1].dayId);
@@ -743,7 +684,7 @@
 					}
 					arr.push(lowPrice);
 					arr.push(highPrice);
-					console.log("单次数据：：：：", arr);
+					// console.log("单次数据：：：：", arr);
 					this.Candle.series[0].data.push(arr);
 					arr = [];
 					this.CandleColumn.series[0].data.push(vol);
@@ -755,8 +696,8 @@
 				this.Candle.series[0].data.reverse();
 				console.log("Candle PUSH：", this.Candle);
 				console.log("column PUSH：", this.CandleColumn);
-				_self.showCandle("canvasCandle1", this.Candle);
-				_self.showColumn("canvasColumn1", this.CandleColumn);
+				// _self.showCandle("canvasCandle1", this.Candle);
+				// _self.showColumn("canvasColumn1", this.CandleColumn);
 			},
 			monthLine() { //月线
 				console.log("月K")
@@ -780,8 +721,8 @@
 				// let tempdata = res.data.data;
 				var res = that.SQLdata; //使用模拟数据
 				let tempdata = res;
-				console.log("保存获取数据：", tempdata)
-				console.log("股票名称:", tempdata.stockName);
+				// console.log("保存获取数据：", tempdata)
+				// console.log("股票名称:", tempdata.stockName);
 				let Ktemp = [];
 				//获取股票名称，股票代码
 				that.Candle.series[0].name = tempdata.stockName;
@@ -797,25 +738,25 @@
 				var monthMark = -1
 				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
 					var isNewMonth = this.newMonth(tempdata.kLineDailyOutDto[i].dayId);
-					console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewMonth);
+					// console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewMonth);
 					if (isNewMonth && i != 0) {
 						monthMark++;
 						this.monthArr[monthMark] = month;
 						month = [];
 					}
 					month.push(tempdata.kLineDailyOutDto[i]);
-					console.log("循环判断push:", tempdata.kLineDailyOutDto[i])
-					console.log("month", month);
+					// console.log("循环判断push:", tempdata.kLineDailyOutDto[i])
+					// console.log("month", month);
 					if (i == tempdata.kLineDailyOutDto.length - 1) {
 						monthMark++;
 						this.monthArr[monthMark] = month;
 					}
 				}
-				console.log("monthArr", this.monthArr);
+				// console.log("monthArr", this.monthArr);
 				//按周处理
 				for (i = 0; i < this.monthArr.length; i++) {
 					this.Candle.categories.push(this.monthArr[i][this.monthArr[i].length - 1].dayId);
-					console.log('每月第一天：：：', this.monthArr[i][this.monthArr[i].length - 1].dayId)
+					// console.log('每月第一天：：：', this.monthArr[i][this.monthArr[i].length - 1].dayId)
 					var arr = [];
 					arr.push(this.monthArr[i][this.monthArr[i].length - 1].startPrice);
 					arr.push(this.monthArr[i][0].endPrice);
@@ -833,7 +774,7 @@
 					}
 					arr.push(lowPrice);
 					arr.push(highPrice);
-					console.log("单次数据：：：：", arr);
+					// console.log("单次数据：：：：", arr);
 					this.Candle.series[0].data.push(arr);
 					arr = [];
 					this.CandleColumn.series[0].data.push(vol);
@@ -844,8 +785,8 @@
 				this.Candle.series[0].data.reverse();
 				console.log("Candle PUSH：", this.Candle);
 				console.log("column PUSH：", this.CandleColumn);
-				_self.showCandle("canvasCandle2", this.Candle);
-				_self.showColumn("canvasColumn2", this.CandleColumn);
+				// _self.showCandle("canvasCandle2", this.Candle);
+				// _self.showColumn("canvasColumn2", this.CandleColumn);
 			},
 			gotoSearch(stockId) {
 				console.log("kabu  Search")
@@ -870,13 +811,13 @@
 								"data": []
 							}]
 						};
-						console.log("-----服务器获取数据：", res.data.data)
-						console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
-						console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
+						// console.log("-----服务器获取数据：", res.data.data)
+						// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
+						// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
 						let searchTemp = res.data.data;
 						that.SQLdata = res.data.data;
-						console.log("保存获取数据：", searchTemp)
-						console.log("股票名称:", searchTemp.stockName);
+						// console.log("保存获取数据：", searchTemp)
+						// console.log("股票名称:", searchTemp.stockName);
 						let Ktemp = [];
 						//获取股票名称，股票代码
 						that.Candle.series[0].name = searchTemp.stockName;
@@ -891,9 +832,9 @@
 							arr.push(searchTemp.kLineDailyOutDto[i].endPrice);
 							arr.push(searchTemp.kLineDailyOutDto[i].lowPrice);
 							arr.push(searchTemp.kLineDailyOutDto[i].highPrice);
-							console.log("arr:", arr)
+							// console.log("arr:", arr)
 							that.Candle.series[0].data.push(arr);
-							console.log("candle", that.Candle);
+							// console.log("candle", that.Candle);
 						};
 						that.Candle.categories.sort();
 						that.CandleColumn.categories = that.Candle.categories;
@@ -901,10 +842,10 @@
 						console.log("Candle PUSH：", that.Candle);
 						//处理Colunm数据
 						for (var i = 0; i < searchTemp.kLineDailyOutDto.length; i++) {
-							console.log("cloumn日期", that.CandleColumn.categories)
+							// console.log("cloumn日期", that.CandleColumn.categories)
 							var arr = [];
 							that.CandleColumn.series[0].data.push(searchTemp.kLineDailyOutDto[i].vol);
-							console.log("CandleColumn", that.CandleColumn);
+							// console.log("CandleColumn", that.CandleColumn);
 						};
 						that.CandleColumn.series[0].data.reverse();
 						console.log("column PUSH：", that.CandleColumn);
@@ -919,18 +860,19 @@
 
 			},
 			showColumn(canvasId, chartData) {
-				console.log("cahrtdata:", chartData)
-				console.log("canvasId:", canvasId)
+				// console.log("cahrtdata:", chartData)
+				// console.log("canvasId:", canvasId)
 				canvaColumn = new uCharts({
 					$this: _self,
 					canvasId: canvasId,
 					type: 'column',
+					reshow:true,
 					padding: [10, 15, 0, 15],
 					legend: {
 						show: false,
 					},
 					fontSize: 11,
-					background: '#FFFFFF',
+					background: '#000000',
 					pixelRatio: _self.pixelRatio,
 					animation: false,
 					enableScroll: true,
@@ -978,22 +920,30 @@
 </script>
 
 <style>
+	.page{
+		height:100vh;
+		background-color: #000000;
+	}
 	/*样式的width和height一定要与定义的cWidth和cHeight相对应*/
 	.qiun-charts {
 		width: 750upx;
 		height: 500upx;
-		background-color: #FFFFFF;
+		background-color: #000000;
 	}
-
+	.chart123{
+		width: 800upx;
+		height: 550upx;
+	}
 	.search-text {
 		font-size: 14px;
-		background-color: #FFFFFF;
+		
 		height: 60upx;
 		width: 480upx;
 	}
 
 	.search-block {
 		/* display: flex; */
+		background-color: #000000;
 		flex-direction: row;
 		padding-top: 20px;
 		padding-left: 60upx;
@@ -1004,11 +954,12 @@
 	.charts {
 		width: 750upx;
 		height: 500upx;
-		background-color: #FFFFFF;
+		background-color: #000000;
 	}
 
 	.qiun-textarea {
 		height: 300upx;
+		background-color: #000000;
 	}
 
 	.qiun-columns {
@@ -1023,12 +974,12 @@
 	.qiun-charts2 {
 		width: 750upx;
 		height: 200upx;
-		background-color: #FFFFFF;
+		background-color: #000000;
 	}
 
 	.charts2 {
 		width: 750upx;
 		height: 200upx;
-		background-color: #FFFFFF;
+		background-color: #000000;
 	}
 </style>
