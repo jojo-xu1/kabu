@@ -7,7 +7,7 @@
 			<uni-view class="uni-row head">
 				<view class="center-list">
 					<view class="center-list-item border-bottom">
-						<text class="list-text">あなたのおすすめ</text>
+						<text class="list-text">あなたへのお薦め</text>
 						<text v-if="showUpImg04" class="navigat-arrow" @click="changeImg04">&#171;</text>
 						<text v-if="!showUpImg04" class="navigat-arrow" @click="changeImg04">&#187;</text>
 					</view>
@@ -75,14 +75,14 @@
 			<uni-view class="uni-row head">
 				<view class="center-list">
 					<view class="center-list-item border-bottom">
-						<text class="list-text">中リスク銘柄一覧 <年収益率 20%></text>
+						<text class="list-text">中リスク銘柄一覧 <年収益率 15%></text>
 						<text v-if="showUpImg02" class="navigat-arrow" @click="changeImg02">&#171;</text>
 						<text v-if="!showUpImg02" class="navigat-arrow" @click="changeImg02">&#187;</text>
 					</view>
 				</view>
 			</uni-view>
-			<uni-view class="uni-column" v-if="showUpList02" v-model="kabuDaily02">
-				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily02" :key="item.stock.stockId">
+			<uni-view class="uni-column" v-if="showUpList02" v-model="kabuDaily03">
+				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily03" :key="item.stock.stockId">
 					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
 					<uni-view class="uni-column kabuCol1">
 						<uni-view class="kabuName">
@@ -109,14 +109,14 @@
 			<uni-view class="uni-row head">
 				<view class="center-list">
 					<view class="center-list-item border-bottom">
-						<text class="list-text">高リスク銘柄一覧 <年収益率 100%></text>
+						<text class="list-text">高リスク銘柄一覧 <年収益率 30%></text>
 						<text v-if="showUpImg03" class="navigat-arrow" @click="changeImg03">&#171;</text>
 						<text v-if="!showUpImg03" class="navigat-arrow" @click="changeImg03">&#187;</text>
 					</view>
 				</view>
 			</uni-view>
-			<uni-view class="uni-column" v-if="showUpList03" v-model="kabuDaily03">
-				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily03" :key="item.stock.stockId">
+			<uni-view class="uni-column" v-if="showUpList03" v-model="kabuDaily02">
+				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily02" :key="item.stock.stockId">
 					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
 					<uni-view class="uni-column kabuCol1">
 						<uni-view class="kabuName">
@@ -547,7 +547,7 @@
 							if(eXptRate == 1){
 								kabuDailyListUser = this.kabuDaily01 
 							}else{
-								if(frequency== 1){
+								if(frequency== 3){
 									kabuDailyListUser = this.kabuDaily02
 								}else{
 									kabuDailyListUser = this.kabuDaily03
@@ -666,6 +666,7 @@
 	.kabuNameTxt {
 		font-size: 20upx;
 		font-weight: bold;
+		color: #A9A9A9;
 	}
 	.kabuCode {
 		width: 200upx;
@@ -685,6 +686,7 @@
 	.kabuIndustryTxt{
 		font-size: 20upx;
 		font-weight: bold;
+		color: #A9A9A9;
 	}
 	
 	.kabuRate {
@@ -820,7 +822,7 @@
 	}
 	.center-list {
 		flex-direction: column;
-		background-color: #FFFFFF;
+		background-color: #000000;
 		margin-top: 20upx;
 		width: 750upx;
 	}

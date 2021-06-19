@@ -14,12 +14,15 @@
 	        <input class="sl-input" style="width: 100px;"　v-model="investmentFunds" type="text" maxlength="20" /> <text>万円</text>
 			</view>
 		</view>
+		<view class="interline">
+		  <text></text>
+		</view>
 		<view class="list">
 			<view class="headtitle">
 			  <text>2.年間利益率希望</text>
 			</view>				  
 			<view class="headrideo">
-				<radio-group  class="radiolist" @change='radioChange'>
+				<radio-group  class="radiolist" @change='radioChange' v-if="firstupdata">
 					<view v-for="(item,index) in radiodata" :key="index">
 						<radio :value="item.id"   color="#ff5500" :checked="item.isChecked" :style="item.radio">
 							<view class="imageAndText">
@@ -31,12 +34,15 @@
 			</view>
 				  
 	    </view>
+		<view class="interline">
+		  <text></text>
+		</view>
 		<view class="list">
 			<view class="headtitle">
 			  <text>3.売買頻度</text>
 			</view>
 	     <view class="headrideo">
-	     				<radio-group class="radiolist" @change='radioChangesecond'>
+	     				<radio-group class="radiolist" @change='radioChangesecond' v-if="updata">
 	     					<view v-for="(item2,index2) in radiosecond" :key="index2">
 	     						<radio :value="item2.id"   color="#ff5500" :checked="item2.isChecked" :style="item2.radio">
 	     							<view class="imageAndText">
@@ -66,6 +72,8 @@
 	  },
     data() {
       return {
+		updata:true,
+		firstupdata:true,
         mailuser: '',
         password: '',
 		investmentFunds: '',
@@ -78,7 +86,7 @@
 						},
 						{
 							id:'2',
-							text:'２０％前後',
+							text:'１５％前後',
 							isChecked:false,
 							radio:'margin-top: 20upx;'
 						},
@@ -93,18 +101,18 @@
 		 radiosecond:[
 		 				{
 		 					id:'1',
-		 					text:'頻繫に取引しても問題ない',
+		 					text:'年に一回くらいで取引する',
 		 					isChecked:false,
 		 				},
 		 				{
 		 					id:'2',
-		 					text:'週ベースで取引したい',
+		 					text:'月/週ベースで取引する',
 		 					isChecked:false,
 		 					radio:'margin-top: 20upx;'
 		 				},
 		 				{
 		 					id:'3',
-		 					text:'月ベースで取引したい',
+		 					text:'頻繫に取引する',
 		 					isChecked:false,
 		 					radio:'margin-top: 20upx;',
 		 					yinlianlabel:'margin-left: 35upx;line-height: 2em;'
@@ -117,7 +125,6 @@
 	created() {
 		this.pullTimer = null;
 		this.requestParams = {
-			//先写死
 			user_id: 'sos@gmail.com',
 			// user_id: this.mailuser,
 		};
@@ -133,7 +140,7 @@
 			
 		}
 		for(var i=0;i<this.radiosecond.length;i++){
-			if(this.radiosecond[i].id ==this.frequency){
+			if(this.radiosecond[i].id ==this.frequency){//this.frequency
 				this.radiosecond[i].isChecked = true
 			}
 			
@@ -172,8 +179,18 @@
 		  //           break;
 		  //       }
 		  //   }
-		  console.log(this.rate)
-		  this.eXptRate = evt.detail.value
+		  //console.log(this.rate);
+		  this.updata =false;
+		  this.eXptRate = evt.detail.value;
+		  this.frequency = evt.detail.value;
+		for(var i=0;i<this.radiosecond.length;i++){
+			if(this.radiosecond[i].id ==this.frequency){//this.frequency
+				this.radiosecond[i].isChecked = true;
+			}else{
+				this.radiosecond[i].isChecked = false;
+			}
+			}
+		  this.updata =true;
 		},
 		radioChangesecond: function(evt) {
 		    // for (let i = 0; i < this.radiosecond.length; i++) {
@@ -182,7 +199,19 @@
 		    //         break;
 		    //     }
 		    // }
-			this.frequency = evt.detail.value
+			this.firstupdata =false;
+			this.eXptRate = evt.detail.value;
+			this.frequency = evt.detail.value;
+			for(var i=0;i<this.radiodata.length;i++){
+				if(this.radiodata[i].id ==this.eXptRate){
+					this.radiodata[i].isChecked = true;
+				}else{
+					this.radiodata[i].isChecked = false;
+				}
+				
+			}
+			this.firstupdata =true;
+
 		},
 		bindLogin() {
 		  if (this.password.length < 2) {
@@ -341,7 +370,19 @@
     margin-left: 15rpx;
     margin-right: 15rpx;
   }
-  
+   .interline {
+     display: flex;
+     flex-direction: row;
+     justify-content: left;
+     align-items: center;
+     font-size: 40rpx;
+     color: #000000;
+     text-align: left;
+   	margin-top: 10rpx;
+   	margin-left: 20rpx;
+     height: 20rpx;
+     line-height: 20rpx;
+   }
   .headtitle {
     display: flex;
     flex-direction: row;
