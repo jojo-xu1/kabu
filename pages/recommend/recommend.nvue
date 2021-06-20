@@ -51,14 +51,14 @@
 				<uni-view class="uni-row kabu" v-for="(item,index) in kabuDaily01" :key="item.stock.stockId">
 					<!-- <uni-view class="kabuIndex"><text class="kabuIndexTxt">{{ index }}</text></uni-view> -->
 					<uni-view class="uni-column kabuCol1">
-						<uni-view class="kabuName">
+						<uni-view class="kabuName" v-on:click = goTo(item.stock.stockId)>
 							<text class="kabuNameTxt">{{ kabuNameSubstr(item.stock.stockName) }}</text>
 						</uni-view>
-						<uni-view class="kabuCode">
+						<uni-view class="kabuCode" v-on:click = goTo(item.stock.stockId)>
 							<text class="kabuCodeTxt">{{ item.stock.stockId }}</text>
 						</uni-view>
 					</uni-view>
-					<uni-view class="kabuIndustry"><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
+					<uni-view class="kabuIndustry" v-on:click = goTo(item.stock.stockId)><text class="kabuIndustryTxt">{{ item.stock.industry}}</text></uni-view>
 					<uni-view class="kabuRate" v-on:click = goTo(item.stock.stockId)><text class="kabuRateTxt">{{ item.stock.dividendYield }}</text></uni-view>
 					<uni-view class="uni-column kabuCol2">
 						<uni-view class="kabuTori"><text class="kabuToriTxt">{{ item.startPrice }}</text></uni-view>
