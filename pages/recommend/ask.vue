@@ -57,13 +57,14 @@
 		  <text></text>
 		</view>
     <view class="agreenment">
-		  <button style="margin-right:50px;"　type="default" class="next" @click="setUserrecommned">次へ</button>						
+		  <button style="margin-right:50px;"　type="default" class="next" @click="gotoRecommend()">次へ</button>						
     </view>
   </view>
 </template>
 
 <script>
   export default {
+	  
 	  props: {
 	  	nid: {
 	  		type: [String, String],
@@ -119,7 +120,8 @@
 		 				}
 		 			],
 					eXptRate: 0,
-					frequency: 0
+					frequency: 0,
+					
       };
     },
 	created() {
@@ -147,6 +149,11 @@
 		}
 	},
     methods: {
+		reload : function(){
+			this.setUserrecommned()
+			this.$router.go(0)
+		},
+		
 		setUserrecommned: function(){
 			if(this.investmentFunds != 0){
 				uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
@@ -165,12 +172,17 @@
 			}else{
 				alert("売買頻度を選択してください")
 			}
-		if(this.investmentFunds != 0&&this.eXptRate != 0&&this.frequency != 0){
-			uni.reLaunch({
-				url: '/pages/recommend/recommend' 
-			})
-		}
+		
 		},
+		gotoRecommend:function(){
+			this.setUserrecommned()
+			if(this.investmentFunds != 0&&this.eXptRate != 0&&this.frequency != 0){
+				uni.reLaunch({
+					url: '/pages/recommend/recommend' 
+				})
+			}
+		},
+		
 		radioChange: function(evt) {
 		  //   for (let i = 0; i < this.radiodata.length; i++) {
 				// console.log(evt.detail.value)
@@ -180,17 +192,28 @@
 		  //       }
 		  //   }
 		  //console.log(this.rate);
-		  this.updata =false;
-		  this.eXptRate = evt.detail.value;
-		  this.frequency = evt.detail.value;
-		for(var i=0;i<this.radiosecond.length;i++){
-			if(this.radiosecond[i].id ==this.frequency){//this.frequency
-				this.radiosecond[i].isChecked = true;
-			}else{
-				this.radiosecond[i].isChecked = false;
-			}
-			}
-		  this.updata =true;
+		  //this.updata =false;
+		  //this.eXptRate = evt.detail.value;
+		  // this.frequency = evt.detail.value;
+		  
+		  for(var i=0;i<this.radiosecond.length;i++){
+			 this.radiosecond[i].isChecked = false; 
+			 if(this.radiosecond[i].id ==evt.detail.value){//this.frequency
+			 	this.radiosecond[i].isChecked = true;
+				this.eXptRate = evt.detail.value;
+				this.frequency = evt.detail.value;
+				this.reload();
+			 }
+		  }
+		 
+		// for(var i=0;i<this.radiosecond.length;i++){
+		// 	if(this.radiosecond[i].id ==this.frequency){//this.frequency
+		// 		this.radiosecond[i].isChecked = true;
+		// 	}else{
+		// 		this.radiosecond[i].isChecked = false;
+		// 	}
+		// 	}
+		 // this.updata =true;
 		},
 		radioChangesecond: function(evt) {
 		    // for (let i = 0; i < this.radiosecond.length; i++) {
@@ -199,18 +222,28 @@
 		    //         break;
 		    //     }
 		    // }
-			this.firstupdata =false;
-			this.eXptRate = evt.detail.value;
-			this.frequency = evt.detail.value;
+			//this.firstupdata =false;
+			// this.eXptRate = evt.detail.value;
+			// this.frequency = evt.detail.value;
 			for(var i=0;i<this.radiodata.length;i++){
-				if(this.radiodata[i].id ==this.eXptRate){
+				this.radiodata[i].isChecked = false;
+				if(this.radiodata[i].id ==evt.detail.value){
 					this.radiodata[i].isChecked = true;
-				}else{
-					this.radiodata[i].isChecked = false;
+					this.eXptRate = evt.detail.value;
+					this.frequency = evt.detail.value;
+					this.reload();
 				}
-				
 			}
-			this.firstupdata =true;
+			
+			// for(var i=0;i<this.radiodata.length;i++){
+			// 	if(this.radiodata[i].id ==this.eXptRate){
+			// 		this.radiodata[i].isChecked = true;
+			// 	}else{
+			// 		this.radiodata[i].isChecked = false;
+			// 	}
+				
+			// }
+			//this.firstupdata =true;
 
 		},
 		bindLogin() {
@@ -288,9 +321,12 @@
 
 <style>
   .content {
+	width: 750upx;
+	height: 1500upx;
     display: flex;
     flex-direction: column;
     justify-content: center;
+	background-color: #000000;
   }
 
   .header {
@@ -300,11 +336,13 @@
     margin-top: 20rpx;
     margin-left: auto;
     margin-right: auto;
+	color: #FFFFFF;
   }
 
   .list-title{
     width: 40rpx;
     height: 40rpx;
+	color: #FFFFFF;
   }
   .list {
     display: flex;
@@ -312,6 +350,7 @@
     padding-top: 10rpx;
     padding-left: 70rpx;
     padding-right: 70rpx;
+	color: #FFFFFF;
   }
 
   .list-call {
@@ -325,7 +364,8 @@
 	margin-left: 16rpx;
     height: 100rpx;
 	width: 150px;
-    color: #333333;
+    /* color: #333333; */
+	color: #FFFFFF;
     border-bottom: 0.5px solid #e2e2e2;
   }
 
@@ -376,7 +416,7 @@
      justify-content: left;
      align-items: center;
      font-size: 40rpx;
-     color: #000000;
+     color: #FFFFFF;
      text-align: left;
    	margin-top: 10rpx;
    	margin-left: 20rpx;
@@ -389,7 +429,7 @@
     justify-content: left;
     align-items: center;
     font-size: 40rpx;
-    color: #000000;
+    color: #FFFFFF;
     text-align: left;
 	margin-top: 20rpx;
 	margin-left: 20rpx;
