@@ -321,9 +321,12 @@
 
 <style>
   .content {
+	width: 750upx;
+	height: 1500upx;
     display: flex;
     flex-direction: column;
     justify-content: center;
+	background-color: #000000;
   }
 
   .header {
@@ -333,11 +336,13 @@
     margin-top: 20rpx;
     margin-left: auto;
     margin-right: auto;
+	color: #FFFFFF;
   }
 
   .list-title{
     width: 40rpx;
     height: 40rpx;
+	color: #FFFFFF;
   }
   .list {
     display: flex;
@@ -345,6 +350,7 @@
     padding-top: 10rpx;
     padding-left: 70rpx;
     padding-right: 70rpx;
+	color: #FFFFFF;
   }
 
   .list-call {
@@ -358,7 +364,8 @@
 	margin-left: 16rpx;
     height: 100rpx;
 	width: 150px;
-    color: #333333;
+    /* color: #333333; */
+	color: #FFFFFF;
     border-bottom: 0.5px solid #e2e2e2;
   }
 
@@ -409,7 +416,7 @@
      justify-content: left;
      align-items: center;
      font-size: 40rpx;
-     color: #000000;
+     color: #FFFFFF;
      text-align: left;
    	margin-top: 10rpx;
    	margin-left: 20rpx;
@@ -422,7 +429,7 @@
     justify-content: left;
     align-items: center;
     font-size: 40rpx;
-    color: #000000;
+    color: #FFFFFF;
     text-align: left;
 	margin-top: 20rpx;
 	margin-left: 20rpx;

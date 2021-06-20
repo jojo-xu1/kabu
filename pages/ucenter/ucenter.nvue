@@ -1,6 +1,7 @@
 <template>
 	<view class="center" style="text-color:#FFA800">
-		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
+		<!-- <view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''"> -->
+		<view class="logo">
 			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
 			<view class="logo-title">
 				<text class="uer-name">Hi ! {{login ? uerInfo.name : uername}}</text>
@@ -9,28 +10,28 @@
 		</view>
 		<!-- <button @click="goLogout" text-align="left" >logout </button> -->
 		<view class="center-list">
-			<view class="center-list-item border-bottom">
+			<view class="center-list-item border-bottom" @click="goLogin">
 				<text class="list-icon">&#xe60f;</text>
-				<text class="list-text">account</text>
+				<text class="list-text">ログイン</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item">
+			<view class="center-list-item" @click="goReg">
 				<text class="list-icon">&#xe639;</text>
-				<text class="list-text">message</text>
+				<text class="list-text">新規</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
 		<view class="center-list">
-			<view class="center-list-item border-bottom">
+			<view class="center-list-item border-bottom" @click="goAsk">
 				<text class="list-icon">&#xe60b;</text>
-				<text class="list-text">help</text>
+				<text class="list-text">投資リスク判定</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
 		<view class="center-list" @click="goLogout">
 			<view class="center-list-item">
 				<text class="list-icon">&#xe614;</text>
-				<text class="list-text">Logout</text>
+				<text class="list-text">ログアウト</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
@@ -91,6 +92,18 @@
 				// }
 				uni.navigateTo({
 					url: '../login/login'
+				});
+			},
+			goReg() {
+
+				uni.navigateTo({
+					url: '../login/reg'
+				});
+			},
+			goAsk() {
+
+				uni.navigateTo({
+					url: '../recommend/ask'
 				});
 			},
 			goLogout() {
