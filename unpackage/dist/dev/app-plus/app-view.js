@@ -291,12 +291,18 @@ var render = function() {
       _c(
         "v-uni-view",
         { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
+        [_c("v-uni-text", { attrs: { _i: 12 } })],
+        1
+      ),
+      _c(
+        "v-uni-view",
+        { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
+            { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
             [
-              _c("v-uni-text", { attrs: { _i: 13 } }, [
+              _c("v-uni-text", { attrs: { _i: 15 } }, [
                 _vm._v("2.年間利益率希望")
               ])
             ],
@@ -304,50 +310,54 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
+            { staticClass: _vm._$g(16, "sc"), attrs: { _i: 16 } },
             [
-              _c(
-                "v-uni-radio-group",
-                {
-                  staticClass: _vm._$g(15, "sc"),
-                  attrs: { _i: 15 },
-                  on: {
-                    change: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    }
-                  }
-                },
-                _vm._l(_vm._$g(16, "f"), function(item, index, $20, $30) {
-                  return _c(
-                    "v-uni-view",
-                    { key: item, attrs: { _i: "16-" + $30 } },
-                    [
-                      _c(
-                        "v-uni-radio",
-                        {
-                          style: _vm._$g("17-" + $30, "s"),
-                          attrs: {
-                            value: _vm._$g("17-" + $30, "a-value"),
-                            color: "#ff5500",
-                            checked: _vm._$g("17-" + $30, "a-checked"),
-                            _i: "17-" + $30
-                          }
-                        },
+              _vm._$g(17, "i")
+                ? _c(
+                    "v-uni-radio-group",
+                    {
+                      staticClass: _vm._$g(17, "sc"),
+                      attrs: { _i: 17 },
+                      on: {
+                        change: function($event) {
+                          return _vm.$handleViewEvent($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm._$g(18, "f"), function(item, index, $20, $30) {
+                      return _c(
+                        "v-uni-view",
+                        { key: item, attrs: { _i: "18-" + $30 } },
                         [
                           _c(
-                            "v-uni-view",
+                            "v-uni-radio",
                             {
-                              staticClass: _vm._$g("18-" + $30, "sc"),
-                              attrs: { _i: "18-" + $30 }
+                              style: _vm._$g("19-" + $30, "s"),
+                              attrs: {
+                                value: _vm._$g("19-" + $30, "a-value"),
+                                color: "#ff5500",
+                                checked: _vm._$g("19-" + $30, "a-checked"),
+                                _i: "19-" + $30
+                              }
                             },
                             [
                               _c(
-                                "v-uni-label",
+                                "v-uni-view",
                                 {
-                                  staticClass: _vm._$g("19-" + $30, "sc"),
-                                  attrs: { _i: "19-" + $30 }
+                                  staticClass: _vm._$g("20-" + $30, "sc"),
+                                  attrs: { _i: "20-" + $30 }
                                 },
-                                [_vm._v(_vm._$g("19-" + $30, "t0-0"))]
+                                [
+                                  _c(
+                                    "v-uni-label",
+                                    {
+                                      staticClass: _vm._$g("21-" + $30, "sc"),
+                                      attrs: { _i: "21-" + $30 }
+                                    },
+                                    [_vm._v(_vm._$g("21-" + $30, "t0-0"))]
+                                  )
+                                ],
+                                1
                               )
                             ],
                             1
@@ -355,12 +365,10 @@ var render = function() {
                         ],
                         1
                       )
-                    ],
+                    }),
                     1
                   )
-                }),
-                1
-              )
+                : _vm._e()
             ],
             1
           )
@@ -369,60 +377,70 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
+        { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
+        [_c("v-uni-text", { attrs: { _i: 23 } })],
+        1
+      ),
+      _c(
+        "v-uni-view",
+        { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(21, "sc"), attrs: { _i: 21 } },
-            [_c("v-uni-text", { attrs: { _i: 22 } }, [_vm._v("3.売買頻度")])],
+            { staticClass: _vm._$g(25, "sc"), attrs: { _i: 25 } },
+            [_c("v-uni-text", { attrs: { _i: 26 } }, [_vm._v("3.売買頻度")])],
             1
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
+            { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
             [
-              _c(
-                "v-uni-radio-group",
-                {
-                  staticClass: _vm._$g(24, "sc"),
-                  attrs: { _i: 24 },
-                  on: {
-                    change: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    }
-                  }
-                },
-                _vm._l(_vm._$g(25, "f"), function(item2, index2, $21, $31) {
-                  return _c(
-                    "v-uni-view",
-                    { key: item2, attrs: { _i: "25-" + $31 } },
-                    [
-                      _c(
-                        "v-uni-radio",
-                        {
-                          style: _vm._$g("26-" + $31, "s"),
-                          attrs: {
-                            value: _vm._$g("26-" + $31, "a-value"),
-                            color: "#ff5500",
-                            checked: _vm._$g("26-" + $31, "a-checked"),
-                            _i: "26-" + $31
-                          }
-                        },
+              _vm._$g(28, "i")
+                ? _c(
+                    "v-uni-radio-group",
+                    {
+                      staticClass: _vm._$g(28, "sc"),
+                      attrs: { _i: 28 },
+                      on: {
+                        change: function($event) {
+                          return _vm.$handleViewEvent($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm._$g(29, "f"), function(item2, index2, $21, $31) {
+                      return _c(
+                        "v-uni-view",
+                        { key: item2, attrs: { _i: "29-" + $31 } },
                         [
                           _c(
-                            "v-uni-view",
+                            "v-uni-radio",
                             {
-                              staticClass: _vm._$g("27-" + $31, "sc"),
-                              attrs: { _i: "27-" + $31 }
+                              style: _vm._$g("30-" + $31, "s"),
+                              attrs: {
+                                value: _vm._$g("30-" + $31, "a-value"),
+                                color: "#ff5500",
+                                checked: _vm._$g("30-" + $31, "a-checked"),
+                                _i: "30-" + $31
+                              }
                             },
                             [
                               _c(
-                                "v-uni-label",
+                                "v-uni-view",
                                 {
-                                  staticClass: _vm._$g("28-" + $31, "sc"),
-                                  attrs: { _i: "28-" + $31 }
+                                  staticClass: _vm._$g("31-" + $31, "sc"),
+                                  attrs: { _i: "31-" + $31 }
                                 },
-                                [_vm._v(_vm._$g("28-" + $31, "t0-0"))]
+                                [
+                                  _c(
+                                    "v-uni-label",
+                                    {
+                                      staticClass: _vm._$g("32-" + $31, "sc"),
+                                      attrs: { _i: "32-" + $31 }
+                                    },
+                                    [_vm._v(_vm._$g("32-" + $31, "t0-0"))]
+                                  )
+                                ],
+                                1
                               )
                             ],
                             1
@@ -430,12 +448,10 @@ var render = function() {
                         ],
                         1
                       )
-                    ],
+                    }),
                     1
                   )
-                }),
-                1
-              )
+                : _vm._e()
             ],
             1
           )
@@ -444,20 +460,20 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(29, "sc"), attrs: { _i: 29 } },
-        [_c("v-uni-text", { attrs: { _i: 30 } })],
+        { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
+        [_c("v-uni-text", { attrs: { _i: 34 } })],
         1
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(31, "sc"), attrs: { _i: 31 } },
+        { staticClass: _vm._$g(35, "sc"), attrs: { _i: 35 } },
         [
           _c(
             "v-uni-button",
             {
-              staticClass: _vm._$g(32, "sc"),
+              staticClass: _vm._$g(36, "sc"),
               staticStyle: { "margin-right": "50px" },
-              attrs: { type: "default", _i: 32 },
+              attrs: { type: "default", _i: 36 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -561,7 +577,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.content {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n}\n.header {\n    background: rgba(63, 205, 235, 1);\n    width: 221rpx;\n    height: 161rpx;\n    margin-top: 20rpx;\n    margin-left: auto;\n    margin-right: auto;\n}\n.list-title{\n    width: 40rpx;\n    height: 40rpx;\n}\n.list {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    padding-top: 10rpx;\n    padding-left: 70rpx;\n    padding-right: 70rpx;\n}\n.list-call {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: justify;\n    -webkit-justify-content: space-between;\n            justify-content: space-between;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n\ttext-align: right;\n\tfont-size: 32rpx;\n\tmargin-left: 16rpx;\n    height: 100rpx;\n\twidth: 150px;\n    color: #333333;\n    border-bottom: 0.5px solid #e2e2e2;\n}\n.list-call .img {\n    width: 40rpx;\n    height: 40rpx;\n}\n.button-login {\n    color: #FFFFFF;\n    font-size: 34rpx;\n    width: 470rpx;\n    height: 100rpx;\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(164, 217, 228, 0.2);\n    border-radius: 50rpx;\n    line-height: 100rpx;\n    text-align: center;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 10rpx;\n}\n.button-hover {\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n}\n.agreenment {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 30rpx;\n    margin-top: 20rpx;\n    color: #FFA800;\n    text-align: center;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.agreenment uni-text {\n    font-size: 24rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n.headtitle {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: left;\n    -webkit-justify-content: left;\n            justify-content: left;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 40rpx;\n    color: #000000;\n    text-align: left;\n\tmargin-top: 20rpx;\n\tmargin-left: 20rpx;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.headrideo {\n\t  margin-top: 20rpx;\n  \tmargin-left: 30rpx;\n}\n.headtitle uni-text {\n    font-size: 32rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n", ""]);
+exports.push([module.i, "\n.content {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n}\n.header {\n    background: rgba(63, 205, 235, 1);\n    width: 221rpx;\n    height: 161rpx;\n    margin-top: 20rpx;\n    margin-left: auto;\n    margin-right: auto;\n}\n.list-title{\n    width: 40rpx;\n    height: 40rpx;\n}\n.list {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n            flex-direction: column;\n    padding-top: 10rpx;\n    padding-left: 70rpx;\n    padding-right: 70rpx;\n}\n.list-call {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: justify;\n    -webkit-justify-content: space-between;\n            justify-content: space-between;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n\t-webkit-box-flex: 1;\n\t-webkit-flex: 1;\n\t        flex: 1;\n\ttext-align: right;\n\tfont-size: 32rpx;\n\tmargin-left: 16rpx;\n    height: 100rpx;\n\twidth: 150px;\n    color: #333333;\n    border-bottom: 0.5px solid #e2e2e2;\n}\n.list-call .img {\n    width: 40rpx;\n    height: 40rpx;\n}\n.button-login {\n    color: #FFFFFF;\n    font-size: 34rpx;\n    width: 470rpx;\n    height: 100rpx;\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));\n    box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(164, 217, 228, 0.2);\n    border-radius: 50rpx;\n    line-height: 100rpx;\n    text-align: center;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 10rpx;\n}\n.button-hover {\n    background: -webkit-linear-gradient(right, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n    background: linear-gradient(-90deg, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));\n}\n.agreenment {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n            justify-content: center;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 30rpx;\n    margin-top: 20rpx;\n    color: #FFA800;\n    text-align: center;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.agreenment uni-text {\n    font-size: 24rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n.interline {\n     display: -webkit-box;\n     display: -webkit-flex;\n     display: flex;\n     -webkit-box-orient: horizontal;\n     -webkit-box-direction: normal;\n     -webkit-flex-direction: row;\n             flex-direction: row;\n     -webkit-box-pack: left;\n     -webkit-justify-content: left;\n             justify-content: left;\n     -webkit-box-align: center;\n     -webkit-align-items: center;\n             align-items: center;\n     font-size: 40rpx;\n     color: #000000;\n     text-align: left;\n   \tmargin-top: 10rpx;\n   \tmargin-left: 20rpx;\n     height: 20rpx;\n     line-height: 20rpx;\n}\n.headtitle {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n            flex-direction: row;\n    -webkit-box-pack: left;\n    -webkit-justify-content: left;\n            justify-content: left;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n            align-items: center;\n    font-size: 40rpx;\n    color: #000000;\n    text-align: left;\n\tmargin-top: 20rpx;\n\tmargin-left: 20rpx;\n    height: 40rpx;\n    line-height: 40rpx;\n}\n.headrideo {\n\t  margin-top: 20rpx;\n  \tmargin-left: 30rpx;\n}\n.headtitle uni-text {\n    font-size: 32rpx;\n    margin-left: 15rpx;\n    margin-right: 15rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

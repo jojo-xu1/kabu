@@ -237,7 +237,7 @@
 			}
 		},
 		onLoad: function(option) {
-			console.log("xxxxxxxxxxxxxx", option.stockId)
+			console.log("跳转接参", option.stockId)
 			_self = this;
 			//#ifdef MP-ALIPAY
 			uni.getSystemInfo({
@@ -262,7 +262,7 @@
 		methods: {
 			getServerData() {
 				var that = this;
-				console.log("THIS", this.$baseUrl)
+				console.log("替换URL", this.$baseUrl)
 				uni.request({
 					url: `${this.$baseUrl}/daily/kline?stockId=5013&day=180`,
 					data: {},
@@ -666,7 +666,7 @@
 				//按周处理
 				for (i = 0; i < this.weekArr.length; i++) {
 					this.Candle.categories.push(this.weekArr[i][this.weekArr[i].length - 1].dayId);
-					console.log('每周第一天：：：', this.weekArr[i][this.weekArr[i].length - 1].dayId)
+					// console.log('每周第一天：：：', this.weekArr[i][this.weekArr[i].length - 1].dayId)
 					var arr = [];
 					arr.push(this.weekArr[i][this.weekArr[i].length - 1].startPrice);
 					arr.push(this.weekArr[i][0].endPrice);
