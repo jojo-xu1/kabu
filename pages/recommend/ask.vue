@@ -22,7 +22,7 @@
 			  <text>2.年間利益率希望</text>
 			</view>				  
 			<view class="headrideo">
-				<radio-group  class="radiolist" @change='radioChange' v-if="firstupdata">
+				<radio-group  class="radiolist" @change='radioChange'>
 					<view v-for="(item,index) in radiodata" :key="index">
 						<radio :value="item.id"   color="#ff5500" :checked="item.isChecked" :style="item.radio">
 							<view class="imageAndText">
@@ -42,7 +42,7 @@
 			  <text>3.売買頻度</text>
 			</view>
 	     <view class="headrideo">
-	     				<radio-group class="radiolist" @change='radioChangesecond' v-if="updata">
+	     				<radio-group class="radiolist" @change='radioChangesecond' >
 	     					<view v-for="(item2,index2) in radiosecond" :key="index2">
 	     						<radio :value="item2.id"   color="#ff5500" :checked="item2.isChecked" :style="item2.radio">
 	     							<view class="imageAndText">
@@ -57,7 +57,7 @@
 		  <text></text>
 		</view>
     <view class="agreenment">
-		  <button style="margin-right:50px;"　type="default" class="next" @click="gotoRecommend()">次へ</button>						
+		  <button style="margin-right:50px;color:#ff5500;"　type="default" class="next" @click="gotoRecommend()">次へ</button>						
     </view>
   </view>
 </template>
@@ -73,9 +73,8 @@
 	  },
     data() {
       return {
-		updata:true,
-		firstupdata:true,
-        mailuser: '',
+		update:true,
+		mailuser: '',
         password: '',
 		investmentFunds: '',
 		rate: '',
@@ -149,71 +148,50 @@
 		}
 	},
     methods: {
-		reload : function(){
-			this.setUserrecommned()
-			this.$router.go(0)
-		},
 		
-		setUserrecommned: function(){
-			if(this.investmentFunds != 0){
-				uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
-			}else{
-				alert("投資金額を入力してください")
-			}
-			
-			if(this.eXptRate != 0){
-				uni.setStorageSync('eXptRate',this.eXptRate)
-			}else{
-				alert("希望利益率範囲を選択してください")
-			}
-			
-			if(this.frequency != 0){
-				uni.setStorageSync('frequency',this.frequency)
-			}else{
-				alert("売買頻度を選択してください")
-			}
-		
-		},
 		gotoRecommend:function(){
-			this.setUserrecommned()
+			
 			if(this.investmentFunds != 0&&this.eXptRate != 0&&this.frequency != 0){
+				uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
+				uni.setStorageSync('eXptRate',this.eXptRate)
+				uni.setStorageSync('frequency',this.frequency)
 				uni.reLaunch({
 					url: '/pages/recommend/recommend' 
 				})
+			}else{
+				  uni.showModal({
+				      title: '必須項目を入力してください',
+				  });
 			}
 		},
 		
 		radioChange: function(evt) {
-		  //   for (let i = 0; i < this.radiodata.length; i++) {
-				// console.log(evt.detail.value)
-		  //       if (this.radiodata[i].value === evt.detail.value) {
-		  //           this.eXptRate = i;
-		  //           break;
-		  //       }
-		  //   }
-		  //console.log(this.rate);
-		  //this.updata =false;
-		  //this.eXptRate = evt.detail.value;
-		  // this.frequency = evt.detail.value;
+		  
 		  
 		  for(var i=0;i<this.radiosecond.length;i++){
 			 this.radiosecond[i].isChecked = false; 
+			 
 			 if(this.radiosecond[i].id ==evt.detail.value){//this.frequency
+			   
+				
 			 	this.radiosecond[i].isChecked = true;
 				this.eXptRate = evt.detail.value;
 				this.frequency = evt.detail.value;
-				this.reload();
+				uni.setStorageSync('eXptRate',this.eXptRate)
+				uni.setStorageSync('frequency',this.frequency)
+				uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
 			 }
+			
 		  }
+		  
+		  
+		
+		 uni.redirectTo({
+		     url: 'ask'
+		 });
+		
 		 
-		// for(var i=0;i<this.radiosecond.length;i++){
-		// 	if(this.radiosecond[i].id ==this.frequency){//this.frequency
-		// 		this.radiosecond[i].isChecked = true;
-		// 	}else{
-		// 		this.radiosecond[i].isChecked = false;
-		// 	}
-		// 	}
-		 // this.updata =true;
+		
 		},
 		radioChangesecond: function(evt) {
 		    // for (let i = 0; i < this.radiosecond.length; i++) {
@@ -222,19 +200,31 @@
 		    //         break;
 		    //     }
 		    // }
-			//this.firstupdata =false;
+			//this.update =false;
 			// this.eXptRate = evt.detail.value;
 			// this.frequency = evt.detail.value;
 			for(var i=0;i<this.radiodata.length;i++){
 				this.radiodata[i].isChecked = false;
+				
 				if(this.radiodata[i].id ==evt.detail.value){
+					
 					this.radiodata[i].isChecked = true;
 					this.eXptRate = evt.detail.value;
 					this.frequency = evt.detail.value;
-					this.reload();
+					uni.setStorageSync('eXptRate',this.eXptRate)
+					uni.setStorageSync('frequency',this.frequency)
+					uni.setStorageSync('investmentFunds',this.investmentFunds*10000)
 				}
+				
 			}
 			
+			 uni.redirectTo({
+			     url: 'ask'
+			 });
+			
+			// setTimeout(function() {
+				
+			//      }, 300)
 			// for(var i=0;i<this.radiodata.length;i++){
 			// 	if(this.radiodata[i].id ==this.eXptRate){
 			// 		this.radiodata[i].isChecked = true;
@@ -243,7 +233,7 @@
 			// 	}
 				
 			// }
-			//this.firstupdata =true;
+			//this.update =true;
 
 		},
 		bindLogin() {
