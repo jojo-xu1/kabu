@@ -557,7 +557,7 @@
 							
 							
 							this.kabuDaily04 = kabuDailyListUser.filter(item =>{  
-							    return item.startPrice < investmentFunds;  
+							    return item.startPrice < investmentFunds/100;  
 							})
 						
 							
