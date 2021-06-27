@@ -51,7 +51,13 @@
 			// 	uername: option.mailaddress,
 			// 	// uername: result.data,
 			// }
-			this.uername = option.mailaddress;
+			// var uername = '';
+			// this.uername = option.mailaddress;
+			this.uername = uni.getStorageSync('userId');
+			// this.uername = uni.getStorageSync(this.userID);
+			// console.log("这里打印userID:"+userID);
+			// console.log("---------------------------------------------------------------------");
+			// console.log(uername);
 		},
 		data() {
 			return {
@@ -60,28 +66,29 @@
 				// uername: this.$route.query.mailaddress,
 				// uername: uni.$route.query.mailaddress,
 				uername: '',
+				// userID: '',
 			}
 		},
 		methods: {
 
-			getSessionForStatus() {
-				var baseUrl = uni.getStorageSync('baseUrl');
-				var nowUrl = baseUrl + '/kabu-user/getStatus'
-				console.log("NOWURL", nowUrl)
-				uni.request({
-					url: nowUrl,
-					data: {},
-					success: (result) => {
+			// getSessionForStatus() {
+			// 	var baseUrl = uni.getStorageSync('baseUrl');
+			// 	var nowUrl = baseUrl + '/kabu-user/getStatus'
+			// 	console.log("NOWURL", nowUrl)
+			// 	uni.request({
+			// 		url: nowUrl,
+			// 		data: {},
+			// 		success: (result) => {
 
-						console.log('kkkkkkkkkkkkkkkkkk' + result.data);
-						// alert(result.data);
+			// 			console.log('kkkkkkkkkkkkkkkkkk' + result.data);
+			// 			// alert(result.data);
 
-					},
-					fail: (err) => {},
-					complete: (e) => {}
-				});
+			// 		},
+			// 		fail: (err) => {},
+			// 		complete: (e) => {}
+			// 	});
 
-			},
+			// },
 			// showSession() {
 			// 	var word = session.getAttribute("displayName");
 			// 	console.log('getsession成功:   '+word);
