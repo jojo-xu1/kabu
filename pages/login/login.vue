@@ -138,6 +138,7 @@
 					
 					//uni.setStorage({key: 'userId',data: result.data.data.userID})
 					uni.setStorageSync('userId',result.data.data.userID)
+					console.log("输出useriduseriduseriduseriduserid"+result.data.data.userID);
 					uni.reLaunch({
 					    // url: '../ucenter/ucenter?id=mailaddress'
 						url: jumpUrl
