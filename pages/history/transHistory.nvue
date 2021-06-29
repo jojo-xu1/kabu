@@ -3,18 +3,19 @@
 		<uni-view class="uni-column" v-model="colist">
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
-					<uni-view class="kabuName"><text class="kabuNameTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockName}}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockId }}</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockName}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockId }}</text></uni-view>
 				</uni-view>
-				<uni-view class="kabuIndustry"><text class="kabuIndustryTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.stock.industry}}</text></uni-view>
+				
 				<uni-view class="uni-column kabuCol2">
-					<uni-view class="kabuName"><text class="kabuNameTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.startbuydate}}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">購入</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">購{{ item.startbuydate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">入{{ item.startPrice}}</text></uni-view>
 				</uni-view>
 				<uni-view class="uni-column kabuCol2">
-					<uni-view class="kabuName"><text class="kabuNameTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{item.endselldate}}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">売出</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">売{{item.endselldate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">出{{ item.endPrice}}</text></uni-view>
 				</uni-view>
+				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.profits}}%</text></uni-view>
 			</uni-view>
 		</uni-view>
 	</view>
@@ -30,13 +31,6 @@
 		data() {
 			return {
 				title: 'picker',
-				sortArray: ['上昇傾向', '運転資金'],
-				sortIndex: 0,
-				joukenArray: ['値上がり率', 'ストップ高', '条件３', '条件４'],
-				jouken: [{
-					"joukenId": "jouken0",
-					"joukenIndex": 0
-				}],
 				colist: [{
 					"stock": {
 						"stockId": "",
@@ -53,10 +47,14 @@
 					},
 					"dayId": "",
 					"startPrice": "",
+					"startbuydate": "",
 					"endPrice": "",
+					"endselldate": "",
 					"highPrice": "",
 					"lowPrice": "",
-					"todayUpRate": ""
+					"todayUpRate": "",
+					"profits": "",
+					"color" : "",
 				}]
 			}
 		},
@@ -64,46 +62,7 @@
 			this.getCollect();
 		},
 		methods: {
-			open() {
-				// 通过组件定义的ref调用uni-popup方法
-				this.$refs.popup.open()
-			},
-			close() {
-				this.$refs.popup.close()
-			},
-			addJouken() {
-				var joukenCount = this.jouken.length
-				var newJouken = '{"joukenId": "jouken0","joukenIndex": 0}'
-				var newJoukenJson = JSON.parse(newJouken)
-				this.jouken.push(newJoukenJson)
-			},
-			reduceJouken(index) {
-				this.jouken.splice(index, 1)
-			},
-			sortChange(e) {
-				this.sortIndex = e.detail.value
-				this.getCollect();
-			},
-			joukenChange(index, e) {
-				this.jouken[index].joukenIndex = e.detail.value
-				console.log(e)
-				console.log(index)
-			},
-			kabuNameSubstr(kabuName) {
-				if (kabuName && kabuName.length > 8) {
-					return kabuName.substr(0, 8) + "..."
-				}
-				return kabuName
-			},
-			appendZero(str) {
-				return ("00" + str).substr((str + "").length);
-			},
-			// goTo(stockId) {
-			//       // 带参数跳转
-			// 	  console.log('stockId:', stockId)
-			//       this.$router.push({ path:'@/pages/stockquot/', name: 'Kline', params: { alert: '页面跳转成功', stock_id: stockId }})
-
-			//     },
+			
 			goTo(stockId) {
 				uni.reLaunch({
 					url: '/pages/stockquot/Kline' + '?stockId=' + stockId
@@ -129,8 +88,8 @@
 				var baseUrl = uni.getStorageSync('baseUrl');
 				const userId = uni.getStorageSync('userId');
 				console.log("用户ID：：：", this.userId);
-				var url = baseUrl + "/daily/collectionList";
-				console.log("url1111", url)
+				var url = baseUrl + "/daily/transHistoryList";
+				
 				uni.request({
 					url: url,
 					data: {
@@ -138,16 +97,21 @@
 					},
 					success: (result) => {
 						if (result.statusCode == 200) {
-							console.log("获取结果：：：", result.data)
 							that.colist = result.data
 							for(var i=0;i<that.colist.length;i++){
-								if (that.colist[i].endselldate > 0){
-									that.colist[i].color = "#d1923f"
+								if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
+									that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
+									if (that.colist[i].profits > 0){
+										that.colist[i].color = "#18B566"
+										console.log(that.colist[i].color)
 									}else{
-									that.colist[i].color = "#A9A9A9"
+										that.colist[i].color = "#ff4040"
+										console.log(that.colist[i].color)
 									}
+									
+									
+								}
 							}
-							
 						}
 					}
 				});
@@ -384,30 +348,9 @@
 		padding-top: 22upx;
 	}
 
-	.joukenValue {
-		width: 120upx;
-	}
+	
 
-	.joukenValueTxt {
-		font-size: 25upx;
-		border: 1;
-	}
+	
 
-	.rdcJouken {}
-
-	.rdcJoukenTxt {
-		width: 55upx;
-		color: #FF0000;
-		padding: 22upx 0 0 30upx;
-	}
-
-	.addJouken {
-		width: 750upx;
-	}
-
-	.addJoukenTxt {
-		font-size: 25upx;
-		background-color: #FFFFFF;
-		padding-top: 15upx;
-	}
+	
 </style>
