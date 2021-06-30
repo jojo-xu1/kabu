@@ -24,7 +24,7 @@
 			<view class="headrideo">
 				<radio-group class="radiolist" @change='radioChange' >
 					<view v-for="(item,index) in radiodata" :key="index">
-						<radio :value="item.id"   color="#ff5500" :checked="item.id == current01" :style="item.radio">
+						<radio :value="item.id"   color="#ff5500" :checked="item.isChecked"  :style="item.radio">
 							<view class="imageAndText">
 								<label class="label" >{{item.text}}</label>
 							</view>
@@ -42,9 +42,9 @@
 			  <text>3.売買頻度</text>
 			</view>
 	     <view class="headrideo">
-	     				<radio-group class="radiolist" @change='radioChangesecond' >
+	     				<radio-group class="radiolist" @change='radioChangesecond' z>
 	     					<view v-for="(item2,index2) in radiosecond" :key="index2">
-								<radio :value="item2.id"   color="#ff5500" :checked="item2.id == current02" :style="item2.radio">
+								<radio :value="item2.id"   color="#ff5500" :checked="item2.isChecked" :style="item2.radio">
 									<view class="imageAndText">
 										<label class="label" >{{item2.text}}</label>
 									</view>
@@ -170,46 +170,10 @@
 		},
 		
 		radioChange: function(evt) {
-		 
-		  for(var i=0;i<this.radiosecond.length;i++){
-		   if(this.radiosecond[i].id ==evt.detail.value){
-			   this.current01= evt.detail.value
-			   this.current02= evt.detail.value
-			   this.eXptRate = evt.detail.value;
-			   this.frequency = evt.detail.value;
-			   uni.setStorageSync('eXptRate',this.eXptRate)
-			   uni.setStorageSync('frequency',this.frequency)
-		   }
-		   }
-		 console.log(this.radiosecond)
-		
-		 // uni.redirectTo({
-		 //     url: 'ask'
-		 // });
-		
-		 
-		
+		 this.eXptRate = evt.detail.value
 		},
 		radioChangesecond: function(evt) {
-		   
-			for(var i=0;i<this.radiodata.length;i++){
-			 if(this.radiodata[i].id ==evt.detail.value){
-						   this.current01= evt.detail.value
-						   this.current02= evt.detail.value
-						   this.eXptRate = evt.detail.value;
-						   this.frequency = evt.detail.value;
-						   uni.setStorageSync('eXptRate',this.eXptRate)
-						   uni.setStorageSync('frequency',this.frequency)
-			 }
-			 }
-			console.log(this.radiodata)
-			
-			 // uni.redirectTo({
-			 //     url: 'ask'
-			 // });
-			
-			
-
+		   	this.frequency = evt.detail.value
 		},
 		bindLogin() {
 		  if (this.password.length < 2) {

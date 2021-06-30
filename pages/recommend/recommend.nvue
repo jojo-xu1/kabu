@@ -547,7 +547,7 @@
 							if(eXptRate == 1){
 								kabuDailyListUser = this.kabuDaily01 
 							}else{
-								if(frequency== 3){
+								if(eXptRate== 3){
 									kabuDailyListUser = this.kabuDaily02
 								}else{
 									kabuDailyListUser = this.kabuDaily03
