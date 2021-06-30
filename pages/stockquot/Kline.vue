@@ -407,9 +407,9 @@
 							},
 							average: {
 								show: true,
-								name: ['MA5', 'MA10', 'MA30'],
-								day: [5, 10, 20],
-								color: ['#1890ff', '#2fc25b', '#facc14']
+								name: ['MA10', 'MA20'],
+								day: [10, 20],
+								color: ['#1890ff', '#2fc25b']
 							}
 						},
 						tooltip: {
@@ -429,8 +429,150 @@
 						}
 					},
 				});
-				// console.log("NEW：：：", canvaCandle)
-
+			},
+			showCandleW(canvasId, chartData) {
+				// console.log("kabu name:", this.Candle.series[0].name);
+				canvaCandle = new uCharts({
+					$this: _self,
+					canvasId: canvasId,
+					type: 'candle',
+					reshow:true,
+					fontSize: 11,
+					padding: [10, 15, 0, 15],
+					legend: {
+						show: true,
+					},
+					background: '#000000',
+					pixelRatio: _self.pixelRatio,
+					categories: chartData.categories,
+					series: chartData.series,
+					animation: false,
+					enableScroll: true,
+					xAxis: {
+						disableGrid: true,
+						labelCount: 4,
+						//type:'grid',
+						//gridType:'dash',
+						itemCount: _self.itemCount,
+						scrollShow: true,
+						scrollAlign: 'right',
+					},
+					yAxis: {
+						//disabled:true
+						gridType: 'dash',
+						splitNumber: 5,
+						format: (val) => {
+							return val.toFixed(0)
+						}
+					},
+					width: _self.cWidth * _self.pixelRatio,
+					height: _self.cHeight * _self.pixelRatio,
+					dataLabel: false,
+					dataPointShape: true,
+					extra: {
+						candle: {
+							color: {
+								upLine: '#f04864',
+								upFill: '#f04864',
+								downLine: '#2fc25b',
+								downFill: '#2fc25b'
+							},
+							average: {
+								show: true,
+								name: ['MA60', 'MA80'],
+								day: [12, 16],
+								color: ['#2fc25b', '#facc14']
+							}
+						},
+						tooltip: {
+							bgColor: '#000000',
+							bgOpacity: 0.7,
+							gridType: 'dash',
+							dashLength: 5,
+							gridColor: '#1890ff',
+							fontColor: '#FFFFFF',
+							horizentalLine: true,
+							xAxisLabel: true,
+							yAxisLabel: true,
+							labelBgColor: '#DFE8FF',
+							labelBgOpacity: 0.95,
+							labelAlign: 'left',
+							labelFontColor: '#666666'
+						}
+					},
+				});
+			},
+			showCandleM(canvasId, chartData) {
+				// console.log("kabu name:", this.Candle.series[0].name);
+				canvaCandle = new uCharts({
+					$this: _self,
+					canvasId: canvasId,
+					type: 'candle',
+					reshow:true,
+					fontSize: 11,
+					padding: [10, 15, 0, 15],
+					legend: {
+						show: true,
+					},
+					background: '#000000',
+					pixelRatio: _self.pixelRatio,
+					categories: chartData.categories,
+					series: chartData.series,
+					animation: false,
+					enableScroll: true,
+					xAxis: {
+						disableGrid: true,
+						labelCount: 4,
+						//type:'grid',
+						//gridType:'dash',
+						itemCount: _self.itemCount,
+						scrollShow: true,
+						scrollAlign: 'right',
+					},
+					yAxis: {
+						//disabled:true
+						gridType: 'dash',
+						splitNumber: 5,
+						format: (val) => {
+							return val.toFixed(0)
+						}
+					},
+					width: _self.cWidth * _self.pixelRatio,
+					height: _self.cHeight * _self.pixelRatio,
+					dataLabel: false,
+					dataPointShape: true,
+					extra: {
+						candle: {
+							color: {
+								upLine: '#f04864',
+								upFill: '#f04864',
+								downLine: '#2fc25b',
+								downFill: '#2fc25b'
+							},
+							average: {
+								show: true,
+								name: ['MA60', 'MA80'],
+								day: [3, 4],
+								color: ['#2fc25b', '#facc14']
+							}
+						},
+						tooltip: {
+							bgColor: '#000000',
+							bgOpacity: 0.7,
+							gridType: 'dash',
+							dashLength: 5,
+							gridColor: '#1890ff',
+							fontColor: '#FFFFFF',
+							horizentalLine: true,
+							xAxisLabel: true,
+							yAxisLabel: true,
+							labelBgColor: '#DFE8FF',
+							labelBgOpacity: 0.95,
+							labelAlign: 'left',
+							labelFontColor: '#666666'
+						}
+					},
+				});
 			},
 			touchCandle(e) {
 				canvaCandle.scrollStart(e);
@@ -482,19 +624,17 @@
 				if (this.current !== e.currentIndex) {
 					this.current = e.currentIndex;
 					if (this.current === 0) {
-						// this.getServerData();
-						this.dayLine();
-						
+						this.dayLine();    //均线10，20
 					} else if (this.current === 1) {
-						this.weekLine();
+						this.weekLine();   //均线60,80
 						setTimeout(function() {
-							_self.showCandle("canvasCandle1", _self.Candle);
+							_self.showCandleW("canvasCandle1", _self.Candle);
 							_self.showColumn("canvasColumn1", _self.CandleColumn);
 						     }, 300)
 					} else {
-						this.monthLine();
+						this.monthLine();  //均线60,80
 						setTimeout(function() {
-							_self.showCandle("canvasCandle2", _self.Candle);
+							_self.showCandleM("canvasCandle2", _self.Candle);
 							_self.showColumn("canvasColumn2", _self.CandleColumn);
 						     }, 300)
 					}
