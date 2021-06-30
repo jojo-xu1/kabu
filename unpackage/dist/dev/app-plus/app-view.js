@@ -398,7 +398,7 @@ var render = function() {
                 "v-uni-radio-group",
                 {
                   staticClass: _vm._$g(28, "sc"),
-                  attrs: { _i: 28 },
+                  attrs: { z: true, _i: 28 },
                   on: {
                     change: function($event) {
                       return _vm.$handleViewEvent($event)

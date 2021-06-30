@@ -103,10 +103,10 @@
 									that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
 									if (that.colist[i].profits > 0){
 										that.colist[i].color = "#18B566"
-										console.log(that.colist[i].color)
+										that.colist[i].profits ="+"+that.colist[i].profits 
 									}else{
 										that.colist[i].color = "#ff4040"
-										console.log(that.colist[i].color)
+										that.colist[i].profits =" -"+that.colist[i].profits*(-1) 
 									}
 									
 									
