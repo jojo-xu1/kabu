@@ -287,7 +287,7 @@
 <style>
   .content {
 	width: 750upx;
-	height: 1500upx;
+	height: 1280upx;
     display: flex;
     flex-direction: column;
     justify-content: center;

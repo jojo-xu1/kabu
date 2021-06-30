@@ -56,6 +56,14 @@
 
 		},
 		{
+			"path": "pages/history/transHistory",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		{
 			"path": "pages/video/addVideo",
 			"style": {
 				"app-plus":{
@@ -129,7 +137,12 @@
 			"pagePath": "pages/collect/collect",
 			"iconPath": "static/center.png",
 			"selectedIconPath": "static/center-active.png",
-			"text": "お気に入り"
+			"text": "残高"
+		},{
+			"pagePath": "pages/history/transHistory",
+			"iconPath": "static/center.png",
+			"selectedIconPath": "static/center-active.png",
+			"text": "履歴"
 		}, {
 			"pagePath": "pages/stockquot/Kline",
 			"iconPath": "static/center.png",
