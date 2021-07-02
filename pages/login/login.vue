@@ -24,7 +24,7 @@
 	
 
     <view class="agreenment">
-      <navigator url="forget" open-type="navigate">パスワードを探す</navigator>
+	  <text class="list-text" @click="modoru">戻る</text>
       <text>|</text>
       <navigator url="reg" open-type="navigate">新規</navigator>
     </view>
@@ -87,6 +87,16 @@
 	},
     methods: {
 		// http://13.112.112.160:8090/kabu-user/get
+		modoru() {
+			// uni.navigateTo({
+			// 	url: '../ucenter/ucenter'
+			// });
+			uni.reLaunch({
+				url: '../ucenter/ucenter'
+			});
+			// uni.navigateBack();
+		},
+		
 		bindLogin() {
 
 		  if (this.password.length < 2) {

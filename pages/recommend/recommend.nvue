@@ -1,6 +1,7 @@
 <template>
 	<view>
 		<view class="rask-assessment">
+			<!-- <image src="../../static/money1.png"></image> -->
 			  <button　type="default" class="assessment" @click="setUserrecommned">投資リスク判定</button>						
 		</view>
 		<uni-view class="user-recommend">
@@ -31,7 +32,10 @@
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
-						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
+						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
+							<image class="money1-img" src="../../static/money1.png"></image>
+							<!-- aaa -->
+						</button>
 						
 					</uni-view>
 				</uni-view>
@@ -65,7 +69,9 @@
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
-						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
+						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
+							<image class="money1-img2" src="../../static/money1.png"></image>
+						</button>
 						
 					</uni-view>
 				</uni-view>
@@ -99,8 +105,9 @@
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
-						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
-						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
+						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
+							<image class="money1-img3" src="../../static/money1.png"></image>
+						</button>
 					</uni-view>
 				</uni-view>
 			</uni-view>
@@ -133,8 +140,9 @@
 						<uni-view class="kabuToriUp"></uni-view>
 					</uni-view>
 					<uni-view >
-						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button>
-						<!-- <button class="kabuCollection-on" v-on:click = setUserColt(item.stock.stockId)>お気に入り</button> -->
+						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
+							 <image class="money1-img4" src="../../static/money1.png"></image>	
+						</button>
 					</uni-view>
 				</uni-view>
 			</uni-view>
@@ -579,6 +587,26 @@
 	@import '@/common/uni-nvue.scss';
 </style>
 <style>
+	.money1-img {
+		width: 58upx;
+		height: 58upx;
+		border-radius: 100upx;
+	}
+	.money1-img2 {
+		width: 58upx;
+		height: 58upx;
+		border-radius: 100upx;
+	}
+	.money1-img3 {
+		width: 58upx;
+		height: 58upx;
+		border-radius: 100upx;
+	}
+	.money1-img4 {
+		width: 58upx;
+		height: 58upx;
+		border-radius: 100upx;
+	}
 	.uni-row {
 		flex-direction: row;
 	}
