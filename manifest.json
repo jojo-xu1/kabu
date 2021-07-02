@@ -1,7 +1,7 @@
 {
     "name" : "kabu",
-    "appid" : "",
-    "description" : "基于uni-app开发的新闻/资讯类App模板",
+    "appid" : "__UNI__69DE0BF",
+    "description" : "",
     "versionName" : "2.4.3",
     "versionCode" : 112,
     "transformPx" : false,
@@ -35,7 +35,9 @@
                 "idfa" : false
             },
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            }
         }
     },
     "quickapp" : {},

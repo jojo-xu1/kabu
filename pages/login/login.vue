@@ -134,7 +134,7 @@
 		 var mailaddress = this.mailuser
 		 var passwordMessage = this.password
 		 var usersParam = '?user_id=' + mailaddress + '&password=' + passwordMessage
-		 
+		 console.log(url+usersParam)
 		 uni.request({
 		 	// url: 'http://139.224.56.43:8090/kabu-user/get',
 			url: url + usersParam ,

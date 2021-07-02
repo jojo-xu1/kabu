@@ -33,7 +33,8 @@
 					</uni-view>
 					<uni-view >
 						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
-							<image class="money1-img" src="../../static/money1.png"></image>
+							<cover-image v-if="item.collectionFlag == '01'" class="money-img"  src="../../static/money1.png"></cover-image>
+							<cover-image v-if="item.collectionFlag != '01'" class="money-img"  src="../../static/money2.png"></cover-image>
 							<!-- aaa -->
 						</button>
 						
@@ -70,7 +71,8 @@
 					</uni-view>
 					<uni-view >
 						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
-							<image class="money1-img2" src="../../static/money1.png"></image>
+							<cover-image v-if="item.collectionFlag == '01'" class="money-img"  src="../../static/money1.png"></cover-image>
+							<cover-image v-if="item.collectionFlag != '01'" class="money-img"  src="../../static/money2.png"></cover-image>
 						</button>
 						
 					</uni-view>
@@ -106,7 +108,8 @@
 					</uni-view>
 					<uni-view >
 						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
-							<image class="money1-img3" src="../../static/money1.png"></image>
+							<cover-image v-if="item.collectionFlag == '01'" class="money-img"  src="../../static/money1.png"></cover-image>
+							<cover-image v-if="item.collectionFlag != '01'" class="money-img"  src="../../static/money2.png"></cover-image>
 						</button>
 					</uni-view>
 				</uni-view>
@@ -141,7 +144,8 @@
 					</uni-view>
 					<uni-view >
 						<button :class="[item.collectionFlag == '01' ? 'kabuCollection-on':'kabuCollection-off']" v-on:click = setUserColt(item.stock.stockId)>
-							 <image class="money1-img4" src="../../static/money1.png"></image>	
+							 <cover-image v-if="item.collectionFlag == '01'" class="money-img"  src="../../static/money1.png"></cover-image>
+							 <cover-image v-if="item.collectionFlag != '01'" class="money-img"  src="../../static/money2.png"></cover-image>
 						</button>
 					</uni-view>
 				</uni-view>
@@ -587,26 +591,11 @@
 	@import '@/common/uni-nvue.scss';
 </style>
 <style>
-	.money1-img {
-		width: 58upx;
-		height: 58upx;
-		border-radius: 100upx;
+	.money-img {
+		width: 48upx;
+		height: 48upx;
 	}
-	.money1-img2 {
-		width: 58upx;
-		height: 58upx;
-		border-radius: 100upx;
-	}
-	.money1-img3 {
-		width: 58upx;
-		height: 58upx;
-		border-radius: 100upx;
-	}
-	.money1-img4 {
-		width: 58upx;
-		height: 58upx;
-		border-radius: 100upx;
-	}
+
 	.uni-row {
 		flex-direction: row;
 	}
@@ -647,7 +636,10 @@
 		padding: 5upx 5upx;
 	}
 	.kabuCollection-on {
-		width: 80px;
+		display: flex;
+		align-items:center ;
+		justify-content:center;
+		width: 60px;
 		height: 30px;
 		padding-top: 1px;
 		background-color: #007AFF;
@@ -656,7 +648,7 @@
 		text-align: center;
 	}
 	.kabuCollection-off {
-		width: 80px;
+		width: 60px;
 		height: 30px;
 		padding-top: 1px;
 		background-color: #92969b;
@@ -729,8 +721,7 @@
 	}
 
 	.kabuCol2 {
-		width: 100upx;
-
+		width: 150upx;
 	}
 
 	.kabuTori {
