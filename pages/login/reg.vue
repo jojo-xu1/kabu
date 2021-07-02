@@ -260,6 +260,7 @@
 </script>
 
 <style>
+
   .content {
     display: flex;
     flex-direction: column;
@@ -309,6 +310,7 @@
   }
 
   .list-call .sl-input {
+	color: #FFFFFF;
     flex: 1;
     text-align: left;
     font-size: 32rpx;

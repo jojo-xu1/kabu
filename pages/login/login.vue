@@ -215,6 +215,11 @@
 </script>
 
 <style>
+	
+  .sl-input {
+	color: #FFFFFF;
+  }
+	
   .content {
     display: flex;
      flex-direction: column; 
