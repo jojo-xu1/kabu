@@ -369,6 +369,7 @@
 					padding: [10, 15, 0, 15],
 					legend: {
 						show: true,
+						fontColor: '#ffffff',
 					},
 					background: '#000000',
 					pixelRatio: _self.pixelRatio,
@@ -441,6 +442,7 @@
 					padding: [10, 15, 0, 15],
 					legend: {
 						show: true,
+						fontColor: '#ffffff',
 					},
 					background: '#000000',
 					pixelRatio: _self.pixelRatio,
@@ -513,6 +515,7 @@
 					padding: [10, 15, 0, 15],
 					legend: {
 						show: true,
+						fontColor: '#ffffff',
 					},
 					background: '#000000',
 					pixelRatio: _self.pixelRatio,
@@ -1095,6 +1098,7 @@
 		width: 750upx;
 		height: 500upx;
 		background-color: #000000;
+		
 	}
 
 	.qiun-textarea {
