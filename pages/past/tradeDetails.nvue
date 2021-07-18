@@ -1,0 +1,394 @@
+<template>
+	<view>
+		<view class="rask-assessment">			  <button　type="default" class="assessment" @click="setDuration">周期判定</button>								</view>
+
+		<uni-view class="uni-column" v-model="colist">
+			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
+				<uni-view class="uni-column kabuCol1">
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockName}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockId }}</text></uni-view>
+				</uni-view>
+				<uni-view class="uni-column kabuCol2">
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">購{{ item.startbuydate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">入{{ item.startPrice}}</text></uni-view>
+				</uni-view>
+				<uni-view class="uni-column kabuCol2">
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">売{{item.endselldate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">出{{ item.endPrice}}</text></uni-view>
+				</uni-view>
+				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.profits}}%</text></uni-view>
+				<button @click="dataDel">del</button>
+			</uni-view>
+		</uni-view>
+	</view>
+</template>
+
+<script>
+	// #ifdef APP-PLUS
+	const dom = weex.requireModule('dom');
+	// #endif
+
+	export default {
+		components: {},
+		data() {
+			return {
+				title: 'picker',
+				colist: [{
+					"stock": {
+						"stockId": "",
+						"stockName": "",
+						"industry": "",
+						"total": "",
+						"dividendYield": "",
+						"dividendPershare": "",
+						"per": "",
+						"pbr": "",
+						"eps": "",
+						"bps": "",
+						"unit": ""
+					},
+					"dayId": "",
+					"startPrice": "",
+					"startbuydate": "",
+					"endPrice": "",
+					"endselldate": "",
+					"highPrice": "",
+					"lowPrice": "",
+					"todayUpRate": "",
+					"profits": "",
+					"color" : "",
+				}]
+			}
+		},
+		onReady() {
+			this.getCollect();
+		},
+		methods: {
+			
+			setDuration: function(){									uni.reLaunch({					url: '/pages/past/hisSearch' 				})			},
+			goTo(stockId) {
+				uni.reLaunch({
+					url: '/pages/stockquot/Kline' + '?stockId=' + stockId
+				})
+				console.log('stockId:', stockId)
+			},
+			getUserID() {
+				var token = localStorage.getItem('tttocken');
+				if (token) {
+					this.userId = JSON.parse(localStorage.getItem('userDetails')).user_id
+				} else {
+					this.userId = ''
+				}
+				console.log("用户ID：：：", this.userId)
+			},
+			getUserID() {
+				const id = uni.getStorageSync('id')
+				console.log("用户ID：：：", this.userId)
+			},
+			dataDel() {
+				console.log('deleteAlllllllllllllllllllllllllllllllll');
+				var that = this;
+				var baseUrl = uni.getStorageSync('baseUrl');
+				const userId = uni.getStorageSync('userId');
+				console.log("用户ID：：：", this.userId);
+				var url = baseUrl+"/daily/userDeleteList";
+				uni.request({
+					url: url,
+					data: {
+						userId: userId
+					},
+					success: (result) => {
+
+						console.log('deleteAlllllllllllllllllllllllllllllllllagain');
+						
+					}
+				});
+			},
+			// 获取已收藏股票
+			getCollect() {
+				var that = this;
+				var baseUrl = uni.getStorageSync('baseUrl');
+				const userId = uni.getStorageSync('userId');
+				console.log("用户ID：：：", this.userId);
+				// var url = baseUrl + "/daily/transHistoryList";
+				var url = baseUrl+"/daily/userTransHistoryList";
+				console.log('kkkkkkkkkkkkkkkkkk1');
+				uni.request({
+					url: url,
+					data: {
+						userId: userId
+					},
+					success: (result) => {
+						console.log('kkkkkkkkkkkkkkkkkk2');
+						if (result.statusCode == 200) {
+							that.colist = result.data
+							for(var i=0;i<that.colist.length;i++){
+								if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
+									that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
+									if (that.colist[i].profits > 0){
+										that.colist[i].color = "#18B566"
+										that.colist[i].profits ="+"+that.colist[i].profits 
+									}else{
+										that.colist[i].color = "#ff4040"
+										that.colist[i].profits =" -"+that.colist[i].profits*(-1) 
+									}
+									
+									
+								}
+							}
+						}
+
+						
+					}
+				});
+			//Luke Zhou
+			console.log('kkkkkkkkkkkkkkkkkk3');
+			var kabuDailyListUser = this.colist
+			var kabuCodeForInput = uni.getStorageSync('kabuCode');
+			//colist
+			this.colist = kabuDailyListUser.filter(item =>{
+				console.log('kkkkkkkkkkkkkkkkkk5');
+				console.log('kkkkkkkkkkkkkkkkkk6');
+				console.log('kkkkkkkkkkkkkkkkkk6'+this.kabuDailyListUser);
+			    return item.stock.stockId = '1961' 
+			})	
+			console.log('kkkkkkkkkkkkkkkkkk4');
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	@import '@/common/uni-nvue.scss';
+</style>
+<style>
+	.uni-row {
+		flex-direction: row;
+	}
+
+	.uni-column {
+		flex-direction: column;
+	}
+
+	.head {
+		height: 100upx;
+		margin-bottom: 50rpx;
+	}
+
+	.sort {
+		height: 80upx;
+		padding: 25upx 0 0 15upx;
+	}
+
+	.sortTxt {
+		color: #007AFF;
+		font-size: 25upx;
+	}
+
+	.shibori {
+		height: 80upx;
+		margin-left: 400upx;
+		padding: 25upx 0 0 15upx;
+	}
+
+	.shiboriTxt {
+		font-size: 25upx;
+	}
+
+	.kabu {
+		margin: 5upx;
+		width: 750upx;
+		height: 80upx;
+		padding: 5upx 5upx;
+	}
+
+	.kabuIndex {
+		width: 75upx;
+		height: 80upx;
+		padding-top: 15upx;
+		background-color: #007AFF;
+		color: #FFFFFF;
+	}
+
+	.kabuIndexTxt {
+		color: #FFFFFF;
+		text-align: center;
+	}
+
+	.kabuCol1 {
+		width: 250upx;
+		height: 80upx;
+		margin-left: 5upx;
+	}
+	.kabuCol2 {
+		width: 150upx;
+		height: 80upx;
+		margin-left: 5upx;
+	}
+	
+	.kabuTitle {
+		font-size: 20upx;
+		font-weight: bold;
+	}
+	.kabuName {
+		width: 220upx;
+		height: 40upx;
+		padding-bottom: 0;
+	}
+
+	.kabuNameTxt {
+		font-size: 20upx;
+		font-weight: bold;
+		color: #A9A9A9;
+	}
+
+	.kabuCode {
+		width: 200upx;
+		height: 30upx;
+		padding-top: 0;
+	}
+
+	.kabuCodeTxt {
+		font-size: 25upx;
+		color: #A9A9A9;
+	}
+
+	.kabuIndustry {
+		width: 120upx;
+		height: 80upx;
+	}
+
+	.kabuIndustryTxt {
+		font-size: 20upx;
+		font-weight: bold;
+		color: #A9A9A9;
+	}
+	
+	.kabuBuyday {
+		width: 250upx;
+		height: 80upx;
+	}
+	
+	.kabuBuydayTxt {
+		font-size: 20upx;
+		font-weight: bold;
+	}
+	
+	.kabuSellday {
+		width: 100%;
+		height: 80upx;
+	}
+	
+	.kabuSelldayTxt {
+		font-size: 20upx;
+		font-weight: bold;
+	}
+
+	.kabuRate {
+		width: 80upx;
+		height: 80upx;
+	}
+
+	.kabuRateTxt {
+		font-size: 25upx;
+		color: #007AFF;
+		text-align: center;
+	}
+
+	.kabuTori {
+		width: 40upx;
+		height: 80upx;
+	}
+
+	.kabuToriTxt {
+		font-size: 25upx;
+		text-align: right;
+	}
+
+	.kabuToriUp {
+		height: 23upx;
+		font-size: 10upx;
+		color: #007AFF;
+		text-align: right;
+	}
+
+	.popUp {
+		position: absolute;
+		left: 0upx;
+		top: 0upx;
+		background: rgba(0, 0, 0, 0.4);
+		width: 750upx;
+		height: 750upx;
+	}
+
+	.popUpBg {
+		background-color: #FFFFFF;
+	}
+
+	.popUpTxt {
+		height: 80upx;
+	}
+
+	.close {
+		background-color: #FFFFFF;
+	}
+
+	.closeTxt {
+		width: 150upx;
+		font-size: 25upx;
+		color: #FFFFFF;
+		background-color: #007AFF;
+		padding: 25upx 0 0 0;
+		margin: 10upx 0 10upx 5upx;
+		border-radius: 20upx;
+		text-align: center;
+	}
+
+	.confirm {
+		background-color: #FFFFFF;
+	}
+
+	.confirmTxt {
+		width: 150upx;
+		font-size: 25upx;
+		color: #FFFFFF;
+		background-color: #007AFF;
+		padding: 25upx 0 0 0;
+		margin: 10upx 5upx 10upx 0;
+		border-radius: 20upx;
+		text-align: center;
+	}
+
+	.andOrKubn {
+		width: 50upx;
+	}
+
+	.andOrKubnTxt {
+		font-size: 20upx;
+		color: #A9A9A9;
+		padding-top: 32upx;
+	}
+
+	.joukenName {
+		width: 250upx;
+	}
+
+	.joukenNameTxt {
+		font-size: 30upx;
+		padding: 28upx 0 0 0;
+	}
+
+	.joukenLabel {
+		width: 80upx;
+	}
+
+	.joukenLabelTxt {
+		padding-top: 22upx;
+	}
+
+	
+
+	
+
+	
+</style>

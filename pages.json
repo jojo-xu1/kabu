@@ -8,9 +8,25 @@
 			}
 		
 		},
+		// {
+		// 	"path": "pages/news/index",
+		// 	"style": {}
+		// },
 		{
-			"path": "pages/news/index",
-			"style": {}
+			"path": "pages/past/tradeDetails",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+				
+		},
+		{
+			"path": "pages/past/hisSearch",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+				
 		},
 		{
 			"path": "pages/detail/detail",
@@ -124,10 +140,10 @@
 		// "backgroundColor": "#ffffff",
 		"backgroundColor": "#000000",
 		"list": [{
-			"pagePath": "pages/news/index",
+			"pagePath": "pages/past/tradeDetails",
 			"iconPath": "static/center.png",
-			"selectedIconPath": "static/home-active.png",
-			"text": "ホーム"
+			"selectedIconPath": "static/center-active.png",
+			"text": "過去"
 		}, {
 			"pagePath": "pages/recommend/recommend",
 			"iconPath": "static/center.png",
