@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App'
-
+import inputSearch from './components/inputSearch.vue'
 Vue.config.productionTip = false
-
+Vue.component('inputSearch', inputSearch)
 Vue.prototype.$host = 'https://unidemo.dcloud.net.cn/';
 //Vue.prototype.$baseUrl="http://192.168.2.121:8090"
 //Vue.prototype.$baseUrl="http://192.168.1.164/api"   //线下接口  
