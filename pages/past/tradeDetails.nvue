@@ -17,7 +17,7 @@
 					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">出{{ item.endPrice}}</text></uni-view>
 				</uni-view>
 				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.profits}}%</text></uni-view>
-				<button @click="dataDel">del</button>
+				<button @click="dataDel(item)">del</button>
 			</uni-view>
 		</uni-view>
 	</view>
@@ -85,8 +85,7 @@
 				const id = uni.getStorageSync('id')
 				console.log("用户ID：：：", this.userId)
 			},
-			dataDel() {
-				console.log('deleteAlllllllllllllllllllllllllllllllll');
+			dataDel(item) {
 				var that = this;
 				var baseUrl = uni.getStorageSync('baseUrl');
 				const userId = uni.getStorageSync('userId');
@@ -95,64 +94,85 @@
 				uni.request({
 					url: url,
 					data: {
-						userId: userId
+						stockId: item.stock.stockId,
+						startbuydate: item.startbuydate,
+						endselldate: item.endselldate,
 					},
 					success: (result) => {
 
 						console.log('deleteAlllllllllllllllllllllllllllllllllagain');
-						
+						uni.navigateBack()
 					}
 				});
 			},
 			// 获取已收藏股票
 			getCollect() {
 				var that = this;
+				var durationCode =uni.getStorageSync('durationCode');
+				var kabuCode =uni.getStorageSync('kabuCode');
 				var baseUrl = uni.getStorageSync('baseUrl');
 				const userId = uni.getStorageSync('userId');
 				console.log("用户ID：：：", this.userId);
 				// var url = baseUrl + "/daily/transHistoryList";
 				var url = baseUrl+"/daily/userTransHistoryList";
 				console.log('kkkkkkkkkkkkkkkkkk1');
+				console.log('kkkkkkkkkkkkkkkkkkdurationCode'+durationCode);
+				console.log('kkkkkkkkkkkkkkkkkkkabuCode'+kabuCode);
+				console.log('kkkkkkdurationCodekkkkkkkkkkkkkkkkk'+durationCode);
 				uni.request({
 					url: url,
 					data: {
-						userId: userId
+						userId: userId,
+						durationCode: durationCode,
 					},
 					success: (result) => {
-						console.log('kkkkkkkkkkkkkkkkkk2');
 						if (result.statusCode == 200) {
 							that.colist = result.data
+							var date = new Date();
+							// console.log('年'+date.getFullYear())
+							// console.log('月'+date.getMonth())
+							// console.log('日'+date.getDate())
+							// var currentDate = ""+date.getFullYear()+date.getMonth()+date.getDate()
+							var currentDate = date.toLocaleDateString()
+							console.log('年月日:'+currentDate )
+							
 							for(var i=0;i<that.colist.length;i++){
-								if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
-									that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
-									if (that.colist[i].profits > 0){
-										that.colist[i].color = "#18B566"
-										that.colist[i].profits ="+"+that.colist[i].profits 
-									}else{
-										that.colist[i].color = "#ff4040"
-										that.colist[i].profits =" -"+that.colist[i].profits*(-1) 
-									}
+							//Luke Zhou	
+								if(that.colist[i].stock.stockId == kabuCode || kabuCode ==''){
+									var stockDate = that.colist[i].endselldate
+									console.log('日日日日日日日日日日日日日日日'+stockDate)
+									var stockDate1 = stockDate.substr(0,4) + '-' + stockDate.substr(4,2) + '-' + stockDate.substr(6,2) +' 01:01:01'
+									console.log('截取截取'+stockDate1)
+									// var rightdate = new Date(stockDate1).format('yyyy-MM-dd hh:mm:ss')
+									// console.log('修正修正修正修正修正'+rightdate)+
 									
+
 									
+										if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
+											that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
+											if (that.colist[i].profits > 0){
+												that.colist[i].color = "#18B566"
+												that.colist[i].profits ="+"+that.colist[i].profits 
+											}else{
+												that.colist[i].color = "#ff4040"
+												that.colist[i].profits =" -"+that.colist[i].profits*(-1) 
+											}
+											
+											
+										}
 								}
+								else{
+									that.colist.splice(i,1)
+									i--
+									// that.colist[i].stock.stockId = null
+								}
+							//Luke Zhou			
 							}
 						}
 
 						
 					}
 				});
-			//Luke Zhou
-			console.log('kkkkkkkkkkkkkkkkkk3');
-			var kabuDailyListUser = this.colist
-			var kabuCodeForInput = uni.getStorageSync('kabuCode');
-			//colist
-			this.colist = kabuDailyListUser.filter(item =>{
-				console.log('kkkkkkkkkkkkkkkkkk5');
-				console.log('kkkkkkkkkkkkkkkkkk6');
-				console.log('kkkkkkkkkkkkkkkkkk6'+this.kabuDailyListUser);
-			    return item.stock.stockId = '1961' 
-			})	
-			console.log('kkkkkkkkkkkkkkkkkk4');
 			}
 		}
 	}
