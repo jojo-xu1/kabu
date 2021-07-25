@@ -19,9 +19,9 @@
 	 
 	 -->
 	<view class="input-group">
-		<input :placeholder="placeholder" @input="search" @blur="hideList" v-model="name" />
+		<input :placeholder="placeholder" @input="search" @blur="hideList" v-model="code" />
 		<view class="ul">
-			<view class="li" v-for="(item,index) in list" :key="index" @tap="select(item)">{{item.name}}</view>
+			<view class="li" v-for="(item,index) in list" :key="index" @tap="select(item)">{{item.code}}</view>
 		</view>
 	</view>
 </template>
@@ -41,7 +41,7 @@
 		data() {
 			return {
 				list: [],
-				name: '',
+				code: '',
 				backName: ''
 			};
 		},
@@ -56,7 +56,7 @@
 				} = this;
 				let arr = [];
 				for (let i = 0; i < dataSource.length; i++) {
-					if (dataSource[i].name.indexOf(val) !== -1) {
+					if (dataSource[i].code.indexOf(val) !== -1) {
 						arr.push(dataSource[i]);
 					}
 				}
@@ -69,7 +69,7 @@
 
 			},
 			select(item) {
-				this.backName = item.name;
+				this.backName = item.code;
 				this.list = [];
 				this.$emit('select', item);
 				this.inputValue ="";
@@ -77,7 +77,7 @@
 			hideList() {
 				this.list = [];
 				this.t = setTimeout(() => {
-					this.name = this.backName;
+					this.code = this.backName;
 				}, 0);
 				this.inputValue ="";
 			}

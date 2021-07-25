@@ -100,23 +100,25 @@
 				inputsearch: "",
 				list: [],
 				selected: [],
+				check:[],
 				kabuCode: [{
 						id: 1,
-						name: '6012'
+						code: '6012'
 					},
 					{
 						id: 2,
-						name: '7003'
+						code: '7003'
 					},
 					{
 						id: 3,
-						name: '1961'
+						code: '1961'
 					},
 					{
 						id: 4,
-						name: '8253'
+						code: '8253'
 					}
-				]
+				],
+				newkabuCode:[]
 			};
 		},
 		created() {
@@ -164,14 +166,27 @@
 			},
 			handleChange(data) {
 				console.log("点击kabu：", data)
-				this.selected.push(data.name)
+				this.selected.push(data.code)
+				this.check.push(data)
 				console.log("已选：", this.selected)
+				// for(var i=0;i<this.kabuCode.length;i++){
+				// 	if(this.kabuCode[i].code != data.code){
+				// 		this.newkabuCode.push(this.kabuCode[i])
+				// 	}
+				// }
+				// this.kabuCode = this.newkabuCode
 			},
 			clickTag: function(e) {
 				console.log(e)
 			},
 			delTag: function(e) {
 				console.log("删除后:",this.selected)
+				console.log("1111",e)
+				// for(var j=0;j<this.check.length;j++){
+				// 	if(this.check[j].code == e){
+				// 		this.kabuCode.push(this.check[j])
+				// 	}
+				// }
 			},
 			addTag: function(e) {
 				console.log(e)
