@@ -8,6 +8,13 @@
 			}
 		
 		},
+		{
+			"path": "components/ren-calendar/ren-calendar",
+			"style": {
+
+			}
+		
+		},
 		// {
 		// 	"path": "pages/news/index",
 		// 	"style": {}
