@@ -116,6 +116,10 @@
 					{
 						id: 4,
 						code: '8253'
+					},
+					{
+						id: 5,
+						code: '3281'
 					}
 				],
 				newkabuCode:[]
@@ -125,7 +129,8 @@
 			this.pullTimer = null;
 		},
 		onReady() {
-			this.durationCode = uni.getStorageSync('durationCode');
+			//下面一行被周悦杰注掉了
+			// this.durationCode = uni.getStorageSync('durationCode');
 			// for(var i=0;i<this.radiodata.length;i++){
 			// 	if(this.radiodata[i].id ==this.eXptRate){
 			// 		this.radiodata[i].isChecked = true
@@ -136,27 +141,42 @@
 		methods: {
 			gotoPast: function() {
 				var that = this;
-				if (this.durationCode != 0) {
-					uni.setStorageSync('durationCode', this.durationCode)
-					uni.setStorageSync("selected",this.selected)
-					var baseUrl = uni.getStorageSync('baseUrl')
-					var url = baseUrl + "/daily/hisUserColltInsert"
-					console.log("URL::", url)
-					uni.request({
-						url: url,
-						data: {
-							userId: that.userId,
-							stockId: that.selected,
-						}
-					})
-					uni.reLaunch({
-						url: '/pages/past/tradeDetails'
-					})
-				} else {
+				if(this.userId !=""){
+					if (this.durationCode != 0) {
+						uni.setStorageSync('durationCode', this.durationCode)
+						uni.setStorageSync("selected",this.selected)
+						//周悦杰写死了一个stockId数组
+						var kabuArray=[1961,8253,3281,8888,9999];
+						uni.setStorageSync('kabuArray',kabuArray);
+						var baseUrl = uni.getStorageSync('baseUrl')
+						var url = baseUrl + "/daily/hisUserColltInsert"
+						console.log("URL::", url)
+						uni.request({
+							url: url,
+							data: {
+								userId: that.userId,
+								stockId: that.selected,
+							}
+						})
+						uni.reLaunch({
+							url: '/pages/past/tradeDetails'
+						})
+					} else {
+						uni.showModal({
+							title: '必須項目を入力してください',
+						});
+
+						uni.navigateBack();
+
+					}
+				}else{
 					uni.showModal({
-						title: '必須項目を入力してください',
+						title: 'ログインしてください',
 					});
-				}
+					uni.reLaunch({
+						url: '../login/login'
+					});
+				}	
 			},
 			radioChange: function(evt) {
 				this.durationCode = evt.detail.value
