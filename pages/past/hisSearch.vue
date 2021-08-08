@@ -3,14 +3,14 @@
 		<view class="headtitle">
 			<text>投資履歴</text>
 		</view>
-		<view class="headtitle">
+<!-- 		<view class="headtitle">
 			<text></text>
-		</view>
+		</view> -->
 		<view class="list">
 			<view class="headtitle">
 				<text>コード：</text>
 			</view>
-			<view >
+			<view class="search">
 				<inputSearch :dataSource="kabuCode" background="#000000" @select="handleChange" placeholder="Kabu Code" />
 			</view>
 			<view class="u-tag clearfixed">
@@ -96,32 +96,32 @@
 					}
 				],
 				durationCode: 0,
-				userId: "",
 				inputsearch: "",
 				list: [],
 				selected: [],
 				check:[],
-				kabuCode: [{
-						id: 1,
-						code: '6012'
-					},
-					{
-						id: 2,
-						code: '7003'
-					},
-					{
-						id: 3,
-						code: '1961'
-					},
-					{
-						id: 4,
-						code: '8253'
-					},
-					{
-						id: 5,
-						code: '3281'
-					}
-				],
+				// kabuCode: [{
+				// 		id: 0,
+				// 		code: 6012
+				// 	},
+				// 	{
+				// 		id: 1,
+				// 		code: 7003
+				// 	},
+				// 	{
+				// 		id: 2,
+				// 		code: 1961
+				// 	},
+				// 	{
+				// 		id: 3,
+				// 		code: 8253
+				// 	},
+				// 	{
+				// 		id: 4,
+				// 		code: 3281
+				// 	}
+				// ],
+				kabuCode:[],
 				newkabuCode:[]
 			};
 		},
@@ -136,9 +136,30 @@
 			// 		this.radiodata[i].isChecked = true
 			// 	}
 			// }
+			
+			
 			this.userId = uni.getStorageSync('userId');
 		},
+		onShow(){
+			this.getkabuCode();
+		},
 		methods: {
+			getkabuCode:function(){
+				var baseUrl = uni.getStorageSync('baseUrl');
+				var that = this;
+				uni.request({
+					url: baseUrl + '/daily/hisAllCodeList',
+					data: {},
+					success: function(res) {
+						that.kabuCode = res.data
+						console.log("getData:",that.kabuCode)
+					},
+					fail: () => {
+						_self.tips = "Error!";
+						console.log("获取失败")
+					},
+				});
+			},
 			gotoPast: function() {
 				var that = this;
 				if(this.userId !=""){
@@ -146,16 +167,18 @@
 						uni.setStorageSync('durationCode', this.durationCode)
 						uni.setStorageSync("selected",this.selected)
 						//周悦杰写死了一个stockId数组
-						var kabuArray=[1961,8253,3281,8888,9999];
-						uni.setStorageSync('kabuArray',kabuArray);
+						// var kabuArray=[1961,8253,3281,8888,9999];
+						// uni.setStorageSync('kabuArray',kabuArray);
 						var baseUrl = uni.getStorageSync('baseUrl')
 						var url = baseUrl + "/daily/hisUserColltInsert"
 						console.log("URL::", url)
+						console.log('userid:',that.userId)
+						console.log('stockIdList:',that.selected)
 						uni.request({
 							url: url,
 							data: {
 								userId: that.userId,
-								stockId: that.selected,
+								stockIdList: that.selected,
 							}
 						})
 						uni.reLaunch({
@@ -165,9 +188,6 @@
 						uni.showModal({
 							title: '必須項目を入力してください',
 						});
-
-						uni.navigateBack();
-
 					}
 				}else{
 					uni.showModal({
@@ -186,15 +206,19 @@
 			},
 			handleChange(data) {
 				console.log("点击kabu：", data)
-				this.selected.push(data.code)
-				this.check.push(data)
 				console.log("已选：", this.selected)
-				// for(var i=0;i<this.kabuCode.length;i++){
-				// 	if(this.kabuCode[i].code != data.code){
-				// 		this.newkabuCode.push(this.kabuCode[i])
-				// 	}
-				// }
-				// this.kabuCode = this.newkabuCode
+				var list = [];
+				var checked =[];
+				for(var i=0;i<this.kabuCode.length;i++){
+					if(this.kabuCode[i].code != data.code){
+						list.push(this.kabuCode[i])
+					}else{
+						this.selected.push(data.code)
+						checked.push(this.kabuCode[i])
+					}
+				}
+				this.kabuCode = list
+				this.check = checked
 			},
 			clickTag: function(e) {
 				console.log(e)
@@ -202,11 +226,23 @@
 			delTag: function(e) {
 				console.log("删除后:",this.selected)
 				console.log("1111",e)
-				// for(var j=0;j<this.check.length;j++){
-				// 	if(this.check[j].code == e){
-				// 		this.kabuCode.push(this.check[j])
-				// 	}
-				// }
+				var del =[]
+				var dellist = []
+				for(var j=0;j<this.check.length;j++){
+					console.log("panduan::",this.check[j].code)
+					if(this.check[j].code == e.currentTag){
+						this.kabuCode.push(this.check[j])
+						console.log("删除用kabucode：",this.kabuCode)
+					}
+				}
+				for(j=0;j<this.selected.length;j++){
+					if(this.selected[j] != e.currentTag){
+						dellist.push(this.selected[j])
+					}
+				}
+				this.selected = dellist
+				console.log("删除后list:",this.kabuCode)
+				console.log("selected::",this.selected)
 			},
 			addTag: function(e) {
 				console.log(e)
@@ -218,7 +254,7 @@
 <style>
 	.content {
 		width: 750upx;
-		height: 1280upx;
+		height: 1250upx;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -240,11 +276,11 @@
 		height: 40rpx;
 		color: #FFFFFF;
 	}
-
 	.list {
 		display: flex;
+		height: 200px;
 		flex-direction: column;
-		padding-top: 10rpx;
+		padding-top: 0rpx;
 		padding-left: 70rpx;
 		padding-right: 70rpx;
 		color: #FFFFFF;
@@ -264,6 +300,10 @@
 		/* color: #333333; */
 		color: #FFFFFF;
 		border-bottom: 0.5px solid #e2e2e2;
+	}
+	
+	.search {
+		
 	}
 
 	.list-call .img {
@@ -331,7 +371,7 @@
 		font-size: 40rpx;
 		color: #FFFFFF;
 		text-align: left;
-		margin-top: 20rpx;
+		margin-top: 10rpx;
 		margin-left: 20rpx;
 		height: 40rpx;
 		line-height: 40rpx;
