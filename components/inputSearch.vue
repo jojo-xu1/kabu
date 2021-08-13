@@ -21,7 +21,8 @@
 	<view class="input-group">
 		<input :placeholder="placeholder" @input="search" @blur="hideList" v-model="code" />
 		<view class="ul">
-			<view class="li" v-for="(item,index) in list" :key="index" @tap="select(item)">{{item.code}}</view>
+			<view class="li" v-for="(item,index) in list" v-if="list.length<=10"  :key="index" @tap="select(item)">{{item.code}}</view>
+			<view class="li" v-for="(item,index) in list2" v-if="list.length > 10"  :key="index" @tap="select(item)">{{item.code}}</view>
 		</view>
 	</view>
 </template>
@@ -41,6 +42,7 @@
 		data() {
 			return {
 				list: [],
+				list2: [],
 				code: '',
 				backName: ''
 			};
@@ -55,16 +57,24 @@
 					dataSource
 				} = this;
 				let arr = [];
+				let arr2 = [];
 				for (let i = 0; i < dataSource.length; i++) {
-					if (dataSource[i].code.indexOf(val) !== -1) {
+					if (dataSource[i].code.indexOf(val) == 0) {
 						arr.push(dataSource[i]);
+					}
+				}
+				for (let i = 0; i < dataSource.length; i++) {
+					if (dataSource[i].code.indexOf(val) == 0 && arr2.length <= 10) {
+						arr2.push(dataSource[i]);
 					}
 				}
 				// console.log(arr)
 				if (!val) {
 					this.list = [];
+					this.list2 = [];
 				} else {
 					this.list = arr;
+					this.list2 = arr2;
 				}
 
 			},
@@ -89,7 +99,7 @@
 <style lang="scss">
 	.input-group {
 		position: relative;
-
+	
 
 		input {
 			border: 1upx solid gray;
@@ -105,10 +115,12 @@
 			top: 100%;
 			width: 100%;
 			background: #000000;
-
+			z-index : 999;
+			
 			.li {
 				border-bottom: 1upx solid gray;
 				line-height: 60upx;
+				
 			}
 		}
 	}
