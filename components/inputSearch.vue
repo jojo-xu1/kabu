@@ -19,10 +19,10 @@
 	 
 	 -->
 	<view class="input-group">
-		<input :placeholder="placeholder" @input="search" @blur="hideList" v-model="code" />
+		<input type="number" :placeholder="placeholder" @input="search" @blur="hideList" v-model="code" />
 		<view class="ul">
-			<view class="li" v-for="(item,index) in list" v-if="list.length<=10"  :key="index" @tap="select(item)">{{item.code}}</view>
-			<view class="li" v-for="(item,index) in list2" v-if="list.length > 10"  :key="index" @tap="select(item)">{{item.code}}</view>
+			<view class="li" v-for="(item,index) in list" v-if="list.length<=10"  :key="index" @tap.native="select(item)" @longtap="select(item)">{{item.code}}</view>
+			<view class="li" v-for="(item,index) in list2" v-if="list.length > 10"  :key="index" @tap.native="select(item)" @longtap="select(item)">{{item.code}}</view>
 		</view>
 	</view>
 </template>
@@ -79,13 +79,17 @@
 
 			},
 			select(item) {
+				console.log(1)
 				this.backName = item.code;
 				this.list = [];
+				this.list2 = [];
 				this.$emit('select', item);
 				this.inputValue ="";
 			},
 			hideList() {
+				
 				this.list = [];
+				this.list2 = [];
 				this.t = setTimeout(() => {
 					this.code = this.backName;
 				}, 0);
@@ -120,7 +124,8 @@
 			.li {
 				border-bottom: 1upx solid gray;
 				line-height: 60upx;
-				
+				height: 60upx;
+				width: 100%;
 			}
 		}
 	}
