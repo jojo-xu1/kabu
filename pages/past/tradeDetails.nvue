@@ -1,10 +1,7 @@
 <template>
 	<view>
 		<view class="rask-assessment">			  <button　type="default" class="assessment" @click="setDuration">周期判定</button>								</view>
-<!-- 		<view class="content">
-		    <ren-calendar ref='ren' :markDays='markDays' :headerBar='false' @onDayClick='onDayClick'></ren-calendar>
-		    <view class="change">选中日期：{{curDate}}</view>
-		</view> -->
+
 		<uni-view class="uni-column" v-model="colist">
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
@@ -20,28 +17,23 @@
 					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">出{{ item.endPrice}}</text></uni-view>
 				</uni-view>
 				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.profits}}%</text></uni-view>
-				<button @click="dataDel(item)">del</button>
+				<!-- <button @click="dataDel(item)">del</button> -->
 			</uni-view>
 		</uni-view>
 	</view>
 </template>
 
 <script>
-	// import RenCalendar from '@/components/ren-calendar/ren-calendar.vue';
 	// #ifdef APP-PLUS
 	const dom = weex.requireModule('dom');
 	// #endif
 	
 	export default {
 		components: {
-			// RenCalendar
 		},
 			
 		data() {
 			return {
-				// curDate:'',
-				// markDays:[],
-				// title: 'picker',
 				colist: [{
 					"stock": {
 						"stockId": "",
@@ -71,14 +63,8 @@
 		},
 		onReady() {
 			this.getCollect();
-			// let today = this.$refs.ren.getToday().date;
-			// this.curDate = today;
-			// this.markDays.push(today);
 		},
 		methods: {
-			// onDayClick(data){
-			// 	this.curDate = data.date;
-			// },
 			setDuration: function(){									uni.reLaunch({					url: '/pages/past/hisSearch' 				})			},
 			goTo(stockId) {
 				uni.reLaunch({
@@ -100,39 +86,17 @@
 				console.log("用户ID：：：", this.userId)
 			},
 			dataDel(item) {
-				console.log("啦啦啦啦啦:   ")
-				var ddd = uni.getStorageSync('kabuArray');
+				console.log("test111111:   ")
+				var ddd = uni.getStorageSync('selected');
 				var delStockId = parseInt(item.stock.stockId);
 				if(ddd.indexOf(delStockId)!= -1){
 					ddd.splice(ddd.indexOf(delStockId),1)
 				}
-				uni.setStorageSync('kabuArray',ddd);
+				uni.setStorageSync('selected',ddd);
 				for(var i=0;i<ddd.length;i++){
-					console.log("哈哈哈哈哈:   "+ddd[i] )
+					console.log("test22222:   "+ddd[i] )
 				}
-				// uni.redirectTo('/pages/past/tradeDetails' );
 				uni.navigateBack();
-				// uni.redirectTo({
-				//     url: 'pages/past/tradeDetails'
-				// });
-			// 	var that = this;
-			// 	var baseUrl = uni.getStorageSync('baseUrl');
-			// 	const userId = uni.getStorageSync('userId');
-			// 	console.log("用户ID：：：", this.userId);
-			// 	var url = baseUrl+"/daily/userDeleteList";
-			// 	uni.request({
-			// 		url: url,
-			// 		data: {
-			// 			stockId: item.stock.stockId,
-			// 			startbuydate: item.startbuydate,
-			// 			endselldate: item.endselldate,
-			// 		},
-			// 		success: (result) => {
-
-			// 			console.log('deleteAlllllllllllllllllllllllllllllllllagain');
-			// 			uni.navigateBack()
-			// 		}
-			// 	});
 			},
 			// 获取已收藏股票
 			getCollect() {
@@ -141,35 +105,9 @@
 				// var kabuCode =uni.getStorageSync('kabuCode');
 				var baseUrl = uni.getStorageSync('baseUrl');
 				const userId = uni.getStorageSync('userId');
-				var selected = uni.getStorageSync('selected');
+				// var selected = uni.getStorageSync('selected');
 				
-				// console.log('selectedselectedselectedselectedselected: '+selected.length);
-				// var selectArray=new Array(3);
-				// var selectArray=[1961,8253,1111];
-				   // var selectArray==new Array();
-				// var kabuArray=[1961,8253,1111];
-				var kabuArray=uni.getStorageSync('kabuArray');
-				uni.setStorageSync('kabuArray',kabuArray);
-				// for(var i =0;i<kabuArray.length;i++){
-				// 	console.log('修修修'+kabuArray[i]);
-				// 	uni.setStorageSync('kabuCode',kabuArray[i])
-					
-				// }
-				// var kabuCode =uni.getStorageSync('kabuCode');
-				// for(var i = 0;i<selectArray.length;i++){
-				// 	kabuCode[i] = selectArray[i];
-				// 	console.log('展示kabuCode'+kabuCode[i]);
-				// }
-				// for(var i =0;i<selectArray.length;i++){
-				// 	console.log('修修修'+i);
-				// }
-				// console.log("用户ID：：：", this.userId);
-				// var url = baseUrl + "/daily/transHistoryList";
 				var url = baseUrl+"/daily/userTransHistoryList";
-				// console.log('kkkkkkkkkkkkkkkkkk1');
-				// console.log('kkkkkkkkkkkkkkkkkkdurationCode'+durationCode);
-				// console.log('kkkkkkkkkkkkkkkkkkkabuCode'+kabuCode);
-				// console.log('kkkkkkdurationCodekkkkkkkkkkkkkkkkk'+durationCode);
 				
 				if(durationCode==1){
 					var date = new Date();
@@ -191,37 +129,21 @@
 					console.log('没有选择');
 				}
 				
-				// var date = new Date();
-				
-				// console.log(new Date(date.getTime()));
-				// var date1 = new Date(date.getTime())
-				// console.log(date1);
-
-				// console.log(new Date(date.getTime()-1000*60*60*24));
-				// var date2 = new Date(date.getTime()-1000*60*60*24)
-				// console.log(date2);
-				
-				// var date = new Date();
 				var currentDate = chooseDate.toLocaleDateString();
 
-				// console.log('当前日期'+currentDate);
 				if(currentDate.length ==8){
 					var currentDateString = currentDate.substr(0,4)+'0'+currentDate.substr(5,1)+'0'+currentDate.substr(7,2);
-					// console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa'+currentDateString);					
 				}
 				else if(currentDate.length ==9){
 					
 					var currentDateString = currentDate.substr(0,4)+'0'+currentDate.substr(5,1)+currentDate.substr(7,2);
-					// console.log('xxxxxxxxxxxxxxxxxxxxxxxxx'+currentDateString);
 				}else if(currentDate.length ==10){
 
 					var currentDateString = currentDate.substr(0,4)+currentDate.substr(5,2)+currentDate.substr(8,2);
-					// console.log('yyyyyyyyyyyyyyyyyyyyyyyyy'+currentDateString);
 					
 				}
-				// currentDateString =20210511;
-				// var stockIdList =[1961,8253,3281];
-				var stockIdList = uni.getStorageSync('kabuArray');
+				// var stockIdList = uni.getStorageSync('selected');
+				var stockIdList = "";
 				uni.request({
 									url: url,
 									data: {
@@ -229,56 +151,13 @@
 										durationCode: durationCode,
 										transDate: currentDateString,
 										stockIdList: stockIdList,
+										// stockIdList: "",
 									},
 									success: (result) => {
 										if (result.statusCode == 200) {
 											that.colist = result.data
-											// uni.setStorageSync('resultSave',result.data)
-											// that.colist = uni.getStorageSync('resultSave')
-											// var date = new Date();
-											// console.log('年'+date.getFullYear())
-											// console.log('月'+date.getMonth())
-											// console.log('日'+date.getDate())
-											// var currentDate = ""+date.getFullYear()+date.getMonth()+date.getDate()
-											// var currentDate = date.toLocaleDateString()
-											// console.log('年月日:'+currentDate )
-//--------------------------------------------------------------------------------------------------------------------
-												
-												// for(var i=0;i<that.colist.length;i++){
-												// 	console.log('有没有该元素that.colist[i].stock.stockId:   '+that.colist[i].stock.stockId);
-												// 	var haveOrNot = parseInt(that.colist[i].stock.stockId)
-													
-												// 	if(kabuArray.indexOf(haveOrNot)==-1){
-														
-												// 		that.colist.splice(i,1)
-												// 		i--		
-															
-												// 	}
-												// 	else{
-												// 		if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
-												// 			that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
-												// 			if (that.colist[i].profits > 0){
-												// 				that.colist[i].color = "#18B566"
-												// 				that.colist[i].profits ="+"+that.colist[i].profits 
-												// 			}else{
-												// 				that.colist[i].color = "#ff4040"
-												// 				that.colist[i].profits =" -"+that.colist[i].profits*(-1) 
-												// 			}
-															
-															
-												// 		}
-												// 	}
-												// }	
-	//--------------------------------------------------------------------------------------------------------------------------------										
 											for(var i=0;i<that.colist.length;i++){
 											
-											// 	if(that.colist[i].stock.stockId == kabuCode || kabuCode ==''){
-											// 		// var stockDate = that.colist[i].endselldate
-											// 		// console.log('日日日日日日日日日日日日日日日'+stockDate)
-											// 		// var stockDate1 = stockDate.substr(0,4) + '-' + stockDate.substr(4,2) + '-' + stockDate.substr(6,2) +' 01:01:01'
-											// 		// console.log('截取截取'+stockDate1)
-											// 		// var rightdate = new Date(stockDate1).format('yyyy-MM-dd hh:mm:ss')
-											// 		// console.log('修正修正修正修正修正'+rightdate)+
 													
 															
 													
@@ -296,18 +175,11 @@
 															
 															console.log("没有颜色")
 															var bbb = uni.getStorageSync('selected')
-															for(var u=0;bbb.length;u++){
+															for(var u=0;u<bbb.length;u++){
 																console.log("selected里面有什么?   "+bbb[u])
 																}
 														}
 												}
-											// 	else{
-											// 		that.colist.splice(i,1)
-											// 		i--
-											// 		// that.colist[i].stock.stockId = null
-											// 	}
-											// //Luke Zhou			
-											// }
 											
 											
 										}
