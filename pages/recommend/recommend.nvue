@@ -409,8 +409,9 @@
 					});
 				}else{
 					//跳转到登陆页面
+					uni.setStorageSync('loginFlag', 'recommend/recommend')
 					uni.reLaunch({
-						url: '/pages/login/login' + '?flag=1'
+						url: '/pages/login/login' 
 					})
 				}
 				

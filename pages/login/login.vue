@@ -143,7 +143,9 @@
 			// data: this.requestParams,
 		 	// success: (result) => {
 			success: (result) => {
-				var jumpUrl =  '../ucenter/ucenter?mailaddress=' + mailaddress
+				//var jumpUrl =  '../ucenter/ucenter?mailaddress=' + mailaddress
+				var loginFlag = uni.getStorageSync('loginFlag');
+				var jumpUrl =  '../' + loginFlag
 				if (result.data.code == 200) {
 					
 					//uni.setStorage({key: 'userId',data: result.data.data.userID})
