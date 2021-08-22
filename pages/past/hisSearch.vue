@@ -129,16 +129,31 @@
 			this.pullTimer = null;
 		},
 		onReady() {
-			//下面一行被周悦杰注掉了
-			// this.durationCode = uni.getStorageSync('durationCode');
-			// for(var i=0;i<this.radiodata.length;i++){
-			// 	if(this.radiodata[i].id ==this.eXptRate){
-			// 		this.radiodata[i].isChecked = true
-			// 	}
-			// }
-			
-			
 			this.userId = uni.getStorageSync('userId');
+			this.durationCode = uni.getStorageSync('durationCode');
+			for(var i=0;i<this.radiodata.length;i++){
+				if(this.radiodata[i].id ==this.durationCode){
+					this.radiodata[i].isChecked = true
+				}else{
+					this.radiodata[i].isChecked = false
+				}
+			}
+			var baseUrl = uni.getStorageSync('baseUrl');
+			var that = this;
+			uni.request({
+				url: baseUrl + '/daily/hisUserColltList',
+				data: {
+					userId: that.userId ,
+				},
+				success: function(res) {
+					
+					that.selected = res.data
+				},
+				fail: () => {
+					_self.tips = "Error!";
+					console.log("获取失败")
+				},
+			});	
 		},
 		onShow(){
 			this.getkabuCode();
