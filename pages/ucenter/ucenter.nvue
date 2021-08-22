@@ -97,12 +97,13 @@
 				// if (!this.login) {
 				// 	console.log('点击前往登录');
 				// }
+				uni.setStorageSync('loginFlag', 'ucenter/ucenter')
 				uni.navigateTo({
 					url: '../login/login'
 				});
 			},
 			goReg() {
-
+				uni.setStorageSync('loginFlag', 'ucenter/ucenter')
 				uni.navigateTo({
 					url: '../login/reg'
 				});

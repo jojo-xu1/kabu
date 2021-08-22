@@ -208,6 +208,7 @@
 					uni.showModal({
 						title: 'ログインしてください',
 					});
+					uni.setStorageSync('loginFlag', 'past/hisSearch')
 					uni.reLaunch({
 						url: '../login/login'
 					});
