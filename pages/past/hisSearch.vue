@@ -181,9 +181,6 @@
 					if (this.durationCode != 0) {
 						uni.setStorageSync('durationCode', this.durationCode)
 						uni.setStorageSync("selected",this.selected)
-						//周悦杰写死了一个stockId数组
-						// var kabuArray=[1961,8253,3281,8888,9999];
-						// uni.setStorageSync('kabuArray',kabuArray);
 						var baseUrl = uni.getStorageSync('baseUrl')
 						var url = baseUrl + "/daily/hisUserColltInsert"
 						console.log("URL::", url)

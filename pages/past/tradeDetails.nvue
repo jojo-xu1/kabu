@@ -2,7 +2,7 @@
 	<view>
 		<view class="rask-assessment">			  <button　type="default" class="assessment" @click="setDuration">周期判定</button>								</view>
 
-		<uni-view class="uni-column" v-model="colist">
+		<uni-view class="uni-column border-bottom" v-model="colist">
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
 					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockName}}</text></uni-view>
@@ -20,6 +20,10 @@
 				<!-- <button @click="dataDel(item)">del</button> -->
 			</uni-view>
 		</uni-view>
+		<uni-view class="summary">
+			<uni-view><text class="summaryTxt">サマリー</text></uni-view>
+			<uni-view><text class="summaryTxt2" v-bind:style="{ color: summary_color }" >{{summary}}%</text></uni-view>
+			</uni-view>
 	</view>
 </template>
 
@@ -34,6 +38,8 @@
 			
 		data() {
 			return {
+				summary:0,
+				summary_color:"",
 				colist: [{
 					"stock": {
 						"stockId": "",
@@ -142,8 +148,8 @@
 					var currentDateString = currentDate.substr(0,4)+currentDate.substr(5,2)+currentDate.substr(8,2);
 					
 				}
-				// var stockIdList = uni.getStorageSync('selected');
-				var stockIdList = "";
+				 var stockIdList = uni.getStorageSync('selected');
+				//var stockIdList = "";
 				uni.request({
 									url: url,
 									data: {
@@ -157,28 +163,30 @@
 										if (result.statusCode == 200) {
 											that.colist = result.data
 											for(var i=0;i<that.colist.length;i++){
-											
-													
-															
-													
 														if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
 															that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
+															
+															if(!isNaN(that.colist[i].profits)){
+																that.summary = (parseFloat(that.colist[i].profits) + parseFloat(that.summary)).toFixed(2)
+																console.log(that.summary )
+															}
+															
 															if (that.colist[i].profits > 0){
 																that.colist[i].color = "#18B566"
 																that.colist[i].profits ="+"+that.colist[i].profits 
-																console.log("进入绿色")
 															}else{
 																that.colist[i].color = "#ff4040"
 																that.colist[i].profits =" -"+that.colist[i].profits*(-1) 
-																console.log("进入红色")
 															}
 															
-															console.log("没有颜色")
-															var bbb = uni.getStorageSync('selected')
-															for(var u=0;u<bbb.length;u++){
-																console.log("selected里面有什么?   "+bbb[u])
-																}
 														}
+														
+												}
+												if (that.summary> 0){
+													that.summary_color = "#18B566"
+													that.summary ="+"+that.summary
+												}else{
+													that.summary_color = "#ff4040"
 												}
 											
 											
@@ -286,7 +294,7 @@
 		font-size: 25upx;
 		color: #A9A9A9;
 	}
-
+	
 	.kabuIndustry {
 		width: 120upx;
 		height: 80upx;
@@ -423,8 +431,27 @@
 		width: 5600upx;
 		height: 5600upx;
 	}
-	
-
+	.border-bottom {
+		border-bottom-width: 1upx;
+		border-color: #c8c7cc;
+		border-bottom-style: solid;
+	}
+	.summaryTxt {
+		font-size: 25upx;
+		color: #A9A9A9;
+	}
+	.summaryTxt2  {
+		font-size: 25upx;
+		color: #A9A9A9;
+		margin-left: 470upx;
+	}
+	.summary {
+		flex-direction: row;
+		margin: 5upx;
+		width: 750upx;
+		height: 80upx;
+		padding: 5upx 5upx;
+	}
 	
 
 	

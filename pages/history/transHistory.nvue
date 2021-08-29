@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-view class="uni-column" v-model="colist">
+		<uni-view class="uni-column border-bottom" v-model="colist">
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
 					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockName}}</text></uni-view>
@@ -18,6 +18,10 @@
 				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.profits}}%</text></uni-view>
 			</uni-view>
 		</uni-view>
+		<uni-view class="summary">
+			<uni-view><text class="summaryTxt">サマリー</text></uni-view>
+			<uni-view><text class="summaryTxt2" v-bind:style="{ color: summary_color }" >{{summary}}%</text></uni-view>
+		</uni-view>
 	</view>
 </template>
 
@@ -30,6 +34,8 @@
 		components: {},
 		data() {
 			return {
+				summary:0,
+				summary_color:"",
 				title: 'picker',
 				colist: [{
 					"stock": {
@@ -101,6 +107,10 @@
 							for(var i=0;i<that.colist.length;i++){
 								if(that.colist[i].endPrice != null && that.colist[i].startPrice != 0){
 									that.colist[i].profits = parseFloat((that.colist[i].endPrice - that.colist[i].startPrice)*100/that.colist[i].startPrice).toFixed(2)
+									if(that.colist[i].profits!=null && that.colist[i].profits!=""){
+										that.summary = (parseFloat(that.colist[i].profits) + parseFloat(that.summary)).toFixed(2)
+										
+									}
 									if (that.colist[i].profits > 0){
 										that.colist[i].color = "#18B566"
 										that.colist[i].profits ="+"+that.colist[i].profits 
@@ -111,6 +121,13 @@
 									
 									
 								}
+							}
+							
+							if (that.summary> 0){
+								that.summary_color = "#18B566"
+								that.summary ="+"+that.summary
+							}else{
+								that.summary_color = "#ff4040"
 							}
 						}
 					}
@@ -347,7 +364,28 @@
 	.joukenLabelTxt {
 		padding-top: 22upx;
 	}
-
+	
+	.border-bottom {
+		border-bottom-width: 1upx;
+		border-color: #c8c7cc;
+		border-bottom-style: solid;
+	}
+	.summaryTxt {
+		font-size: 25upx;
+		color: #A9A9A9;
+	}
+	.summaryTxt2  {
+		font-size: 25upx;
+		color: #A9A9A9;
+		margin-left: 470upx;
+	}
+	.summary {
+		flex-direction: row;
+		margin: 5upx;
+		width: 750upx;
+		height: 80upx;
+		padding: 5upx 5upx;
+	}
 	
 
 	
