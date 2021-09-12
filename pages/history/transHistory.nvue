@@ -3,19 +3,19 @@
 		<uni-view class="uni-column border-bottom" v-model="colist">
 			<uni-view class="uni-row kabu" v-for="(item,index) in colist" :key="item.stock.stockId">
 				<uni-view class="uni-column kabuCol1">
-					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockName}}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-on:click="goTo(item.stock.stockId)" >{{ item.stock.stockId }}</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId,item.endselldate)" >{{ item.stock.stockName}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuCodeTxt" v-on:click="goTo(item.stock.stockId,item.endselldate)" >{{ item.stock.stockId }}</text></uni-view>
 				</uni-view>
 				
 				<uni-view class="uni-column kabuCol2">
-					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">購{{ item.startbuydate}}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">入{{ item.startPrice}}</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId,item.endselldate)">購{{ item.startbuydate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId,item.endselldate)">入{{ item.startPrice}}</text></uni-view>
 				</uni-view>
 				<uni-view class="uni-column kabuCol2">
-					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">売{{item.endselldate}}</text></uni-view>
-					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId)">出{{ item.endPrice}}</text></uni-view>
+					<uni-view class="kabuName"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId,item.endselldate)">売{{item.endselldate}}</text></uni-view>
+					<uni-view class="kabuCode"><text class="kabuNameTxt" v-on:click="goTo(item.stock.stockId,item.endselldate)">出{{ item.endPrice}}</text></uni-view>
 				</uni-view>
-				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId)">{{ item.profits}}%</text></uni-view>
+				<uni-view class="kabuIndustry"><text class="kabuCodeTxt" v-bind:style="{ color: item.color }" v-on:click="goTo(item.stock.stockId,item.endselldate)">{{ item.profits}}%</text></uni-view>
 			</uni-view>
 		</uni-view>
 		<uni-view class="summary">
@@ -69,11 +69,11 @@
 		},
 		methods: {
 			
-			goTo(stockId) {
+			goTo(stockId,hisDate) {
 				uni.reLaunch({
-					url: '/pages/stockquot/Kline' + '?stockId=' + stockId
+					url: '/pages/stockquot/Kline' + '?data=' + [stockId, hisDate],
 				})
-				console.log('stockId:', stockId)
+				console.log('date:', stockId+hisDate)
 			},
 			getUserID() {
 				var token = localStorage.getItem('tttocken');
