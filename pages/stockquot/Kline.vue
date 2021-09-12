@@ -91,136 +91,7 @@
 					[]
 				],
 				date: '20210418',
-				SQLdata: {}, //后台获取
-				// SQLdata: {//测试用
-				// 	"code": "200",
-				// 	"message": "success!",
-				// 	"data": {
-				// 		"stockId": "5013",
-				// 		"stockName": "ユシロ化学工業(株)",
-				// 		"kLineDailyOutDto": [{
-				// 				"dayId": "20210325",
-				// 				"startPrice": 1189,
-				// 				"endPrice": 1194,
-				// 				"highPrice": 1167,
-				// 				"lowPrice": 1192,
-				// 				"vol": 20200
-				// 			},
-				// 			{
-				// 				"dayId": "20210324",
-				// 				"startPrice": 1183,
-				// 				"endPrice": 1183,
-				// 				"highPrice": 1158,
-				// 				"lowPrice": 1165,
-				// 				"vol": 28900
-				// 			},
-				// 			{
-				// 				"dayId": "20210323",
-				// 				"startPrice": 1231,
-				// 				"endPrice": 1237,
-				// 				"highPrice": 1188,
-				// 				"lowPrice": 1192,
-				// 				"vol": 38600
-				// 			},
-				// 			{
-				// 				"dayId": "20210322",
-				// 				"startPrice": 1178,
-				// 				"endPrice": 1215,
-				// 				"highPrice": 1167,
-				// 				"lowPrice": 1209,
-				// 				"vol": 71500
-				// 			},
-				// 			{
-				// 				"dayId": "20210319",
-				// 				"startPrice": 1189,
-				// 				"endPrice": 1195,
-				// 				"highPrice": 1152,
-				// 				"lowPrice": 1152,
-				// 				"vol": 361000
-				// 			},
-				// 			{
-				// 				"dayId": "20210318",
-				// 				"startPrice": 1183,
-				// 				"endPrice": 1194,
-				// 				"highPrice": 1154,
-				// 				"lowPrice": 1191,
-				// 				"vol": 46200
-				// 			},
-				// 			{
-				// 				"dayId": "20210317",
-				// 				"startPrice": 1181,
-				// 				"endPrice": 1183,
-				// 				"highPrice": 1166,
-				// 				"lowPrice": 1183,
-				// 				"vol": 35400
-				// 			},
-				// 			{
-				// 				"dayId": "20210316",
-				// 				"startPrice": 1198,
-				// 				"endPrice": 1203,
-				// 				"highPrice": 1167,
-				// 				"lowPrice": 1181,
-				// 				"vol": 38000
-				// 			},
-				// 			{
-				// 				"dayId": "20210315",
-				// 				"startPrice": 1178,
-				// 				"endPrice": 1212,
-				// 				"highPrice": 1176,
-				// 				"lowPrice": 1202,
-				// 				"vol": 47300
-				// 			},
-				// 			{
-				// 				"dayId": "20210312",
-				// 				"startPrice": 1166,
-				// 				"endPrice": 1178,
-				// 				"highPrice": 1152,
-				// 				"lowPrice": 1168,
-				// 				"vol": 36000
-				// 			},
-				// 			{
-				// 				"dayId": "20210311",
-				// 				"startPrice": 1170,
-				// 				"endPrice": 1176,
-				// 				"highPrice": 1150,
-				// 				"lowPrice": 1169,
-				// 				"vol": 22800
-				// 			},
-				// 			{
-				// 				"dayId": "20210310",
-				// 				"startPrice": 1163,
-				// 				"endPrice": 1170,
-				// 				"highPrice": 1141,
-				// 				"lowPrice": 1170,
-				// 				"vol": 30800
-				// 			},
-				// 			{
-				// 				"dayId": "20210309",
-				// 				"startPrice": 1137,
-				// 				"endPrice": 1185,
-				// 				"highPrice": 1120,
-				// 				"lowPrice": 1183,
-				// 				"vol": 33100
-				// 			},
-				// 			{
-				// 				"dayId": "20210308",
-				// 				"startPrice": 1132,
-				// 				"endPrice": 1138,
-				// 				"highPrice": 1105,
-				// 				"lowPrice": 1120,
-				// 				"vol": 23500
-				// 			},
-				// 			{
-				// 				"dayId": "20210305",
-				// 				"startPrice": 1105,
-				// 				"endPrice": 1133,
-				// 				"highPrice": 1100,
-				// 				"lowPrice": 1133,
-				// 				"vol": 20200
-				// 			}
-				// 		]
-				// 	}
-				// },
+				SQLdata: {}, 
 				Candle: {
 					categories: [],
 					series: [{
@@ -237,7 +108,6 @@
 			}
 		},
 		onLoad: function(option) {
-			console.log("跳转接参", option.stockId)
 			_self = this;
 			//#ifdef MP-ALIPAY
 			uni.getSystemInfo({
@@ -253,10 +123,11 @@
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			this.cHeight2 = uni.upx2px(200);
-			if (option.stockId === undefined) {
+			if (option.data === undefined) {
 				this.getServerData();
 			} else {
-				this.gotoSearch(option.stockId)
+				var dateArr = option.data.split(',');
+				this.gotoSearch(dateArr[0],dateArr[1])
 			}
 		},
 		methods: {
@@ -267,13 +138,8 @@
 					url: `${this.$baseUrl}/daily/kline?stockId=5013&day=180`,
 					data: {},
 					success: function(res) {
-						// console.log("-----服务器获取数据：", res.data.data)
-						// console.log("数据长度：", res.data.data.kLineDailyOutDto.length)
-						// console.log("获取数据详情：", res.data.data.kLineDailyOutDto[0].dayId)
 						let tempdata = res.data.data;
 						that.SQLdata = res.data.data;
-						// console.log("保存获取数据：", tempdata)
-						// console.log("股票名称:", tempdata.stockName);
 						that.dayLine();
 					},
 					fail: () => {
@@ -284,7 +150,6 @@
 			},
 			getWeek(dateString) {
 				var dateArray = dateString.split("-");
-				// console.log("日期分割：", dateArray)
 				var day = new Date(dateArray[0], parseInt(dateArray[1] - 1), dateArray[2]);
 				// return "周" + "日一二三四五六".charAt(day.getDay());
 				var arr = [6, 0, 1, 2, 3, 4, 5]
@@ -319,6 +184,7 @@
 				// console.log("时间戳::::", time1);
 				// console.log("范围：",this.start,this.end);
 				if (this.start == 0 || this.end == 0 || this.start > time1) {
+					
 					var daymark = this.getWeek(day1)
 					// console.log("周几：：", daymark)
 					this.start = time1 - (daymark - 0) * 24 * 60 * 60 * 1000;
@@ -587,7 +453,7 @@
 				}
 			},
 			touchEndCandle(e) {
-				canvaCandle.scrollEnd(e);
+				canvaCandle.scrollEnd(JSON.stringify(e));
 				//下面是toolTip事件，如果滚动后不需要显示，可不填写
 				canvaCandle.showToolTip(e, {
 					format: function(item, category) {
@@ -792,14 +658,14 @@
 				var weekMark = -1
 				for (var i = 0; i < tempdata.kLineDailyOutDto.length; i++) {
 					var isNewWeek = this.newWeek(tempdata.kLineDailyOutDto[i].dayId);
-					// console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewWeek);
+					 console.log(i, tempdata.kLineDailyOutDto[i].dayId, isNewWeek);
 					if (isNewWeek && i != 0) {
 						weekMark++;
 						this.weekArr[weekMark] = week;
 						week = [];
 					}
 					week.push(tempdata.kLineDailyOutDto[i]);
-					// console.log("week", week);
+					console.log("week", week);
 					if (i == tempdata.kLineDailyOutDto.length - 1) {
 						weekMark++;
 						this.weekArr[weekMark] = week;
@@ -832,6 +698,7 @@
 					arr = [];
 					this.CandleColumn.series[0].data.push(vol);
 				}
+				
 				//调整数据顺序
 				this.CandleColumn.series[0].data.reverse();
 				this.Candle.categories.sort();
@@ -931,14 +798,20 @@
 				// _self.showCandle("canvasCandle2", this.Candle);
 				// _self.showColumn("canvasColumn2", this.CandleColumn);
 			},
-			gotoSearch(stockId) {
-				console.log("kabu  Search")
+			gotoSearch(stockId,hisDate) {
 				var that = this;
 				var searchid = stockId;
-				console.log('跳转搜索ID :', stockId);
 				var that = this;
+				var klineUrl = "";
+				if (hisDate!="" && hisDate!=null){
+					klineUrl = this.$baseUrl + '/daily/hisKline?stockId=' + stockId + '&hisDate='+hisDate
+				}else{
+					klineUrl = this.$baseUrl + '/daily/kline?stockId=' + stockId + '&day=130'
+					
+				}
 				uni.request({
-					url: this.$baseUrl + '/daily/kline?stockId=' + stockId + '&day=130',
+					// url: this.$baseUrl + '/daily/kline?stockId=' + stockId + '&day=130',
+					url:klineUrl,
 					data: {},
 					success: function(res) {
 						that.Candle = {
